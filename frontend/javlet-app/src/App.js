@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent';
+import WallComponent from './components/WallComponent';
+import ChatComponent from './components/ChatComponent';
 
 function App() {
 
@@ -11,7 +13,8 @@ function App() {
         <HeaderComponent />
       </header>
       <body className="App-body">
-
+      <ChatComponent />
+      <WallComponent />
       </body>
     </div>
   );
