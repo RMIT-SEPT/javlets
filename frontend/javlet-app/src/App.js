@@ -3,7 +3,7 @@ import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import WallComponent from './components/WallComponent';
 import ChatComponent from './components/ChatComponent';
-import LoginandRegistration from './components/LoginandRegistration';
+// import LoginandRegistration from './components/LoginandRegistration';
 
 function App() {
 
