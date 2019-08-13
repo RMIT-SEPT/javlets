@@ -18,6 +18,7 @@ render(){
         <PostComponent />
         <br />
         <PostComponent />
+        
       </ul>
     </div>
    );
