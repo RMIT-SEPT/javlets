@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent';
-// import WallComponent from './components/WallComponent';
-// import ChatComponent from './components/ChatComponent';
-import LoginandRegistration from './components/LoginandRegistration';
+import WallComponent from './components/WallComponent';
+import ChatComponent from './components/ChatComponent';
+// import LoginandRegistration from './components/LoginandRegistration';
 
 function App() {
 
@@ -14,9 +14,9 @@ function App() {
         <HeaderComponent />
       </header>
       <body className="App-body">
-      {/* <ChatComponent />
-      <WallComponent /> */}
-      <LoginandRegistration />
+      <ChatComponent />
+      <WallComponent />
+      {/* <LoginandRegistration /> */}
       </body>
     </div>
   );
