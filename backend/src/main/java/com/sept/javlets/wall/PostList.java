@@ -41,4 +41,8 @@ public class PostList {
 		return publicPosts;
 	}
 	
+	public List<PostBean> getAllPosts() {
+		return posts;
+	}
+	
 }
