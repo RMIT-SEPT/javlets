@@ -32,24 +32,23 @@ class AccessForm extends Component {
     }
   
     handleSubmit(event) {
-        // alert('Users details to be saved: \nName: ' + this.state.name + '\nEmail: ' + this.state.email
-        //         + '\nLogin Type: ' + this.state.loginMethod);
-        alert('Users Email to be saved: ' + this.state.email);
+        alert('Users details to be saved: \nName: ' + this.state.name + '\nEmail: ' + this.state.email
+                + '\nLogin Type: ' + this.state.loginMethod);
         // event.preventDefault();
     }
   
     render() {
         return (
-            <form onSubmit={this.handleSubmit} class="form-group form-control-lg text-center body-item">
-                {/* <input type="radio" value="New User" name="formSelect" onClick={this.onRegistrationClick} /> New User Registration <br />
-                <input type="radio" value="Returning User" name="formSelect" onClick={this.onLoginClick} /> Returning User <br /> */}
-                {/* <label> */}
-                    {/* Name: 
-                    <input type="text" value={this.state.value} onChange={this.handleNameChange} /> */}
-                {/* </label> */}
-                {/* <br /> */}
+            <form onSubmit={this.handleSubmit}>
+                <input type="radio" value="New User" name="formSelect" onClick={this.onRegistrationClick} /> New User Registration <br />
+                <input type="radio" value="Returning User" name="formSelect" onClick={this.onLoginClick} /> Returning User <br />
                 <label>
-                    Enter an RMIT email: <br />
+                    Name: 
+                    <input type="text" value={this.state.value} onChange={this.handleNameChange} />
+                </label>
+                <br />
+                <label>
+                    Email:
                     <input type="email" value={this.state.value} onChange={this.handleEmailChange} />
                 </label>
                 <br />
