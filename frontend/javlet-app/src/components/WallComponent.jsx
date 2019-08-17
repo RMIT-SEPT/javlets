@@ -10,9 +10,9 @@ render(){
       <h1>Wall</h1>
       <PostingComponent />
       <ul>
-        <PostComponent />
+        <PostComponent name="John" content="Hey" title="Looking for group" />
         <br />
-        <PostComponent />
+        <PostComponent name="Lilly" content="Hello" title="Looking for assignment partner" />
         <br />
         <PostComponent />
         <br />
