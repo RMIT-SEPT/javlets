@@ -9,9 +9,9 @@ render(){
       <h1>Chat</h1>
 
       <h2>Your connections</h2>
-      <ConnectionListComponent type={1} />
-      <h2>Add connections</h2>
       <ConnectionListComponent type={0} />
+      <h2>Add connections</h2>
+      <ConnectionListComponent type={1} />
       <h2>Message</h2>
 
 
