@@ -7,15 +7,15 @@ render(){
    return(
     <div className="post">
     <h2>{this.props.title}</h2>
-    <p>{this.props.content}</p>
-    <h4>By {this.props.name}</h4>
+    <p>{this.props.body}</p>
+    <h4>By {this.props.author}  ({this.props.postType})</h4>
   </div>
    );
 }
 
 }
 
-PostComponent.defaultProps = { title: "NULL", content: "NULL", name: "NULL" };
+PostComponent.defaultProps = { title: 'title', postType: 'student', body: 'body', author: 'author' };
 
 
 export default PostComponent;

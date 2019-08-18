@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PostComponent from './PostComponent';
+// import PostComponent from './PostComponent';
 import WallPostInputForm from './WallPostInputForm';
 
 class WallComponent extends Component{
@@ -11,7 +11,7 @@ render(){
       <ul>
         <WallPostInputForm />
         <br />
-        <PostComponent />
+        {/* <PostComponent />
         <br />
         <PostComponent name="Lilly" content="Hello" title="Looking for assignment partner" />
         <br />
@@ -19,7 +19,7 @@ render(){
         <br />
         <PostComponent />
         <br />
-        <PostComponent />
+        <PostComponent /> */}
       </ul>
     </div>
    );
