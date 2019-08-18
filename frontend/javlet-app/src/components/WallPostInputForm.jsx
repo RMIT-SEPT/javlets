@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import PostComponent from './PostComponent'
+
 class WallPostInputForm extends Component {
     constructor(props) {
       super(props);
@@ -30,9 +32,9 @@ class WallPostInputForm extends Component {
             <input onChange={this.handleBodyChange} value={this.state.body} />
             <br />
             
-            <label> Author (eventually this will be auto populated by the user object) </label>
+            <label> Author </label>
             <br />
-            <input  onChange={this.handleAuthorChange} value={this.state.value}/>
+            <input onChange={this.handleAuthorChange} value={this.state.value}/>
             <br />
 
             <br />
@@ -40,9 +42,10 @@ class WallPostInputForm extends Component {
             <input type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Student <br />
             <br />
             
-            <button> Submit </button>
+            <input type="submit" value="Submit" />
           </form>
-          <TodoList posts={this.state.posts} />
+          <br />
+          <PostComponent posts={this.state.posts} />
         </div>
         
       );
@@ -66,6 +69,7 @@ class WallPostInputForm extends Component {
   
     handleSubmit(event) {
       event.preventDefault();
+      
       if (!this.state.title.length) {
         return;
       }
@@ -86,21 +90,5 @@ class WallPostInputForm extends Component {
       }));
     }
   }
-  
-  class TodoList extends React.Component {
-    render() {
-      return (
-            <div className="post">                
-                {this.props.posts.map(item => (
-                    <div>
-                    <h2 key={item.id}>{item.title}</h2>
-                    <p key={item.id}>{item.body}</p>
-                    <h4 key={item.id}> By {item.author} ({item.postType})</h4>
-                    </div>
-                ))}
-        </div>
-      );
-    }
-  }
-  
+
   export default WallPostInputForm;

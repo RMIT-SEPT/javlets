@@ -5,11 +5,16 @@ class PostComponent extends Component{
 
 render(){
    return(
-    <div className="post">
-    <h2>{this.props.title}</h2>
-    <p>{this.props.body}</p>
-    <h4>By {this.props.author}  ({this.props.postType})</h4>
-  </div>
+    <div className="post">                
+        {this.props.posts.map(item => (
+            <div>
+            <h2 key={item.id}>{item.title}</h2>
+            <p key={item.id}>{item.body}</p>
+            <h4 key={item.id}> By {item.author} ({item.postType})</h4>
+            </div>
+        ))}
+      </div>
+  
    );
 }
 
