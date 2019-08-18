@@ -40,7 +40,7 @@ class AccessForm extends Component {
   
     render() {
         return (
-            <form onSubmit={this.handleSubmit} class="form-group form-control-lg text-center body-item">
+            <form onSubmit={this.handleSubmit} class="form-group form-control-lg">
                 {/* <input type="radio" value="New User" name="formSelect" onClick={this.onRegistrationClick} /> New User Registration <br />
                 <input type="radio" value="Returning User" name="formSelect" onClick={this.onLoginClick} /> Returning User <br /> */}
                 {/* <label> */}
@@ -49,10 +49,9 @@ class AccessForm extends Component {
                 {/* </label> */}
                 {/* <br /> */}
                 <label>
-                    Enter an RMIT email: <br />
+                    Enter an RMIT email:
                     <input type="email" value={this.state.value} onChange={this.handleEmailChange} />
                 </label>
-                <br />
                 <input type="submit" value="Submit" />
             </form>
         );

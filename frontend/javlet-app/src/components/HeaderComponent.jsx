@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import LoginandRegistration from './LoginandRegistration';
 
 class HeaderComponent extends Component{
     state = {  }
@@ -16,6 +17,9 @@ render(){
           <h2>Insert inspiring slogan here</h2>
       </li>
     </ul>
+  </div>
+  <div>
+    <LoginandRegistration />
   </div>
 </nav>
     </React.Fragment>
