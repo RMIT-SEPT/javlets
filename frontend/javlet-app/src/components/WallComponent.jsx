@@ -13,7 +13,7 @@ render(){
         <br />
         <PostComponent />
         <br />
-        <PostComponent />
+        <PostComponent name="Lilly" content="Hello" title="Looking for assignment partner" />
         <br />
         <PostComponent />
         <br />
