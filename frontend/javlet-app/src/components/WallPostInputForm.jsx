@@ -72,6 +72,8 @@ export default WallPostInputForm;
 
 
 // modify below as a way to create posts to wall initially?
+
+
 // class TodoApp extends React.Component {
 //   constructor(props) {
 //     super(props);
