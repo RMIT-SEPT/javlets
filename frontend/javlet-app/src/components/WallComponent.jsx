@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-// import PostComponent from './PostComponent';
 import WallPostInputForm from './WallPostInputForm';
+import TodoApp from './WallPostInputForm';
 
 class WallComponent extends Component{
     state = {  }
