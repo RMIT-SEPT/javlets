@@ -3,22 +3,24 @@ package com.sept.javlets.userauth;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 public class StudentAccountBean {
 
-	private String email;
+	private String username;
 	private List<StudentAccountBean> connections;
 	
-	public StudentAccountBean(String email) {
-		this.email = email;
+	public StudentAccountBean(String username) {
+		this.username = username;
 		this.connections = new ArrayList<StudentAccountBean>();
 	}
 
-	public String getEmail() {
-		return email;
+	public String getusername() {
+		return username;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setusername(String username) {
+		this.username = username;
 	}
 
 	public List<StudentAccountBean> getConnections() {
