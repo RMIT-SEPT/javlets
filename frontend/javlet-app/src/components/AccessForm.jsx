@@ -32,8 +32,9 @@ class AccessForm extends Component {
     }
   
     handleSubmit(event) {
-        alert('Users details to be saved: \nName: ' + this.state.name + '\nEmail: ' + this.state.email
-                + '\nLogin Type: ' + this.state.loginMethod);
+        // alert('Users details to be saved: \nName: ' + this.state.name + '\nEmail: ' + this.state.email
+        //         + '\nLogin Type: ' + this.state.loginMethod);
+        alert('Email: ' + this.state.email);
         // event.preventDefault();
     }
   
