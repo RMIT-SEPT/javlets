@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import WallComponent from './components/WallComponent';
-import ChatComponent from './components/ChatComponent';
+import ChatComponent from './components/chat/ChatComponent';
 // import LoginandRegistration from './components/LoginandRegistration';
 
 function App() {
