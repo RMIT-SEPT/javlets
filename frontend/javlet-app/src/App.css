@@ -44,3 +44,23 @@ html, body { margin: 0; padding: 0 }
   padding-right: 2vh;
   border-right: 0.3vh solid #333;
 }
+
+.connection{
+  border: 0.3vh solid rgb(32, 32, 32);
+ margin: 0.1em;
+display: flex;
+flex-flow: column;
+text-align: center;
+
+ float: left;
+}
+
+.connection button{
+
+  bottom:0;  
+}
+
+.connectList{
+  display: block;
+  overflow: scroll;
+}
