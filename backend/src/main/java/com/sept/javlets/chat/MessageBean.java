@@ -2,6 +2,9 @@ package com.sept.javlets.chat;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.sept.javlets.userauth.StudentAccountBean;
 
 public class MessageBean {

@@ -1,6 +1,9 @@
 package com.sept.javlets.wall;
 
 import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Component;
+
 import com.sept.javlets.userauth.StudentAccountBean;
 
 public class PostBean {

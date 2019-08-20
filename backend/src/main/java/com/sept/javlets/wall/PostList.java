@@ -3,6 +3,8 @@ package com.sept.javlets.wall;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.sept.javlets.userauth.StudentAccountBean;
 
 public class PostList {
