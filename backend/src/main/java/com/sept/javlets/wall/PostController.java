@@ -1,5 +1,7 @@
 package com.sept.javlets.wall;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,6 +27,12 @@ public class PostController {
 	public void newPost(@PathVariable StudentAccountBean author, @PathVariable String postContent) {
 		PostBean post = new PostBean(author,postContent);
 		postsList.addPost(post);
+	}
+	
+	@RequestMapping(path="/")
+	public List<PostBean> allPosts(){
+		return postsList.getAllPosts();
+		// Return a list of all posted posts to frontend
 	}
 
 }
