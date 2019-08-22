@@ -33,15 +33,15 @@ public class PostList {
 		return authorPosts;
 	}
 	
-	public List<PostBean> filterPublic() {
-		List<PostBean> publicPosts = new ArrayList<PostBean>();
-		for (PostBean post : this.posts) {
-			if (post.getPrivacy() == PrivacySetting.PUBLIC)
-				publicPosts.add(post);
-		}
-		
-		return publicPosts;
-	}
+//	public List<PostBean> filterPublic() {
+//		List<PostBean> publicPosts = new ArrayList<PostBean>();
+//		for (PostBean post : this.posts) {
+//			if (post.getPrivacy() == PrivacySetting.PUBLIC)
+//				publicPosts.add(post);
+//		}
+//		
+//		return publicPosts;
+//	}
 	
 	public List<PostBean> getAllPosts() {
 		return posts;
