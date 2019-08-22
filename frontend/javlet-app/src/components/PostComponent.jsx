@@ -5,8 +5,14 @@ class PostComponent extends Component{
   constructor(props) {
     super(props)
     this.state = {
-        wallPosts: []   
-    }
+        wallPosts: [],   
+        // postType: '',
+        // title: '', 
+        // body: '',
+        // author: '',
+        // id: 0,
+        // test: "h33"
+    };
     this.refreshWall = this.refreshWall.bind(this)
   }
 
@@ -23,14 +29,17 @@ class PostComponent extends Component{
 
   render(){
     return(
-      <div className="post">                
-          {this.state.wallPosts.map(item => (
+      <div className="post">   
+        <p>{this.state.wallPosts.length}</p>
+        {/* <p>{this.state.test}</p> */}
+
+          {/* {this.state.wallPosts.map(item => (
               <div>
               <h2 key={item.id}>{item.title}</h2>
               <p key={item.id}>{item.body}</p>
               <h4 key={item.id}> By {item.author} ({item.postType})</h4>
               </div>
-          ))}
+          ))} */}
         </div>
     
     );
