@@ -13,9 +13,9 @@ render(){
 
     let button;
         if (this.props.type === 1) {
-          button = <button className="btn btn-primary btn-lg btn-block" type="button" form="form1" value="Add">Add</button>;
+          button = <button className="w3-btn w3-green btn-primary btn-lg btn-block" type="button" form="form1" value="Add">Add</button>;
         }else{
-            button = <button className="btn btn-primary btn-lg btn-block" type="button" form="form1" value="Message">Message</button>;
+            button = <button className="w3-btn w3-blue btn-primary btn-lg btn-block" type="button" form="form1" value="Message">Message</button>;
         }
 
    return(

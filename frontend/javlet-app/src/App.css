@@ -55,6 +55,11 @@ text-align: center;
  float: left;
 }
 
+.connection img{
+  border-radius: 60%;
+  padding: 0.8vh;
+}
+
 .connection button{
 
   bottom:0;  
@@ -64,3 +69,29 @@ text-align: center;
   display: block;
   overflow: scroll;
 }
+
+.clearfix:after {
+	display: block;
+	content: "";
+	clear: both;
+}
+
+input, button {
+	box-shadow: none;
+	border: 1px solid transparent;
+	font-size: 14px;
+	outline: none;
+	line-height: 100%;
+	white-space: nowrap;
+	vertical-align: middle;
+	padding: 0.6rem 1rem;
+	border-radius: 2px;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+	min-height: 38px;
+}
+
+label input{
+  margin-left: 2em;
+}
+

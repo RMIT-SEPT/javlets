@@ -38,11 +38,11 @@ class WallPostInputForm extends Component {
             <br />
 
             <br />
-            <input type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Mentor <br />
-            <input type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Student <br />
+            <input className="w3-radio" type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Mentor <br />
+            <input className="w3-radio" type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Student <br />
             <br />
             
-            <input type="submit" value="Submit" />
+            <input className="w3-btn w3-blue" type="submit" value="Submit" />
           </form>
           <br />
           <PostComponent posts={this.state.posts} />
