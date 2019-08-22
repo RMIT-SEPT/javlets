@@ -50,9 +50,9 @@ class AccessForm extends Component {
                 {/* <br /> */}
                 <label>
                     Enter an RMIT email:
-                    <input type="email" value={this.state.value} onChange={this.handleEmailChange} />
+                    <input className="w3-input" type="email" value={this.state.value} onChange={this.handleEmailChange} />
                 </label>
-                <input type="submit" value="Submit" />
+                <input class="w3-btn w3-blue-grey" type="submit" value="Login" />
             </form>
         );
     }
