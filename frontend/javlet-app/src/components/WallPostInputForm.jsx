@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import axios from 'axios';
 
 import PostComponent from './PostComponent'
 
@@ -6,7 +7,7 @@ class WallPostInputForm extends Component {
     constructor(props) {
       super(props);
       this.state = { 
-          posts: [], 
+          newPost: '', 
           postType: '',
           title: '', 
           body: '',
@@ -81,14 +82,7 @@ class WallPostInputForm extends Component {
         id: Date.now()
       };
 
-      // this.setState(state => ({
-      //   posts: state.posts.concat(newItem)
-
-      // }));
-
-      this.setState(state => ({
-        posts: state.posts.concat(newItem)
-      }));
+      axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
 
