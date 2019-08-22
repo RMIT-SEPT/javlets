@@ -3,11 +3,13 @@ import React, { Component } from 'react'
 import axios from 'axios';
 
 class PostComponent extends Component{
+    
     state = {
-        posts: []
+        wallPosts: []
+        
       }
       componentDidMount() {
-        axios.get(`'http://localhost:8080/wall'`)
+        axios.get('http://localhost:8080/wall')
           .then(res => {
             const posts = res.data;
             this.setState({ posts });
@@ -17,7 +19,7 @@ class PostComponent extends Component{
 render(){
    return(
     <div className="post">                
-        {this.props.posts.map(item => (
+        {this.state.wallPosts.map(item => (
             <div>
             <h2 key={item.id}>{item.title}</h2>
             <p key={item.id}>{item.body}</p>

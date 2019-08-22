@@ -87,7 +87,7 @@ class WallPostInputForm extends Component {
       // }));
 
       this.setState(state => ({
-        // posts: state.posts.concat(newItem)
+        posts: state.posts.concat(newItem)
       }));
     }
   }
