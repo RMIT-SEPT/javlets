@@ -1,7 +1,18 @@
 import React, { Component } from 'react'
 
+import axios from 'axios';
+
 class PostComponent extends Component{
-    state = {  }
+    state = {
+        posts: []
+      }
+      componentDidMount() {
+        axios.get(`'http://localhost:8080/wall'`)
+          .then(res => {
+            const posts = res.data;
+            this.setState({ posts });
+          })
+      }
 
 render(){
    return(

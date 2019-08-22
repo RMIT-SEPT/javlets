@@ -81,12 +81,13 @@ class WallPostInputForm extends Component {
         id: Date.now()
       };
 
+      // this.setState(state => ({
+      //   posts: state.posts.concat(newItem)
+
+      // }));
+
       this.setState(state => ({
-        posts: state.posts.concat(newItem),
-        postType: '',
-        title: '',
-        body: '',
-        author: ''
+        // posts: state.posts.concat(newItem)
       }));
     }
   }
