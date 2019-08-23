@@ -83,8 +83,9 @@ class WallPostInputForm extends Component {
         id: Date.now()
       };
 
-      axios.post('http://localhost:8080/wall/newPost', newItem);
+      return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
+  
 
   export default WallPostInputForm;

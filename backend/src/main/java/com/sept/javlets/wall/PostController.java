@@ -39,9 +39,10 @@ public class PostController {
 	 * FRONTEND to send author and postContent via path-link
 	*/
 
-	@PostMapping(path="/wall")
+	@PostMapping(path="/wall/newPost")
 	public void newPost(@RequestBody HashMap<String, String> postInfo) {
 		StudentAccountBean author = accountController.getUser(postInfo.get("author"));
+		System.out.println("Received request");
 		
 		PostBean post = new PostBean(
 				postInfo.get("postType"),
@@ -53,12 +54,7 @@ public class PostController {
 	}
 
 	
-	@GetMapping("/wall/all")
-	public ArrayList<PostBean> getAllWallPosts() {
-		System.out.println("\nsending to front end:\n" + postsList.getAllPosts());
-		return postsList.getAllPosts();
-	}
-	@GetMapping("/wall/title")
+	@GetMapping(path="/wall/title")
 	public String getPostTitle() {
 		System.out.println("\nsending to front end:\n" + postsList.getAllPosts().get(1).getTitle());
 		return postsList.getAllPosts().get(0).getTitle();
