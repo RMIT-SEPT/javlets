@@ -4,8 +4,6 @@ package com.sept.javlets.wall;
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,12 +18,11 @@ import com.sept.javlets.userauth.StudentAccountBean;
 public class PostController {
 	
 	private PostList postsList;
-	
-	@Autowired
 	private AccountController accountController;
 
 	public PostController() {
-		postsList = new PostList();
+		this.postsList = new PostList();
+		this.accountController = new AccountController();
 	}
 	
 
