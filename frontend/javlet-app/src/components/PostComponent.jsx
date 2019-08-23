@@ -5,31 +5,43 @@ class PostComponent extends Component{
   constructor(props) {
     super(props)
     this.state = {
-        wallPosts: []   
-    }
+        posts: [],  
+        error: ''
+    };
     this.refreshWall = this.refreshWall.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.refreshWall();
   }
 
   refreshWall() {
-    axios.get('http://localhost:8080/wall')
-      .then(response => {
-        this.setState({ wallPosts: response.data })
+      return axios
+      .get(
+        'http://localhost:8080/wall/all'
+      )
+      .then(result => {
+        console.log(result);
+        const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.id}));
+        this.setState({ posts });
       })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          error: `${error}`
+        });
+      });
   }
 
   render(){
     return(
-      <div className="post">                
-          {this.state.wallPosts.map(item => (
-              <div>
+     <div>   
+        {this.state.posts.map(item => (
+          <div className="post">
               <h2 key={item.id}>{item.title}</h2>
               <p key={item.id}>{item.body}</p>
-              <h4 key={item.id}> By {item.author} ({item.postType})</h4>
-              </div>
+              <h4 key={item.id}> By {item.author} ({item.type})</h4>
+          </div>
           ))}
         </div>
     
