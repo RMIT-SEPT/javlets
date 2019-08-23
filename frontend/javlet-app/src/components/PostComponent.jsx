@@ -6,12 +6,6 @@ class PostComponent extends Component{
     super(props)
     this.state = {
         posts: [],  
-        // postType: '',
-        // title: '', 
-        // body: '',
-        // author: '',
-        // id: 0,
-        // test: "h33"
         error: ''
     };
     this.refreshWall = this.refreshWall.bind(this)
@@ -22,11 +16,6 @@ class PostComponent extends Component{
   }
 
   refreshWall() {
-    // axios.get('http://localhost:8080/wall/title')
-    //   .then(response => {
-    //     console.log(".then")
-    //     this.setState({ title: response.data })
-    //   })
       return axios
       .get(
         'http://localhost:8080/wall/all'
@@ -35,14 +24,10 @@ class PostComponent extends Component{
         console.log(result);
         const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.id}));
         this.setState({ posts });
-        // console.log(posts);
-        // this.setState({ posts });
       })
       .catch(error => {
         console.error("error: ", error);
         this.setState({
-          // objects cannot be used as a react child
-          // -> <p>{error}</p> would throw otherwise
           error: `${error}`
         });
       });
