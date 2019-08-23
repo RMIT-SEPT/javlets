@@ -21,6 +21,14 @@ public class AccountController {
 		return accounts.get(username);
 	}
 	
+	public boolean removeUser(String username) {
+		boolean removed = false;
+		if (accounts.remove(username) != null) {
+			removed = true;
+		}
+		return removed;
+	}
+	
 	public StudentAccountBean getUser(String username) {
 		return accounts.get(username);
 	}

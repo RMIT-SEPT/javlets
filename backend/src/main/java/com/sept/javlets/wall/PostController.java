@@ -17,12 +17,17 @@ import com.sept.javlets.userauth.StudentAccountBean;
 @RestController
 public class PostController {
 	
-	private PostList postsList;
-	private AccountController accountController;
+	private final PostList postsList;
+	private final AccountController accountController;
 
 	public PostController() {
 		this.postsList = new PostList();
 		this.accountController = new AccountController();
+	}
+	
+	public PostController(AccountController accountController) {
+		this.postsList = new PostList();
+		this.accountController = accountController;
 	}
 	
 
