@@ -24,7 +24,7 @@ render(){
 				<div class="form-group">
 					<div class="input-group clearfix">
 						<input className="w3-input w3-animate-input" type="text" id="chatMessage"
-							placeholder="Enter a message...." autocomplete="off"
+							placeholder="Enter a message...." autoComplete="off"
 							class="form-control" />
                 <input class="w3-btn w3-blue" type="submit" value="Send" />
 					</div>

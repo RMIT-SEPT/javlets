@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sept.javlets.userauth.StudentAccountBean;
 
-//@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class PostController {
 	
@@ -33,10 +33,15 @@ public class PostController {
 //		postsList.addPost(post);
 //	}
 	
-	@GetMapping("/wall")
+	@GetMapping("/wall/all")
 	public ArrayList<PostBean> getAllWallPosts() {
 		System.out.println("\nsending to front end:\n" + postsList.getAllPosts());
 		return postsList.getAllPosts();
+	}
+	@GetMapping("/wall/title")
+	public String getPostTitle() {
+		System.out.println("\nsending to front end:\n" + postsList.getAllPosts().get(1).getTitle());
+		return postsList.getAllPosts().get(0).getTitle();
 	}
 
 }

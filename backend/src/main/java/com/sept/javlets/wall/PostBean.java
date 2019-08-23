@@ -40,6 +40,23 @@ public class PostBean {
 		this.author = author;
 		this.id = id;
 	}
+	
+	public String getType() {
+		return type;
+	}
+	public String getTitle() {
+		return title;
+	}
+	public String getBody() {
+		return body;
+	}
+	public String getAuthor() {
+		return author;
+	}
+
+	public Long getID() {
+		return id;
+	}
 
 //	public String getPostContent() {
 //		return postContent;

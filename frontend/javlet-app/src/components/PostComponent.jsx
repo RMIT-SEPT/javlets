@@ -5,41 +5,59 @@ class PostComponent extends Component{
   constructor(props) {
     super(props)
     this.state = {
-        wallPosts: [],   
+        posts: [],  
         // postType: '',
         // title: '', 
         // body: '',
         // author: '',
         // id: 0,
         // test: "h33"
+        error: ''
     };
     this.refreshWall = this.refreshWall.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.refreshWall();
   }
 
   refreshWall() {
-    axios.get('http://localhost:8080/wall')
-      .then(response => {
-        this.setState({ wallPosts: response.data })
+    // axios.get('http://localhost:8080/wall/title')
+    //   .then(response => {
+    //     console.log(".then")
+    //     this.setState({ title: response.data })
+    //   })
+      return axios
+      .get(
+        'http://localhost:8080/wall/all'
+      )
+      .then(result => {
+        console.log(result);
+        const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.id}));
+        this.setState({ posts });
+        // console.log(posts);
+        // this.setState({ posts });
       })
+      .catch(error => {
+        console.error("error: ", error);
+        this.setState({
+          // objects cannot be used as a react child
+          // -> <p>{error}</p> would throw otherwise
+          error: `${error}`
+        });
+      });
   }
 
   render(){
     return(
-      <div className="post">   
-        <p>{this.state.wallPosts.length}</p>
-        {/* <p>{this.state.test}</p> */}
-
-          {/* {this.state.wallPosts.map(item => (
-              <div>
+     <div className="post">   
+        {this.state.posts.map(item => (
+          <div>
               <h2 key={item.id}>{item.title}</h2>
               <p key={item.id}>{item.body}</p>
-              <h4 key={item.id}> By {item.author} ({item.postType})</h4>
-              </div>
-          ))} */}
+              <h4 key={item.id}> By {item.author} ({item.type})</h4>
+          </div>
+          ))}
         </div>
     
     );
