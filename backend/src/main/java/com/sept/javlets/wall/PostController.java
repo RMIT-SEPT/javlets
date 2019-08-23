@@ -53,7 +53,6 @@ public class PostController {
 				);
 		postsList.addPost(post);
 	}
-
 	
 	@GetMapping(path="/wall/title")
 	public String getPostTitle() {
