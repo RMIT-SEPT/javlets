@@ -37,10 +37,10 @@ class PostComponent extends Component{
     return(
      <div>   
         {this.state.posts.map(item => (
-          <div className="post">
-              <h2 key={item.id}>{item.title}</h2>
-              <p key={item.id}>{item.body}</p>
-              <h4 key={item.id}> By {item.author} ({item.type})</h4>
+          <div className="post" key={item.id}>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+              <h4> By {item.author} ({item.type})</h4>
           </div>
           ))}
         </div>
