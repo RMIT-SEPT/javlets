@@ -31,13 +31,13 @@ public class PostBean {
 		
 	}
 	
-	public PostBean(String postType, String title, String postContent, StudentAccountBean authorAccount) {
+	public PostBean(String postType, String title, String postContent, StudentAccountBean authorAccount, long id) {
 		this.postType = postType;
 		this.title = title;
 		this.postContent = postContent;
 		this.authorAccount = authorAccount;
 		
-		this.date = LocalDateTime.now();
+		this.id = id;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
 
@@ -49,6 +49,7 @@ public class PostBean {
 		this.title = title;
 		this.body = body;
 		this.author = author;
+//		this.id = Long.parseLong(id);
 		this.id = id;
 	}
 	
@@ -66,10 +67,7 @@ public class PostBean {
 	}
 	
 	
-
-	public Long getID() {
-		return id;
-	}
+	
 
 	public String getPostContent() {
 		return postContent;
@@ -87,13 +85,14 @@ public class PostBean {
 		this.authorAccount = authorAccount;
 	}
 
-	public LocalDateTime getDate() {
-		return date;
+	public long getId() {
+		return id;
 	}
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
+	public void setId(long id) {
+		this.id = id;
 	}
+
 
 //	public PrivacySetting getPrivacy() {
 //		return privacy;

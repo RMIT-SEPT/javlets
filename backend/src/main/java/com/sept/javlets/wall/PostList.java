@@ -14,10 +14,16 @@ public class PostList {
 	private static ArrayList<PostBean> posts = new ArrayList<>();
 	 private static long idCounter = 0;
 
+//	static {
+//		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", "Williams", ++idCounter));
+//		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", "Johnson", ++idCounter));
+//		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", "Cello", ++idCounter));
+//	}
+	
 	static {
-		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", "Williams", ++idCounter));
-		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", "Johnson", ++idCounter));
-		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", "Cello", ++idCounter));
+		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", new StudentAccountBean("Williams"), ++idCounter));
+		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", new StudentAccountBean("Johnson"), ++idCounter));
+		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", new StudentAccountBean("Cello"), ++idCounter));
 	}
 	// public PostList() {
 	// 	this.posts = new ArrayList<PostBean>();
