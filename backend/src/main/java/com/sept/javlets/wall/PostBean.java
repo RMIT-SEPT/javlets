@@ -8,17 +8,25 @@ import com.sept.javlets.userauth.StudentAccountBean;
 
 public class PostBean {
 
+	private String postType;
+	private String title;
 	private String postContent;
 	private StudentAccountBean author;
 	private LocalDateTime date;
-	private PrivacySetting privacy; // To be implemented later
+	// private PrivacySetting privacy; // To be implemented later
 	
-	public PostBean(StudentAccountBean author, String postContent) {
+	public PostBean() {
+		
+	}
+	
+	public PostBean(String postType, String title, String postContent, StudentAccountBean author) {
+		this.postType = postType;
+		this.title = title;
 		this.postContent = postContent;
 		this.author = author;
 		
 		this.date = LocalDateTime.now();
-		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
+		// this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
 	}
 
 	public String getPostContent() {
@@ -45,13 +53,13 @@ public class PostBean {
 		this.date = date;
 	}
 
-	public PrivacySetting getPrivacy() {
-		return privacy;
-	}
+//	public PrivacySetting getPrivacy() {
+//		return privacy;
+//	}
 
-	public void setPrivacy(PrivacySetting privacy) {
-		this.privacy = privacy;
-	}
+//	public void setPrivacy(PrivacySetting privacy) {
+//		this.privacy = privacy;
+//	}
 	
 	
 	
