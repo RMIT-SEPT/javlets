@@ -3,8 +3,6 @@ package com.sept.javlets.userauth;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 public class StudentAccountBean {
 
 	private String username;

@@ -1,6 +1,5 @@
 package com.sept.javlets.wall;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,23 +10,17 @@ import com.sept.javlets.userauth.StudentAccountBean;
 @Service
 public class PostList {
 
-	private static ArrayList<PostBean> posts = new ArrayList<>();
-	 private static long idCounter = 0;
+	private ArrayList<PostBean> posts = new ArrayList<>();
+	private long idCounter;
 
-//	static {
-//		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", "Williams", ++idCounter));
-//		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", "Johnson", ++idCounter));
-//		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", "Cello", ++idCounter));
-//	}
-	
-	static {
+	public PostList() {
+		idCounter = 0;
+		
+		this.posts = new ArrayList<PostBean>();
 		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", new StudentAccountBean("Williams"), ++idCounter));
 		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", new StudentAccountBean("Johnson"), ++idCounter));
 		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", new StudentAccountBean("Cello"), ++idCounter));
 	}
-	// public PostList() {
-	// 	this.posts = new ArrayList<PostBean>();
-	// }
 	
 	public void addPost(PostBean post) {
 		posts.add(post);
@@ -37,17 +30,18 @@ public class PostList {
 		return posts.remove(post);
 	}
 	
-	// public List<PostBean> filterAuthor(StudentAccountBean author) {
-	// 	List<PostBean> authorPosts = new ArrayList<PostBean>();
-	// 	for (PostBean post : this.posts) {
-	// 		if (post.getAuthor().equals(author))
-	// 			authorPosts.add(post);
-	// 	}
+	public List<PostBean> filterAuthor(StudentAccountBean author) {
+		List<PostBean> authorPosts = new ArrayList<PostBean>();
+		for (PostBean post : this.posts) {
+			if (post.getAuthorAccount().equals(author))
+				authorPosts.add(post);
+		}
 		
-	// 	return authorPosts;
-	// }
+	 	return authorPosts;
+	 }
 	
 
+	// TODO: Uncomment when post privacy is implemented
 //	public List<PostBean> filterPublic() {
 //		List<PostBean> publicPosts = new ArrayList<PostBean>();
 //		for (PostBean post : this.posts) {
