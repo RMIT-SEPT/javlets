@@ -24,7 +24,6 @@ public class PostBean {
 	private String title;
 	private String body;
 	private String author;
-	private Date date2;
 	private long id;
 
 	
