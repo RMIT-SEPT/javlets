@@ -40,7 +40,7 @@ class AccessForm extends Component {
   
     render() {
         return (
-            <form onSubmit={this.handleSubmit} class="form-group form-control-lg">
+            <form onSubmit={this.handleSubmit} className="form-group form-control-lg">
                 {/* <input type="radio" value="New User" name="formSelect" onClick={this.onRegistrationClick} /> New User Registration <br />
                 <input type="radio" value="Returning User" name="formSelect" onClick={this.onLoginClick} /> Returning User <br /> */}
                 {/* <label> */}
@@ -52,7 +52,7 @@ class AccessForm extends Component {
                     Enter an RMIT email:
                     <input className="w3-input" type="email" value={this.state.value} onChange={this.handleEmailChange} />
                 </label>
-                <input class="w3-btn w3-blue-grey" type="submit" value="Login" />
+                <input className="w3-btn w3-blue-grey" type="submit" value="Login" />
             </form>
         );
     }
