@@ -50,9 +50,9 @@ class PostComponent extends Component{
 
   render(){
     return(
-     <div className="post">   
+     <div>   
         {this.state.posts.map(item => (
-          <div>
+          <div className="post">
               <h2 key={item.id}>{item.title}</h2>
               <p key={item.id}>{item.body}</p>
               <h4 key={item.id}> By {item.author} ({item.type})</h4>
