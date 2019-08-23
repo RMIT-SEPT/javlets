@@ -22,7 +22,7 @@ class PostComponent extends Component{
       )
       .then(result => {
         console.log(result);
-        const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.postContent, author: obj.authorAccount.username, id: obj.id}));
+        const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.id}));
         this.setState({ posts });
       })
       .catch(error => {
