@@ -80,7 +80,7 @@ class WallPostInputForm extends Component {
         title: this.state.title,
         body: this.state.body,
         author: this.state.author,
-        id: 1
+        id: Date.now()
       };
 
       axios.post('http://localhost:8080/wall/newPost', newItem);
