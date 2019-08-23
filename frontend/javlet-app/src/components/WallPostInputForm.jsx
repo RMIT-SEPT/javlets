@@ -11,7 +11,8 @@ class WallPostInputForm extends Component {
           postType: '',
           title: '', 
           body: '',
-          author: ''
+          author: '',
+          id: 0
       };  
       this.handlePostTypeChange = this.handlePostTypeChange.bind(this);
       this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -79,7 +80,7 @@ class WallPostInputForm extends Component {
         title: this.state.title,
         body: this.state.body,
         author: this.state.author,
-        id: Date.now()
+        id: 1
       };
 
       axios.post('http://localhost:8080/wall/newPost', newItem);
