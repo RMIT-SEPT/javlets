@@ -48,7 +48,8 @@ public class PostController {
 				postInfo.get("postType"),
 				postInfo.get("title"),
 				postInfo.get("body"),
-				author
+				author,
+				Long.parseLong(postInfo.get("id"))
 				);
 		postsList.addPost(post);
 	}
