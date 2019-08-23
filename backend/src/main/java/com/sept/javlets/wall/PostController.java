@@ -41,7 +41,7 @@ public class PostController {
 
 	@PostMapping(path="/wall/newPost")
 	public void newPost(@RequestBody HashMap<String, String> postInfo) {
-		StudentAccountBean author = accountController.getUser(postInfo.get("author"));
+		StudentAccountBean author = accountController.registerUser(postInfo.get("author"));
 		System.out.println("Received request");
 		
 		PostBean post = new PostBean(
