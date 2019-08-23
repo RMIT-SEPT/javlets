@@ -13,17 +13,13 @@ public class PostBean {
 //	ObjectMapper mapper = new ObjectMapper();
 //	mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
-	private String postType;
-//	private String title;
-	private String postContent;
-	private StudentAccountBean authorAccount;
-	private LocalDateTime date;
+
 
 //	private PrivacySetting privacy; // To be implemented later
 	private String type;
 	private String title;
 	private String body;
-	private String author;
+	private StudentAccountBean authorAccount;
 	private long id;
 
 	
@@ -31,10 +27,10 @@ public class PostBean {
 		
 	}
 	
-	public PostBean(String postType, String title, String postContent, StudentAccountBean authorAccount, long id) {
-		this.postType = postType;
+	public PostBean(String type, String title, String body, StudentAccountBean authorAccount, long id) {
+		this.type = type;
 		this.title = title;
-		this.postContent = postContent;
+		this.body = body;
 		this.authorAccount = authorAccount;
 		
 		this.id = id;
@@ -43,38 +39,45 @@ public class PostBean {
 
 	}
 
-	public PostBean(String type, String title, String body, String author, long id) {
-		// TODO Auto-generated constructor stub
-		this.type = type;
-		this.title = title;
-		this.body = body;
-		this.author = author;
-//		this.id = Long.parseLong(id);
-		this.id = id;
-	}
+//	public PostBean(String type, String title, String body, String author, long id) {
+//		// TODO Auto-generated constructor stub
+//		this.type = type;
+//		this.title = title;
+//		this.body = body;
+//		this.author = author;
+////		this.id = Long.parseLong(id);
+//		this.id = id;
+//	}
 	
 	public String getType() {
 		return type;
 	}
+	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 	public String getTitle() {
 		return title;
 	}
+	
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+//	public String getAuthor() {
+//		return author;
+//	}
+	
+	
+	
+
 	public String getBody() {
 		return body;
 	}
-	public String getAuthor() {
-		return author;
-	}
-	
-	
-	
 
-	public String getPostContent() {
-		return postContent;
-	}
-
-	public void setPostContent(String postContent) {
-		this.postContent = postContent;
+	public void setBody(String body) {
+		this.body = body;
 	}
 
 	public StudentAccountBean getAuthorAccount() {
