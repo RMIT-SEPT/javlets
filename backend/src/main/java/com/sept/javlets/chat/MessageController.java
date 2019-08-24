@@ -69,20 +69,20 @@ public class MessageController {
 //    }
 	
 	@PostMapping(path="/chat/newMessage")
-	public void newPost(@RequestBody HashMap<String, String> chatInfo) {
-		System.out.println("Received request");
-		MessageBean post = new MessageBean();
-		messageList.addMessage(post);
+	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
+		System.out.println("Received request CHAT");
+		MessageBean message = new MessageBean();
+		messageList.addMessage(message);
 	}
 	
 	@GetMapping(path="/chat/title")
-	public MessageBean getPostTitle() {
+	public MessageBean getMessages() {
 		System.out.println("\nsending to front end:\n" + messageList.getAllMessages().get(1));
 		return messageList.getAllMessages().get(0);
 	}
 	
-	@GetMapping(path="/wall")
-	public List<MessageBean> getAllPosts() {
+	@GetMapping(path="/chat")
+	public List<MessageBean> getAllMessages() {
 		return messageList.getAllMessages();
 	}
 
