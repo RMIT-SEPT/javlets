@@ -33,6 +33,12 @@ public class MessageBean {
 		super();
 	}
 	
+	public MessageBean(String messageContent, StudentAccountBean sender) {
+		this.date = LocalDateTime.now();
+		this.messageContent = messageContent;
+		this.sender = sender;
+	}
+	
 //	public MessageType getType() {
 //		return type;
 //	}

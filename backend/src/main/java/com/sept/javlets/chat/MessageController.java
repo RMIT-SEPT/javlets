@@ -71,8 +71,11 @@ public class MessageController {
 	@PostMapping(path="/chat/newMessage")
 	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
 		System.out.println("Received request CHAT");
-		MessageBean message = new MessageBean();
-		messageList.addMessage(message);
+		StudentAccountBean author = accountController.registerUser(chatInfo.get("from"));
+		StudentAccountBean recipient = accountController.registerUser(chatInfo.get("to"));
+		
+		MessageBean post = new MessageBean(chatInfo.get("body"),author,recipient);
+		messageList.addMessage(post);
 	}
 	
 	@GetMapping(path="/chat/title")
