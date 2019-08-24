@@ -1,24 +1,38 @@
 package com.sept.javlets.chat;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sept.javlets.userauth.AccountController;
 import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.wall.PostBean;
+import com.sept.javlets.wall.PostList;
 
 @RestController
 @Controller
+@CrossOrigin(origins = "http://localhost:8080")
 public class MessageController {
 	
 	private final MessageList messageList;
 	private final AccountController accountController;
 
+	public MessageController() {
+		this.messageList = new MessageList();
+		this.accountController = new AccountController();
+	}
+	
 	public MessageController(AccountController accountController) {
 		this.messageList = new MessageList();
 		this.accountController = accountController;
@@ -39,19 +53,37 @@ public class MessageController {
 		return ret;
 	}
 	
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public MessageBean sendMessage(@Payload MessageBean chatMessage) {
-        return chatMessage;
-    }
-    
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public MessageBean addUser(@Payload MessageBean chatMessage, 
-                               SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
-    }
+//    @MessageMapping("/chat.sendMessage")
+//    @SendTo("/topic/public")
+//    public MessageBean sendMessage(@Payload MessageBean chatMessage) {
+//        return chatMessage;
+//    }
+//    
+//    @MessageMapping("/chat.addUser")
+//    @SendTo("/topic/public")
+//    public MessageBean addUser(@Payload MessageBean chatMessage, 
+//                               SimpMessageHeaderAccessor headerAccessor) {
+//        // Add username in web socket session
+//        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+//        return chatMessage;
+//    }
+	
+	@PostMapping(path="/chat/newMessage")
+	public void newPost(@RequestBody HashMap<String, String> chatInfo) {
+		System.out.println("Received request");
+		MessageBean post = new MessageBean();
+		messageList.addMessage(post);
+	}
+	
+	@GetMapping(path="/chat/title")
+	public MessageBean getPostTitle() {
+		System.out.println("\nsending to front end:\n" + messageList.getAllMessages().get(1));
+		return messageList.getAllMessages().get(0);
+	}
+	
+	@GetMapping(path="/wall")
+	public List<MessageBean> getAllPosts() {
+		return messageList.getAllMessages();
+	}
 
 }
