@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 import ConnectionListComponent from './ConnectionListComponent';
+import axios from 'axios';
 
 class ChatComponent extends Component{
+    constructor(props) {
+		super(props);
+		this.state = { 
+			body: '',
+			from: '',
+			to: '',
+			id: 0
+		};  
+		this.body = this.body.bind(this);
+		this.from = this.from.bind(this);
+		this.to = this.to.bind(this);
+	  }
+
+
     state = {  }
 render(){
    return(
@@ -20,12 +35,12 @@ render(){
 			<ul id="messageList">
 
 			</ul>
-			<form id="dialogueForm" name="dialogueForm" nameForm="dialogueForm">
+			<form id="dialogueForm" onSubmit={this.handleSubmit} name="dialogueForm" nameForm="dialogueForm">
 				<div class="form-group">
 					<div class="input-group clearfix">
 						<input className="w3-input w3-animate-input" type="text" id="chatMessage"
 							placeholder="Enter a message...." autoComplete="off"
-							class="form-control" />
+							class="form-control" onChange={this.handleBodyChange} />
                 <input class="w3-btn w3-blue" type="submit" value="Send" />
 					</div>
 				</div>
@@ -42,5 +57,21 @@ render(){
     </div>
    );
 }
+
+handleBodyChange(event) {
+	this.setState({ body: event.target.value });
+}
+
+handleSubmit(event) {
+  const newItem = {
+	body: this.state.body,
+	from: this.state.from,
+	to: this.state.to,
+	id: Date.now()
+  };
+
+  return axios.post('http://localhost:8080/chat/newMessage', newItem);
+}
+
 }
 export default ChatComponent;
