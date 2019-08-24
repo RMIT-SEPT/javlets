@@ -30,6 +30,10 @@ public class PostList {
 		return posts.remove(post);
 	}
 	
+	public void removeAll() {
+		posts.clear();
+	}
+	
 	public List<PostBean> filterAuthor(StudentAccountBean author) {
 		List<PostBean> authorPosts = new ArrayList<PostBean>();
 		for (PostBean post : this.posts) {

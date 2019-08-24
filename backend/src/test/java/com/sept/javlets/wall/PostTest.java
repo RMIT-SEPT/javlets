@@ -1,6 +1,9 @@
 package com.sept.javlets.wall;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -32,12 +35,29 @@ class PostTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		postController.removeAllPosts();
 		accountController.removeUser("TestUser1");
 	}
 
 	@Test
+	void testPost() {
+		HashMap<String, String> samplePost = new HashMap<String, String>();
+		samplePost.put("postType", "Student");
+		samplePost.put("title", "Test Title 1");
+		samplePost.put("body", "Test Post Body 1");
+		samplePost.put("author", "TestUser1");
+		samplePost.put("id", "123456");
+		
+		postController.newPost(samplePost);
+		
+		// Includes hardcoded test posts in the PostList class, when they get removed then 
+		//   the assert statement should change
+		assertEquals(4, postController.getAllPosts().size());
+	}
+	
+	@Test
 	void test() {
-		fail("Not yet implemented");
+		
 	}
 
 }

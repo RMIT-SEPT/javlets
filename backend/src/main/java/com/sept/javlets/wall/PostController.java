@@ -56,5 +56,9 @@ public class PostController {
 	public List<PostBean> getAllPosts() {
 		return postsList.getAllPosts();
 	}
+	
+	public void removeAllPosts() {
+		postsList.removeAll();
+	}
 
 }
