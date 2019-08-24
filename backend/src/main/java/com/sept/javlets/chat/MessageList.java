@@ -41,7 +41,7 @@ public class MessageList {
 	}	  
 	
 	public List<MessageBean> getAllMessages() {
-		System.out.println("Returning " + messages.size() + " posts");
+		System.out.println("Returning " + messages.size() + " messages");
 		return messages;
 	}
 	

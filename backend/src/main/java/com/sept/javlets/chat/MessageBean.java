@@ -14,13 +14,14 @@ public class MessageBean {
 	private String sendersName;
 	private StudentAccountBean recipient;
 	private LocalDateTime date;
-	private MessageType type;
+//	private MessageType type;
 	
-    public enum MessageType {
-        CHAT,
-        JOIN,
-        LEAVE
-    }
+//    public enum MessageType {
+//        CHAT,
+//        JOIN,
+//        LEAVE
+//    }
+    
 	public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
 		this.date = LocalDateTime.now();
 		this.messageContent = messageContent;
@@ -32,13 +33,13 @@ public class MessageBean {
 		super();
 	}
 	
-	public MessageType getType() {
-		return type;
-	}
-
-	public void setType(MessageType type) {
-		this.type = type;
-	}
+//	public MessageType getType() {
+//		return type;
+//	}
+//
+//	public void setType(MessageType type) {
+//		this.type = type;
+//	}
 
 	public String getMessageContent() {
 		return messageContent;

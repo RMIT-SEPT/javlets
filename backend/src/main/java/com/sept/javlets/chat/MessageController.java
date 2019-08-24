@@ -22,7 +22,7 @@ import com.sept.javlets.wall.PostList;
 
 @RestController
 @Controller
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MessageController {
 	
 	private final MessageList messageList;
@@ -38,20 +38,20 @@ public class MessageController {
 		this.accountController = accountController;
 	}
 	
-	@PostMapping(value="/")
-	public MessageBean newMessage(@RequestParam("message") String messageContent, @RequestParam("sender") String sender, @RequestParam("recipient") String recipient) {
-		MessageBean ret = null;
-		StudentAccountBean senderAccount = accountController.getUser(sender);
-		StudentAccountBean recipientAccount = accountController.getUser(recipient);
-		
-		if (senderAccount != null && recipientAccount != null) {
-			MessageBean message = new MessageBean(messageContent, senderAccount, recipientAccount);
-			messageList.addMessage(message);
-		}
-		
-		// Returns a null value if either of the users don't exist - error messages to be thrown on frontend
-		return ret;
-	}
+//	@PostMapping(path="/")
+//	public MessageBean newMessage(@RequestParam("message") String messageContent, @RequestParam("sender") String sender, @RequestParam("recipient") String recipient) {
+//		MessageBean ret = null;
+//		StudentAccountBean senderAccount = accountController.getUser(sender);
+//		StudentAccountBean recipientAccount = accountController.getUser(recipient);
+//		
+//		if (senderAccount != null && recipientAccount != null) {
+//			MessageBean message = new MessageBean(messageContent, senderAccount, recipientAccount);
+//			messageList.addMessage(message);
+//		}
+//		
+//		// Returns a null value if either of the users don't exist - error messages to be thrown on frontend
+//		return ret;
+//	}
 	
 //    @MessageMapping("/chat.sendMessage")
 //    @SendTo("/topic/public")

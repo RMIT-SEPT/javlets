@@ -10,22 +10,22 @@ class ChatComponent extends Component{
 			error: '',
 
 			body: '',
-			from: '',
-			to: '',
+			sender: '',
+			recipient: '',
 			id: 0
 		};  
 		this.handleBodyChange = this.handleBodyChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	  }
-/*
+
 	  test() {
-		 axios
+		 return axios
 		.get(
 		  'http://localhost:8080/chat'
 		)
 		.then(result => {
 		  console.log(result);
-		  const posts = result.data.map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
+		  const posts = result.data.map(obj => ({body: obj.body, sender: obj.sender, recipient: obj.recipient}));
 		  this.setState({ posts });
 		})
 		.catch(error => {
@@ -41,7 +41,7 @@ class ChatComponent extends Component{
 		console.log("I RAN");
 		this.test();
 	  }
-*/
+
 
 render(){
    return(
@@ -90,17 +90,17 @@ handleBodyChange(event) {
 }
 
 handleSubmit(event) {
-	/*
+	
   const newItem = {
 	body: this.state.body,
 	from: this.state.from,
 	to: this.state.to,
 	id: Date.now()
   };
-  */
+  
   console.log("handleSubmitted")
 
-  return axios.post('http://localhost:8080/chat/newMessage');
+  return axios.post('http://localhost:8080/chat/newMessage', newItem);
 }
 
 }
