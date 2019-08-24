@@ -11,9 +11,8 @@ class ChatComponent extends Component{
 			to: '',
 			id: 0
 		};  
-		this.body = this.body.bind(this);
-		this.from = this.from.bind(this);
-		this.to = this.to.bind(this);
+		this.handleBodyChange = this.handleBodyChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	  }
 
 
