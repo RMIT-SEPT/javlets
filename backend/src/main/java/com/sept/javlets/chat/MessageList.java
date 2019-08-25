@@ -3,10 +3,7 @@ package com.sept.javlets.chat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import com.sept.javlets.userauth.StudentAccountBean;
-import com.sept.javlets.wall.PostBean;
 
 public class MessageList {
 

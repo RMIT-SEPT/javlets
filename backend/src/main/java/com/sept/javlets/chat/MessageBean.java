@@ -2,18 +2,16 @@ package com.sept.javlets.chat;
 
 import java.time.LocalDateTime;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.sept.javlets.userauth.StudentAccountBean;
 
 public class MessageBean {
 
 	private String messageContent;
 	private StudentAccountBean sender;
-	private String sendersName;
 	private StudentAccountBean recipient;
 	private LocalDateTime date;
+	
+	//TODO: Implement
 //	private MessageType type;
 	
 //    public enum MessageType {
@@ -39,6 +37,7 @@ public class MessageBean {
 		this.sender = sender;
 	}
 	
+	//TODO: Implement
 //	public MessageType getType() {
 //		return type;
 //	}
@@ -61,10 +60,6 @@ public class MessageBean {
 
 	public void setSender(StudentAccountBean sender) {
 		this.sender = sender;
-	}
-	
-	public void setSender(String sender) {
-		this.sendersName = sender;
 	}
 
 	public StudentAccountBean getRecipient() {
