@@ -32,22 +32,12 @@ class AccessForm extends Component {
     }
   
     handleSubmit(event) {
-        // alert('Users details to be saved: \nName: ' + this.state.name + '\nEmail: ' + this.state.email
-        //         + '\nLogin Type: ' + this.state.loginMethod);
-        // alert('Email: ' + this.state.email);
-        // event.preventDefault();
+        
     }
   
     render() {
         return (
             <form onSubmit={this.handleSubmit} className="form-group form-control-lg">
-                {/* <input type="radio" value="New User" name="formSelect" onClick={this.onRegistrationClick} /> New User Registration <br />
-                <input type="radio" value="Returning User" name="formSelect" onClick={this.onLoginClick} /> Returning User <br /> */}
-                {/* <label> */}
-                    {/* Name: 
-                    <input type="text" value={this.state.value} onChange={this.handleNameChange} /> */}
-                {/* </label> */}
-                {/* <br /> */}
                 <label>
                     Enter an RMIT email:
                     <input className="w3-input" type="email" value={this.state.value} onChange={this.handleEmailChange} />
