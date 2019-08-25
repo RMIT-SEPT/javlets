@@ -31,17 +31,33 @@ class AccountControllerTest {
 	}
 
 	@Test
-	@DisplayName("Create Account Test")
-	void testAccountCreation() {
-		accountController.registerUser("Test User 1");
+	@DisplayName("Create/Remove Account Test")
+	void testAccountCreationAndRemoval() {
+		accountController.registerUser("Alice");
 		assertEquals(1, accountController.getAllAccounts().size());
-		accountController.removeUser("Test User 1");
+		accountController.removeUser("Alice");
+		assertEquals(0, accountController.getAllAccounts().size());
 	}
 
 	@Test
-	@DisplayName("")
-	void test() {
+	@DisplayName("User Attributes Test")
+	void testUserAttributes() {
+		accountController.registerUser("Alice");
+		StudentAccountBean user = accountController.getUser("Alice");
+		assertEquals("Alice", user.getUsername());
+		assertEquals(0, user.getConnections().size());
 		
+		accountController.removeUser("Alice");
 	}
+	
+	@Test
+	@DisplayName("Add Connections Test")
+	void testAddConnection() {
+		StudentAccountBean alice = accountController.registerUser("Alice");
+		StudentAccountBean bob = accountController.registerUser("Bob");
+		alice.addConnection(bob);
+		assertEquals(1, accountController.getUser("Alice").getConnections().size());
+	}
+	
 	
 }
