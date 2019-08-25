@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import WallPostInputForm from './WallPostInputForm';
+import PostComponent from './PostComponent'
 
 class WallComponent extends Component{
     state = {  }
@@ -10,6 +11,7 @@ render(){
       <ul>
         <WallPostInputForm />
         <br />
+        <PostComponent posts={this.state.posts} />
       </ul>
     </div>
    );
