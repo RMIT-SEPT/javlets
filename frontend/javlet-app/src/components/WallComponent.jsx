@@ -8,11 +8,11 @@ render(){
    return(
     <div className="body-item wall">
       <h1>The Wall</h1>
-      <ul>
         <WallPostInputForm />
         <br />
+        <div className="postList">
         <PostComponent posts={this.state.posts} />
-      </ul>
+        </div>
     </div>
    );
 }

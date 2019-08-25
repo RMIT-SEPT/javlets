@@ -24,6 +24,12 @@ html, body { margin: 0; padding: 0 }
 
 }
 
+.postList
+{
+  height: 45vh;
+  overflow-y: scroll;
+}
+
 .body-item h1{
   border-bottom: 0.3vh solid #333;
   text-align: center;
