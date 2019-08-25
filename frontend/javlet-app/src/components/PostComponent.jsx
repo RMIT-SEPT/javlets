@@ -35,8 +35,8 @@ class PostComponent extends Component{
 
   render(){
     return(
-     <div>   
-        {this.state.posts.map(item => (
+     <div>
+        {this.state.posts.reverse().map(item => (
           <div className="post" key={item.id}>
               <h2>{item.title}</h2>
               <p>{item.body}</p>
