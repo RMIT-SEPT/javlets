@@ -11,9 +11,17 @@ public class MessageBean {
 
 	private String messageContent;
 	private StudentAccountBean sender;
+	private String sendersName;
 	private StudentAccountBean recipient;
 	private LocalDateTime date;
+//	private MessageType type;
 	
+//    public enum MessageType {
+//        CHAT,
+//        JOIN,
+//        LEAVE
+//    }
+    
 	public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
 		this.date = LocalDateTime.now();
 		this.messageContent = messageContent;
@@ -21,6 +29,24 @@ public class MessageBean {
 		this.recipient = recipient;
 	}
 	
+	public MessageBean() {
+		super();
+	}
+	
+	public MessageBean(String messageContent, StudentAccountBean sender) {
+		this.date = LocalDateTime.now();
+		this.messageContent = messageContent;
+		this.sender = sender;
+	}
+	
+//	public MessageType getType() {
+//		return type;
+//	}
+//
+//	public void setType(MessageType type) {
+//		this.type = type;
+//	}
+
 	public String getMessageContent() {
 		return messageContent;
 	}
@@ -35,6 +61,10 @@ public class MessageBean {
 
 	public void setSender(StudentAccountBean sender) {
 		this.sender = sender;
+	}
+	
+	public void setSender(String sender) {
+		this.sendersName = sender;
 	}
 
 	public StudentAccountBean getRecipient() {

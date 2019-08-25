@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.wall.PostBean;
 
 public class MessageList {
 
@@ -40,6 +41,7 @@ public class MessageList {
 	}	  
 	
 	public List<MessageBean> getAllMessages() {
+		System.out.println("Returning " + messages.size() + " messages");
 		return messages;
 	}
 	

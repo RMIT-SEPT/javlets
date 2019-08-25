@@ -33,4 +33,8 @@ public class AccountController {
 		return accounts.get(username);
 	}
 	
+	public Map<String, StudentAccountBean> getAllAccounts() {
+		return accounts;
+	}
+	
 }
