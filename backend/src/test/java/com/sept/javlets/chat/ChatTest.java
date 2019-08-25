@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,14 +25,21 @@ class ChatTest {
 	private MessageBean chat2Test;
 	private MessageList chatlist;
 	
+	@BeforeEach
+    void initialiseBeforeTests() {
+		chatController = new MessageController();
+		chatlist = new MessageList();
+    }
+	
 	@Test
 	@DisplayName("Add new chat into MessageList Test")
 	//test adding chat then return sender's name
 	void addNewChatTest() {
 		alice = new StudentAccountBean("Alice");
 		bob = new StudentAccountBean("Bob");
+		
 		MessageBean chat = new MessageBean("hello Bob",alice,bob);
-		MessageList chatlist = new MessageList();
+		
 		chatlist.addMessage(chat);
 		assertEquals("Alice",alice.getUsername());
 	}
@@ -51,8 +59,6 @@ class ChatTest {
 				new StudentAccountBean("Bob"),
 				new StudentAccountBean("Alice"));
 		
-		chatlist = new MessageList();
-		
 		chatlist.addMessage(chat1Test);
 		chatlist.addMessage(chat2Test);
 		
@@ -65,8 +71,6 @@ class ChatTest {
 	@DisplayName("MessageList size Tests for adding two messages into message list")
 	//test adding multiple chat and return correct size of message list
 	void addMultipleMessagesSizeTest() {
-		chatlist = new MessageList();
-		
 		chat1Test = new MessageBean(
 				"hello Bob",
 				new StudentAccountBean("Alice"),
@@ -97,8 +101,6 @@ class ChatTest {
 				new StudentAccountBean("Alice"),
 				new StudentAccountBean("Bob"));
 		
-		chatlist = new MessageList();
-		
 		chatlist.addMessage(chatTest);
 		
 		assertEquals("hello buddy, how are you?",chatTest.getMessageContent());
@@ -109,8 +111,6 @@ class ChatTest {
 	//testing adding request sent from frontend
 	// test adding content of chat components then size
 	void testChatFromFrontend() {
-		
-		chatController = new MessageController();
 		
 		HashMap<String, String> sampleChat = new HashMap<String, String>();
 		sampleChat.put("body", "Hello John!");
