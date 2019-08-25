@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 
-import PostComponent from './PostComponent'
-
 class WallPostInputForm extends Component {
     constructor(props) {
       super(props);
@@ -46,8 +44,6 @@ class WallPostInputForm extends Component {
             
             <input className="w3-btn w3-blue" type="submit" value="Submit" />
           </form>
-          <br />
-          <PostComponent posts={this.state.posts} />
         </div>
         
       );
