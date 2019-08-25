@@ -38,6 +38,7 @@ public class MessageController {
 		this.accountController = accountController;
 	}
 	
+	//TODO: WebSocketConnection for chat before second sprint
 //	@PostMapping(path="/")
 //	public MessageBean newMessage(@RequestParam("message") String messageContent, @RequestParam("sender") String sender, @RequestParam("recipient") String recipient) {
 //		MessageBean ret = null;
