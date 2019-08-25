@@ -5,7 +5,7 @@ class MessageComponent extends Component{
 render(){
    return(
     <div className="body-item chat">
-      
+      <p>{this.props.message}</p>
     </div>
    );
 }

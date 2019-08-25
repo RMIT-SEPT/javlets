@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ConnectionListComponent from './ConnectionListComponent';
 import axios from 'axios';
+import MessageComponent from './MessageComponent';
 
 class ChatComponent extends Component{
     constructor(props) {
@@ -9,7 +10,7 @@ class ChatComponent extends Component{
 			messages: [],  
 			error: '',
 
-			body: '',
+			messageContent: '',
 			sender: '',
 			recipient: '',
 			id: 0
@@ -25,8 +26,8 @@ class ChatComponent extends Component{
 		)
 		.then(result => {
 		  console.log(result);
-		  const posts = result.data.map(obj => ({body: obj.body, sender: obj.sender, recipient: obj.recipient}));
-		  this.setState({ posts });
+		  const messages = result.data.map(obj => ({messageContent: obj.messageContent, sender: obj.sender, recipient: obj.recipient}));
+		  this.setState({ messages });
 		})
 		.catch(error => {
 		  console.error("error: ", error);
@@ -60,6 +61,10 @@ render(){
       <div id="dialogue-page" className="hidden">
 		<div className="dialogue-container">
 			<ul id="messageList">
+
+{this.state.messages.map(item => (
+	<MessageComponent message={item.messageContent}/>
+	))}
 
 			</ul>
 			<form id="dialogueForm" onSubmit={this.handleSubmit} name="dialogueForm" nameForm="dialogueForm">
