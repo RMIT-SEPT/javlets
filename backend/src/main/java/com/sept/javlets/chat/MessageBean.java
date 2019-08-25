@@ -10,15 +10,6 @@ public class MessageBean {
 	private StudentAccountBean sender;
 	private StudentAccountBean recipient;
 	private LocalDateTime date;
-	
-	//TODO: Implement
-//	private MessageType type;
-	
-//    public enum MessageType {
-//        CHAT,
-//        JOIN,
-//        LEAVE
-//    }
     
 	public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
 		this.date = LocalDateTime.now();
@@ -36,15 +27,6 @@ public class MessageBean {
 		this.messageContent = messageContent;
 		this.sender = sender;
 	}
-	
-	//TODO: Implement
-//	public MessageType getType() {
-//		return type;
-//	}
-//
-//	public void setType(MessageType type) {
-//		this.type = type;
-//	}
 
 	public String getMessageContent() {
 		return messageContent;
