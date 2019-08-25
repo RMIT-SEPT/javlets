@@ -14,14 +14,14 @@ html, body { margin: 0; padding: 0 }
   /* min-height: 100vh; */
   display: flex;
   flex-direction: row;
-
+  background-color:rgb(240, 240, 240);
 }
 
 .body-item{
   flex: 1;
   padding: 10px;
-  height: 100%;
-  background-color:rgb(240, 240, 240);
+  height: 100vh;
+
 }
 
 .body-item h1{
@@ -95,3 +95,31 @@ label input{
   margin-left: 2em;
 }
 
+.chat{
+  width: 100%;
+}
+
+.chat img{
+  width: 5vh;
+  margin: 1vh;
+}
+
+.messageList{
+  display: flex;
+  flex-direction: column;
+}
+
+.innerChat{
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.dialogue-container{
+  border: 0.3vh solid rgb(32, 32, 32);
+
+}
+
+.dialogue-container ul{
+height: 50vh;
+overflow-y: scroll;
+}
