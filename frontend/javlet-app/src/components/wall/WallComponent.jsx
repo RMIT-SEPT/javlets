@@ -8,9 +8,10 @@ render(){
    return(
     <div className="body-item wall">
       <h1>The Wall</h1>
-        <WallPostInputForm />
-        <br />
+        {/* <WallPostInputForm />
+        <br /> */}
         <div className="postList">
+        {/* <div> */}
         <PostComponent posts={this.state.posts} />
         </div>
     </div>
