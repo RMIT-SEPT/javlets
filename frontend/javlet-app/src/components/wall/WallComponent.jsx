@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import WallPostInputForm from './WallPostInputForm';
+// import WallPostInputForm from './WallPostInputForm';
 import PostComponent from './PostComponent'
 
 class WallComponent extends Component{
