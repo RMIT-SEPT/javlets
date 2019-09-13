@@ -3,8 +3,6 @@ matrix:
     - language: java
       before_script:
         - cd backend
-      script:
-        - sudo mvnw test -B
 
     - language: node_js
       before_script:
