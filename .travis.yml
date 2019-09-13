@@ -1,8 +1,10 @@
 matrix:
   include:
     - language: java
+      sudo: false
       before_script:
         - cd backend
+      script: mvn test
 
     - language: node_js
       before_script:
