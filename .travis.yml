@@ -31,8 +31,8 @@ install:
 script:
 # [START deploy]
 # Deploy the app
-# before_install:
-# - cd frontend/javlet-app/
+before_install:
+- cd frontend/javlet-app/
 # - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
 # - gcloud auth activate-service-account --key-file client-secret.json
 deploy:
