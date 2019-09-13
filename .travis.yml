@@ -1,8 +1,6 @@
 matrix:
   include:
     - language: java
-      before_install:
-        - chmod +x build.sh
       before_script:
         - cd backend
 
