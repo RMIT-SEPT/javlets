@@ -21,50 +21,24 @@
 #     - npm test
 
 
-
-# Use Dockerized infrastructure
-sudo: false
-# language: python:2.7
-# Cache our Gcloud SDK between commands
-# cache:
-#   directories:
-#   - "$HOME/google-cloud-sdk/"
-# env:
-# Make sure gcloud command is on our PATH and the App Engine SDK is in the Python path
-# - GAE_PYTHONPATH=${HOME}/.cache/google_appengine PATH=$PATH:${HOME}/google-cloud-sdk/bin PYTHONPATH=${PYTHONPATH}:${GAE_PYTHONPATH} CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
-# Install Google App Engine Python SDK
-# - if [ ! -d "${GAE_PYTHONPATH}" ]; then
-#     python scripts/fetch_gae_sdk.py $(dirname "${GAE_PYTHONPATH}");
-#   fi
 # [START auth]
-# Decrypt the credentials we added to the repo using the key we added with the Travis command line tool
-# - openssl aes-256-cbc -K $encrypted_6199c192fe66_key -iv $encrypted_6199c192fe66_iv -in credentials.tar.gz.enc -out credentials.tar.gz -d
 - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
-# If the SDK is not already cached, download it and unpack it
-# - if [ ! -d ${HOME}/google-cloud-sdk ]; then
-#      curl https://sdk.cloud.google.com | bash;
-#   fi
-# - tar -xzf credentials.tar.gz
-- mkdir -p lib
-# Here we use the decrypted service account credentials to authenticate the command line too
 - gcloud auth activate-service-account --key-file client-secret.json
 # [END auth]
 install:
-# Set the correct project to deploy to
 - gcloud config set project javets
-# Install the Python dependencies
-# - pip install -r requirements.txt -t lib/
 script:
-# Run the unit tests
-# - python test_main.py
 # [START deploy]
 # Deploy the app
 - cd frontend/javlet-app/
-# - gcloud app deploy
-- gcloud -q app deploy
-# Run and end to end test
-# - python e2e_test.py
+deploy:
+  provider: gae
+  keyfile: client-secret.json
+  project: javets
+  on:
+    all_branches: true
+# - gcloud -q app deploy
 # [END deploy]
 
 
