@@ -19,7 +19,7 @@ class ChatComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  test() {
+  fetch() {
     return axios
       .get("http://localhost:8080/chat")
       .then(result => {
@@ -40,8 +40,7 @@ class ChatComponent extends Component {
   }
 
   componentDidMount() {
-    console.log("I RAN");
-    this.test();
+    this.fetch();
   }
 
   render() {
