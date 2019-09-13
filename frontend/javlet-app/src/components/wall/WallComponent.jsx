@@ -20,10 +20,7 @@ class WallComponent extends Component{
 
         {this.state.liveStream ? (<WebCamCapture />) : ( false )}
 
-        <h1>The Wall</h1>
-          <form onSubmit={this.handleSubmit}> 
-            <input className="w3-btn w3-blue" type="submit" value="Live Stream" />
-          </form>
+        <h1>The Wall <input className="w3-btn w3-blue" type="submit" value="Live Stream" onClick={this.handleSubmit}/></h1>
           {/* <WallPostInputForm />
           <br /> */}
           <div className="postList">
