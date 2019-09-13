@@ -59,20 +59,24 @@ class PostComponent extends Component{
     }
     return(
       <div>
-        <WallPostInputForm />
-        <h2>Filter Posts:</h2>
-        <input className="w3-radio" type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
-        <input className="w3-radio" type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />
-        <input className="w3-radio" type="radio" value="All" name="formSelect" onClick={this.handlePostTypeChange} /> Display All Posts<br />
-        <br />
-        {displayPosts.map(item => (  
-          <div className="post" key={item.id}>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-              <h4> By {item.author} ({item.type})</h4>
-          </div>
+        <div>
+          <WallPostInputForm />
+          <h2>Filter Posts:</h2>
+          <input className="w3-radio" type="radio" value="Mentor"   name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
+          <input className="w3-radio" type="radio" value="Student"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />
+          <input className="w3-radio" type="radio" value="All"      name="formSelect" onClick={this.handlePostTypeChange} /> Display All Posts<br />
+          <br />
+        </div>
+        <div>
+          {displayPosts.map(item => (  
+            <div className="post" key={item.id}>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+                <h4> By {item.author} ({item.type})</h4>
+            </div>
           ))}
         </div>
+      </div>
     );
   }
 
