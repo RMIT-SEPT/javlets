@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import HeaderComponent from './components/HeaderComponent';
-import WallComponent from './components/WallComponent';
+import WallComponent from './components/wall/WallComponent';
 import ChatComponent from './components/chat/ChatComponent';
 // import LoginandRegistration from './components/LoginandRegistration';
 
