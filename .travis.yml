@@ -1,9 +1,10 @@
 matrix:
   include:
     - language: java
+      before_install:
+        - chmod +x mvnw
       before_script:
         - cd backend
-        - chmod +x mvn
 
     - language: node_js
       before_script:
