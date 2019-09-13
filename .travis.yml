@@ -3,7 +3,8 @@ matrix:
     - language: java
       before_script:
         - cd backend
-        - sudo chmod 777
+      script:
+        - sudo mvnw test -B
 
     - language: node_js
       before_script:
