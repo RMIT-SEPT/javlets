@@ -4,7 +4,7 @@ matrix:
       sudo: false
       before_script:
         - cd backend
-      script: mvn test
+      script: mvn test -B
 
     - language: node_js
       before_script:
