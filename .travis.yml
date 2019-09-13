@@ -3,6 +3,7 @@ matrix:
     - language: java
       before_script:
         - cd backend
+        - chmod +x mvn
 
     - language: node_js
       before_script:
