@@ -8,15 +8,11 @@
     "cross-env": "^5.2.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-<<<<<<< Updated upstream
-    "react-scripts": "3.0.1"
-=======
     "react-google-login": "^5.0.5",
     "react-new-window": "^0.1.2",
     "react-scripts": "3.0.1",
     "react-webcam": "^3.0.1",
     "typescript": "^3.6.3"
->>>>>>> Stashed changes
   },
   "scripts": {
     "start": "react-scripts start",
