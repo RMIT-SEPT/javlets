@@ -1,6 +1,34 @@
 import React, { Component } from 'react'
 import Webcam from "react-webcam";
 import NewWindow from 'react-new-window'
+// import PostComponent from './../wall/PostComponent';
+
+
+class WebCamCapture extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    };
+  }
+
+  render() {
+    const videoConstraints = {
+      facingMode: "user"
+    };
+ 
+    return (
+      <NewWindow>
+      <div className="body-item wall">
+        <h1>Live Stream</h1>
+        <Webcam videoConstraints={videoConstraints} />
+        {/* <PostComponent posts={this.state.posts} /> */}
+        {/* implement a dedicated wall for each live session so comments can be handled */}
+      </div>
+      </NewWindow>
+        
+    );
+  }
+}
 
 // const WebcamComponent = () => <Webcam />;
 
@@ -35,24 +63,6 @@ import NewWindow from 'react-new-window'
 //       </>
 //   );
 // };
-
-  class WebCamCapture extends Component {
-    render() {
-      const videoConstraints = {
-        facingMode: "user"
-      };
-   
-      return (
-        <NewWindow>
-        <div className="body-item wall">
-          <h1>Live Stream</h1>
-          <Webcam videoConstraints={videoConstraints} />
-        </div>
-        </NewWindow>
-          
-      );
-    }
-  }
 
   // class WebcamCapture extends Component {
   //   render() {

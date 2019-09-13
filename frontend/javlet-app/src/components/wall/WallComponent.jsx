@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-// import WallPostInputForm from './WallPostInputForm';
+import React, { Component } from 'react';
 import PostComponent from './PostComponent';
 import WebCamCapture from './../liveStream/webcam';
 
@@ -21,10 +20,7 @@ class WallComponent extends Component{
         {this.state.liveStream ? (<WebCamCapture />) : ( false )}
 
         <h1>The Wall <input className="w3-btn w3-blue" type="submit" value="Live Stream" onClick={this.handleSubmit}/></h1>
-          {/* <WallPostInputForm />
-          <br /> */}
           <div className="postList">
-          {/* <div> */}
           <PostComponent posts={this.state.posts} />
           </div>
       </div>
