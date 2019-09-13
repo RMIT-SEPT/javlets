@@ -24,6 +24,8 @@ deploy:
   provider: gae
   keyfile: ...
   project: javets
+  on:
+    all_branches: true
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv
