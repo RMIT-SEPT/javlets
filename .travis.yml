@@ -48,6 +48,6 @@ matrix:
 #   project: javets
 #   on:
 #     all_branches: true
-- gcloud -q app deploy
+# - gcloud -q app deploy
 # [END deploy]
 
