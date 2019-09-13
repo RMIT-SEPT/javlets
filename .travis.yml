@@ -61,7 +61,8 @@ script:
 # [START deploy]
 # Deploy the app
 - cd frontend/javlet-app/
-- gcloud app deploy
+# - gcloud app deploy
+- gcloud -q app deploy app.yaml --promote
 # Run and end to end test
 # - python e2e_test.py
 # [END deploy]
