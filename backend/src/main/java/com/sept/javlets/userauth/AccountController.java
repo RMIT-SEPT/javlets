@@ -60,9 +60,9 @@ public class AccountController {
 			studentAccount.setEmail(loginInfo.get("email"));
 			studentAccount.setImageUrl(loginInfo.get("imageUrl"));
 		}
-		
+		System.out.println(studentID);
 		if(!studentID.equals(null)) {
-			System.out.println("Log in with: " + registerUser(studentID));
+			System.out.printf("Log in with: %s", studentID);
     	}
 		
 	}
