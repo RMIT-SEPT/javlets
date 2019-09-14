@@ -22,7 +22,7 @@ public class AccountController {
 	
 	public StudentAccountBean registerUser(String username) {
 		if (!accounts.containsKey(username)) {
-			accounts.put(username, studentAccount);
+			accounts.put(username, new StudentAccountBean(username));
 		}
 		return accounts.get(username);
 	}
