@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import WallPostInputForm from './WallPostInputForm';
 
 class PostComponent extends Component{
   constructor(props) {
@@ -58,7 +57,6 @@ class PostComponent extends Component{
     return(
       <div>
         <div>
-          <WallPostInputForm />
           <h2>Filter Posts:</h2>
           <input className="w3-radio" type="radio" value="Mentor"   name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
           <input className="w3-radio" type="radio" value="Student"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />

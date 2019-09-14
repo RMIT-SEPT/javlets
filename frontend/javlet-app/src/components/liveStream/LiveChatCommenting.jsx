@@ -32,8 +32,9 @@ class LiveChatCommenting extends Component {
             <input className="w3-btn w3-blue" type="submit" value="Submit" />
           </form>
         </div>
+
         <div>
-          {this.state.posts.map(item => (  
+          {this.state.posts.reverse().map(item => (  
             <div className="post" key={item.id}>
               <h2>{item.title}</h2>
               <p>{item.body}</p>
