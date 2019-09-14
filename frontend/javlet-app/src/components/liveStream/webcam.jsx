@@ -20,16 +20,17 @@ class WebCamCapture extends Component {
     };
     return (
       <div>
-        {this.state.webcamEnabled ? 
+        {this.state.webcamEnabled ? (
           <>
           <button type="disable" onClick={this.disableWebCam}>
             Disable webcam
           </button>
-          <h1>Live Stream</h1>
-          <Webcam videoConstraints={videoConstraints} />
+          <br /><Webcam videoConstraints={videoConstraints} />
+
+          <h2>Comments </h2>
           <LiveChatCommenting />
           </>
-         : 
+        ):(
           <>
           <button type="enable" onClick={this.enableWebcam}>
             Make Live Stream
@@ -38,7 +39,7 @@ class WebCamCapture extends Component {
             Watch Live Steam
           </button>
           </>
-        }
+        )}
         {/* ... */}
       </div>
     );
