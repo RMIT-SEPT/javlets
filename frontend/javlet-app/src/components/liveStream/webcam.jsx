@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Webcam from "react-webcam";
-import NewWindow from 'react-new-window'
+import NewWindow from 'react-new-window';
+import LiveChatCommenting from './LiveChatCommenting';
 // import PostComponent from './../wall/PostComponent';
 
 
@@ -18,14 +19,12 @@ class WebCamCapture extends Component {
  
     return (
       <NewWindow>
-      <div className="body-item wall">
-        <h1>Live Stream</h1>
-        <Webcam videoConstraints={videoConstraints} />
-        {/* <PostComponent posts={this.state.posts} /> */}
-        {/* implement a dedicated wall for each live session so comments can be handled */}
-      </div>
+        <div>
+          <h1>Live Stream</h1>
+          <Webcam videoConstraints={videoConstraints} />
+          <LiveChatCommenting />
+        </div>
       </NewWindow>
-        
     );
   }
 }

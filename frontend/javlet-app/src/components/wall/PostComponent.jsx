@@ -34,8 +34,6 @@ class PostComponent extends Component{
           const studentPosts = allPosts.filter(function(type){
             return type.type === "Student";
           })
-          // console.log("!!!")
-          // console.log(studentPosts)
           this.setState({ allPosts });
           this.setState({ mentorPosts });
           this.setState({ studentPosts });
