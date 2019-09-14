@@ -4,7 +4,14 @@ import axios from "axios";
  
 const responseGoogle = (response) => {
   console.log(response.profileObj);
-  return axios.post("http://localhost:8080/login", response.profileObj);
+
+  const newItem = {
+    email: response.profileObj.email,
+    name: response.profileObj.name,
+    imageUrl: response.profileObj.imageUrl,
+  };
+
+  return axios.post("http://localhost:8080/login", newItem);
 }
 
 class GAuthComponent extends Component{
