@@ -16,7 +16,7 @@ public class GAuthController {
 		this.studentAccount = new StudentAccountBean();
 	}
 	
-	 @PostMapping(path="/login")
+	@PostMapping(path="/login")
     public void login(@RequestBody HashMap<String, String> loginInfo) {
 		 studentAccount.setEmail(loginInfo.get("email"));
 		 studentAccount.setUsername(loginInfo.get("name"));
