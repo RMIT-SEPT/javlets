@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+// import Stomp from './stompjs';
+import SockJS from "sockjs-client"
+import Stomp from "@stomp/stompjs"
 
 class WebSocketComponent extends Component {
 
@@ -177,7 +180,7 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', send, true)
+// usernameForm.addEventListener('submit', connect, true)
+// messageForm.addEventListener('submit', send, true)
 
 export default WebSocketComponent;
