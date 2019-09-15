@@ -23,27 +23,22 @@ public class MessageController {
 	
 	private MessageList messageList;
 	
-//	@Autowired
-//	private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
 	public MessageController() {
 		this.messageList = new MessageList();
 	}
 	
-//	public MessageController(AccountController accountController) {
-//		this.messageList = new MessageList();
-//		this.accountController = accountController;
-//	}
-	
-//	@PostMapping(path="/newMessage")
-//	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
-//		System.out.println("Received request CHAT");
-//		StudentAccountBean author = userRepository.findByName(chatInfo.get("from"));
-//		StudentAccountBean recipient = userRepository.findByName(chatInfo.get("to"));
-//		
-//		MessageBean post = new MessageBean(chatInfo.get("body"),author,recipient);
-//		messageList.addMessage(post);
-//	}
+	@PostMapping(path="/newMessage")
+	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
+		System.out.println("Received request CHAT");
+		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
+		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
+		
+		MessageBean post = new MessageBean(chatInfo.get("body"),author,recipient);
+		messageList.addMessage(post);
+	}
 	
 	@GetMapping(path="/title")
 	public MessageBean getMessages() {
