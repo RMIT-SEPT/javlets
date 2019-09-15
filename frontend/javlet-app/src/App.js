@@ -3,6 +3,8 @@ import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import WallComponent from './components/wall/WallComponent';
 import ChatComponent from './components/chat/ChatComponent';
+
+import WebSocket from './components/chat/WebSocket';
 // import LoginandRegistration from './components/LoginandRegistration';
 
 function App() {
@@ -14,7 +16,7 @@ function App() {
         <HeaderComponent />
       </header>
       <body className="App-body">
-      <ChatComponent />
+      <WebSocket/>
       <WallComponent />
       {/* <LoginandRegistration /> */}
       </body>
