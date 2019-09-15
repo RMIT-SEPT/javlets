@@ -3,8 +3,7 @@ import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import WallComponent from './components/wall/WallComponent';
 import ChatComponent from './components/chat/ChatComponent';
-
-import WebSocket from './components/chat/WebSocket';
+import WebSocketComponent from './components/chat/WebSocketComponent';
 // import LoginandRegistration from './components/LoginandRegistration';
 
 function App() {
@@ -16,7 +15,7 @@ function App() {
         <HeaderComponent />
       </header>
       <body className="App-body">
-      <WebSocket/>
+      <WebSocketComponent/>
       <WallComponent />
       {/* <LoginandRegistration /> */}
       </body>
@@ -25,3 +24,4 @@ function App() {
 }
 
 export default App;
+
