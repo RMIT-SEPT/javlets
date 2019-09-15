@@ -1,9 +1,13 @@
 package com.sept.javlets.wall;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
+@Document(collection="posts")
 public class PostBean {
 
 	//TODO: Implement
@@ -13,19 +17,20 @@ public class PostBean {
 	private String title;
 	private String body;
 	private StudentAccountBean authorAccount;
-	private long id;
+	
+	@Id
+	private String id;
 
 	
 	public PostBean() {
 		
 	}
 	
-	public PostBean(String type, String title, String body, StudentAccountBean authorAccount, long id) {
+	public PostBean(String type, String title, String body, StudentAccountBean authorAccount) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
 		this.authorAccount = authorAccount;
-		this.id = id;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
 
@@ -64,11 +69,11 @@ public class PostBean {
 		this.authorAccount = authorAccount;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
