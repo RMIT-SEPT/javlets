@@ -20,9 +20,23 @@ public class AccountController {
 		this.accounts = new HashMap<String, StudentAccountBean>();
 	}
 	
+	public StudentAccountBean registerUser(HashMap<String,String> loginInfo) {
+		if (!accounts.containsKey(loginInfo.get("name"))) {
+			
+			studentAccount = new StudentAccountBean(loginInfo.get("name"));
+			studentAccount.setEmail(loginInfo.get("email"));
+			studentAccount.setImageUrl(loginInfo.get("imageUrl"));
+			
+			accounts.put(loginInfo.get("name"), studentAccount);
+		}
+		
+		return accounts.get(loginInfo.get("name"));
+	}
+	
 	public StudentAccountBean registerUser(String username) {
 		if (!accounts.containsKey(username)) {
-			accounts.put(username, new StudentAccountBean(username));
+			studentAccount = new StudentAccountBean(username);
+			accounts.put(username, studentAccount);
 		}
 		return accounts.get(username);
 	}
@@ -50,17 +64,19 @@ public class AccountController {
 	}
 	
 	@PostMapping(path="/login")
-    public void login(@RequestBody HashMap<String, String> loginInfo) {
+    public void login(@RequestBody HashMap<String,String> loginInfo) {
 		String[] arrOfStr = loginInfo.get("email").split("@");
 		String studentID = null;
 		
 		if(validateID(arrOfStr[0])) {
 			studentID = arrOfStr[0];
-			studentAccount = new StudentAccountBean(loginInfo.get("name"));
-			studentAccount.setEmail(loginInfo.get("email"));
-			studentAccount.setImageUrl(loginInfo.get("imageUrl"));
+			registerUser(loginInfo);
+		} else {
+			System.out.println("Incorrect student email/ID");
 		}
+		
 		System.out.println(studentID);
+		
 		if(!studentID.equals(null)) {
 			System.out.printf("Log in with: %s", studentID);
     	}
