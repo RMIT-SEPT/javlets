@@ -22,7 +22,8 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
-        'http://localhost:8080/wall'
+        'https://javlets-deployed.javets.appspot.com/wall'
+        // 'http://localhost:8080/wall'
       )
       .then(result => {
           console.log(result);
