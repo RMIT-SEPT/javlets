@@ -20,7 +20,7 @@ class PostTest {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		accountController = new AccountController();
-		postController = new PostController(accountController);
+		postController = new PostController();
 	}
 
 	@AfterAll
@@ -29,13 +29,13 @@ class PostTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		accountController.registerUser("TestUser1");
+		accountController.add("TestUser1");
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		postController.removeAllPosts();
-		accountController.removeUser("TestUser1");
+		accountController.removeAllUsers();
 	}
 
 	@Test
@@ -45,9 +45,8 @@ class PostTest {
 		samplePost.put("title", "Test Title 1");
 		samplePost.put("body", "Test Post Body 1");
 		samplePost.put("author", "TestUser1");
-		samplePost.put("id", "123456");
 		
-		postController.newPost(samplePost);
+		postController.add(samplePost);
 		
 		// Includes hardcoded test posts in the PostList class, when they get removed then 
 		//   the assert statement should change

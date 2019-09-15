@@ -13,14 +13,13 @@ public class PostBean {
 	//TODO: Implement
 //	private PrivacySetting privacy;
 	
+	@Id
+	private String id;
+	
 	private String type;
 	private String title;
 	private String body;
 	private StudentAccountBean authorAccount;
-	
-	@Id
-	private String id;
-
 	
 	public PostBean() {
 		
@@ -33,7 +32,6 @@ public class PostBean {
 		this.authorAccount = authorAccount;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
-
 	}
 
 	
@@ -76,6 +74,10 @@ public class PostBean {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+//	public String toString() {
+//		return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
+//	}
 
 	//TODO: Implement
 //	public PrivacySetting getPrivacy() {

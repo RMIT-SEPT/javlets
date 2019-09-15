@@ -28,21 +28,22 @@ class AccountControllerTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		accountController.removeAllUsers();
 	}
 
 	@Test
 	@DisplayName("Create/Remove Account Test")
 	void testAccountCreationAndRemoval() {
-		accountController.registerUser("Alice");
-		assertEquals(1, accountController.getAllAccounts().size());
+		accountController.add("Alice");
+		assertEquals(1, accountController.getAllUsers().size());
 		accountController.removeUser("Alice");
-		assertEquals(0, accountController.getAllAccounts().size());
+		assertEquals(0, accountController.getAllUsers().size());
 	}
 
 	@Test
 	@DisplayName("User Attributes Test")
 	void testUserAttributes() {
-		accountController.registerUser("Alice");
+		accountController.add("Alice");
 		StudentAccountBean user = accountController.getUser("Alice");
 		assertEquals("Alice", user.getUsername());
 		assertEquals(0, user.getConnections().size());
@@ -53,8 +54,8 @@ class AccountControllerTest {
 	@Test
 	@DisplayName("Add Connections Test")
 	void testAddConnection() {
-		StudentAccountBean alice = accountController.registerUser("Alice");
-		StudentAccountBean bob = accountController.registerUser("Bob");
+		StudentAccountBean alice = accountController.add("Alice");
+		StudentAccountBean bob = accountController.add("Bob");
 		alice.addConnection(bob);
 		assertEquals(1, accountController.getUser("Alice").getConnections().size());
 	}

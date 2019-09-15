@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.AccountController;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -31,11 +30,19 @@ public class PostController {
 	@Autowired 
 	private UserRepository userRepository;
 	
-	@PostMapping
+	@PostMapping(path="/newPost")
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public PostBean add(@RequestBody HashMap<String, String> postInfo) {
-		StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
+	public void add(@RequestBody HashMap<String, String> postInfo) {
 		System.out.println("Received request");
+		System.out.println("Author: " + postInfo.get("author"));
+		StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
+		if (author == null) {
+			author = new StudentAccountBean(postInfo.get("author"));
+			System.out.println("Before inserting");
+			userRepository.insert(author);
+		}
+		
+		System.out.println("Request 3453");
 		
 		PostBean post = new PostBean(
 				postInfo.get("postType"),
@@ -43,12 +50,24 @@ public class PostController {
 				postInfo.get("body"),
 				author
 				);
-		return postRepository.save(post);
+		
+		
+		System.out.println("Request 3456");
+		
+		postRepository.save(post);
+		System.out.println("Request 3457");
 	}
 	
 	@GetMapping
-	public List<PostBean> getAllPosts() { 
-		return postRepository.findAll();
+	public List<PostBean> getAllPosts() {
+		List<PostBean> posts = postRepository.findAll();
+		System.out.println("Posts being returned:");
+		for (PostBean p : posts) {
+			System.out.println(p.toString());
+		}
+		System.out.println(" ");
+		
+		return posts;
 	}
 	
 	@DeleteMapping
@@ -56,48 +75,5 @@ public class PostController {
 		postRepository.deleteAll();
 	}
 	
-//	private final PostList postsList;
-//	private final AccountController accountController;
-
-//	public PostController() {
-//		this.postsList = new PostList();
-//		this.accountController = new AccountController();
-//	}
-//	
-//	public PostController(AccountController accountController) {
-//		this.postsList = new PostList();
-//		this.accountController = accountController;
-//	}
-	
-
-//	@PostMapping(path="/wall/newPost")
-//	public void newPost(@RequestBody HashMap<String, String> postInfo) {
-//		StudentAccountBean author = accountController.registerUser(postInfo.get("author"));
-//		System.out.println("Received request");
-//		
-//		PostBean post = new PostBean(
-//				postInfo.get("postType"),
-//				postInfo.get("title"),
-//				postInfo.get("body"),
-//				author,
-//				Long.parseLong(postInfo.get("id"))
-//				);
-//		postsList.addPost(post);
-//	}
-	
-//	@GetMapping(path="/wall/title")
-//	public String getPostTitle() {
-//		System.out.println("\nsending to front end:\n" + postsList.getAllPosts().get(1).getTitle());
-//		return postsList.getAllPosts().get(0).getTitle();
-//	}
-//	
-////	@GetMapping(path="/wall")
-////	public List<PostBean> getAllPosts() {
-////		return postsList.getAllPosts();
-////	}
-//	
-//	public void removeAllPosts() {
-//		postsList.removeAll();
-//	}
 
 }

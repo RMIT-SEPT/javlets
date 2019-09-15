@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.AccountController;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -21,34 +21,59 @@ import com.sept.javlets.userauth.StudentAccountBean;
 @RequestMapping("/chat")
 public class MessageController {
 	
-	private MessageList messageList;
+	@Autowired
+	private MessageRepository messageRepository;
 	
 	@Autowired
 	private UserRepository userRepository;
-
-	public MessageController() {
-		this.messageList = new MessageList();
-	}
 	
 	@PostMapping(path="/newMessage")
-	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
+	public void add(@RequestBody HashMap<String, String> chatInfo) {
 		System.out.println("Received request CHAT");
-		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
-		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
+		System.out.println();
 		
-		MessageBean post = new MessageBean(chatInfo.get("body"),author,recipient);
-		messageList.addMessage(post);
-	}
-	
-	@GetMapping(path="/title")
-	public MessageBean getMessages() {
-		System.out.println("\nsending to front end:\n" + messageList.getAllMessages().get(1));
-		return messageList.getAllMessages().get(0);
+//		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
+//		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
+		StudentAccountBean author = userRepository.findByUsername("Jamie");
+		StudentAccountBean recipient = userRepository.findByUsername("Chanboth");
+		
+		MessageBean post = new MessageBean(chatInfo.get("body"), author, recipient);
+		
+		
 	}
 	
 	@GetMapping
 	public List<MessageBean> getAllMessages() {
-		return messageList.getAllMessages();
+		return messageRepository.findAll();
 	}
+	
+//	private MessageList messageList;
+//	
+//	
+//
+//	public MessageController() {
+//		this.messageList = new MessageList();
+//	}
+//	
+//	@PostMapping(path="/newMessage")
+//	public void newMessage(@RequestBody HashMap<String, String> chatInfo) {
+//		System.out.println("Received request CHAT");
+//		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
+//		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
+//		
+//		MessageBean post = new MessageBean(chatInfo.get("body"),author,recipient);
+//		messageList.addMessage(post);
+//	}
+//	
+//	@GetMapping(path="/title")
+//	public MessageBean getMessages() {
+//		System.out.println("\nsending to front end:\n" + messageList.getAllMessages().get(1));
+//		return messageList.getAllMessages().get(0);
+//	}
+//	
+//	@GetMapping
+//	public List<MessageBean> getAllMessages() {
+//		return messageList.getAllMessages();
+//	}
 
 }

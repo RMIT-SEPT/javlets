@@ -4,10 +4,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 class ChatTest {
@@ -16,20 +19,22 @@ class ChatTest {
 	 * 		Tests[1,2,3] will test whether backend handles its data correctly
 	 * 		Test 4 will test whether backend handles data sent by request from frontend correctly
 	 */
-	
+	@Autowired
+	private MessageRepository messageRepository;
 	private MessageController chatController;
+	
 	private StudentAccountBean alice;
 	private StudentAccountBean bob;
-	private MessageBean chatTest;
-	private MessageBean chat1Test;
-	private MessageBean chat2Test;
-	private MessageList chatlist;
 	
 	@BeforeEach
-    void initialiseBeforeTests() {
+    void setUp() {
 		chatController = new MessageController();
-		chatlist = new MessageList();
     }
+	
+	@AfterEach
+	void tearDown() {
+		messageRepository.deleteAll();
+	}
 	
 	@Test
 	@DisplayName("Add new chat into MessageList Test")
@@ -40,55 +45,51 @@ class ChatTest {
 		
 		MessageBean chat = new MessageBean("hello Bob",alice,bob);
 		
-		chatlist.addMessage(chat);
-		assertEquals("Alice",alice.getUsername());
+		messageRepository.save(chat);
+		assertEquals("Alice", alice.getUsername());
 	}
 	
 	@Test
-	@DisplayName("MessageList size Test")
+	@DisplayName("Message repository size Test")
 	//test adding multiple chat and return correct size of message list
 	void messageListSizeTest() {
 		
-		chat1Test = new MessageBean(
+		MessageBean chat1Test = new MessageBean(
 				"hello Bob",
 				new StudentAccountBean("Alice"),
 				new StudentAccountBean("Bob"));
 		
-		chat2Test = new MessageBean(
+		MessageBean chat2Test = new MessageBean(
 				"hello Alice",
 				new StudentAccountBean("Bob"),
 				new StudentAccountBean("Alice"));
 		
-		chatlist.addMessage(chat1Test);
-		chatlist.addMessage(chat2Test);
+		messageRepository.save(chat1Test);
+		messageRepository.save(chat2Test);
 		
-		//hardcoded 4 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(4,chatlist.getAllMessages().size());
+		assertEquals(2, messageRepository.count());
 	}
 	
 	@Test
 	@DisplayName("MessageList size Tests for adding two messages into message list")
 	//test adding multiple chat and return correct size of message list
 	void addMultipleMessagesSizeTest() {
-		chat1Test = new MessageBean(
+		MessageBean chat1Test = new MessageBean(
 				"hello Bob",
 				new StudentAccountBean("Alice"),
 				new StudentAccountBean("Bob"));
 		
-		chatlist.addMessage(chat1Test);
+		messageRepository.save(chat1Test);
 		
-		//hardcoded 3 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(3,chatlist.getAllMessages().size());
+		assertEquals(1, messageRepository.count());
 
-		chat2Test = new MessageBean(
+		MessageBean chat2Test = new MessageBean(
 				"hello Alice",
 				new StudentAccountBean("Bob"),
 				new StudentAccountBean("Alice"));
 		
-		chatlist.addMessage(chat2Test);		
-		assertEquals(4,chatlist.getAllMessages().size());
+		messageRepository.save(chat2Test);		
+		assertEquals(2, messageRepository.count());
 	}
 	
 	@Test
@@ -96,14 +97,14 @@ class ChatTest {
 	//test adding a chat and return correct added message content to message list
 	void addBodyTest() {
 		
-		chatTest = new MessageBean(
+		MessageBean chatTest = new MessageBean(
 				"hello buddy, how are you?",
 				new StudentAccountBean("Alice"),
 				new StudentAccountBean("Bob"));
 		
-		chatlist.addMessage(chatTest);
+		messageRepository.save(chatTest);
 		
-		assertEquals("hello buddy, how are you?",chatTest.getMessageContent());
+		assertEquals("hello buddy, how are you?", chatTest.getMessageContent());
 	}
 
 	@Test
@@ -117,11 +118,9 @@ class ChatTest {
 		sampleChat.put("from", "Alice");
 		sampleChat.put("to", "Bob");
 		
-		chatController.newMessage(sampleChat);
+		chatController.add(sampleChat);
 		
-		//hardcoded 3 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(3, chatController.getAllMessages().size());
+		assertEquals(1, chatController.getAllMessages().size());
 	}
 	
 }
