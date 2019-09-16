@@ -71,15 +71,14 @@ public class AccountController {
 		if(validateID(arrOfStr[0])) {
 			studentID = arrOfStr[0];
 			registerUser(loginInfo);
+			System.out.println(studentID);
+			
+			if(!studentID.equals(null)) {
+				System.out.printf("Log in with: %s", studentID);
+			}
 		} else {
 			System.out.println("Incorrect student email/ID");
 		}
-		
-		System.out.println(studentID);
-		
-		if(!studentID.equals(null)) {
-			System.out.printf("Log in with: %s", studentID);
-    	}
 		
 	}
 }
