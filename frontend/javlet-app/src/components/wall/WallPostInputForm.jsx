@@ -4,7 +4,7 @@ import axios from 'axios';
 class WallPostInputForm extends Component {
     constructor(props) {
       super(props);
-      this.state = { 
+      this.state = {
           newPost: '', 
           postType: '',
           title: '', 
