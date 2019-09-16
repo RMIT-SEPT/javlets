@@ -26,7 +26,6 @@ class PostComponent extends Component{
         'http://localhost:8080/wall'
       )
       .then(result => {
-          console.log(result);
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
@@ -41,7 +40,6 @@ class PostComponent extends Component{
           this.setState({ studentPosts });
       })
       .catch(error => {
-        console.error("error: ", error);
         this.setState({
           error: `${error}`
         });

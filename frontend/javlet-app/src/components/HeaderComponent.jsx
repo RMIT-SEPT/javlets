@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import LoginandRegistration from './LoginandRegistration';
 import GAuthComponent from './GAuthComponent';
 
 class HeaderComponent extends Component{
@@ -20,7 +19,6 @@ render(){
     </ul>
   </div>
   <div>
-    <LoginandRegistration />
     <GAuthComponent />
   </div>
 </nav>
