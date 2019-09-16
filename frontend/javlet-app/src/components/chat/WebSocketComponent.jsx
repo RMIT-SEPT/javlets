@@ -180,7 +180,14 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-// usernameForm.addEventListener('submit', connect, true)
-// messageForm.addEventListener('submit', send, true)
-
+WebSocketComponent.jsx("username-page", {
+	usernameForm.getElementsByClassName("accent username-submit");
+	messageForm.getElementsByClassName("primary");
+	if(usernameForm){
+	usernameForm.addEventListener('submit', connect, true)
+	}
+	if(messageForm){
+	messageForm.addEventListener('submit', send, true)
+	}
+}
 export default WebSocketComponent;
