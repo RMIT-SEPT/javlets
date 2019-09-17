@@ -27,7 +27,14 @@ matrix:
     - npm install
     script:
     - npm test
-    - gcloud -q app deploy
+    # - gcloud -q app deploy
+    deploy:
+      provider: gae
+      skip_cleanup: true
+      keyfile: ../../client-secret.json
+      project: javets
+      on:
+        branch: development
 
 # before_install:
 # # [START auth]
