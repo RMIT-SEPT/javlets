@@ -23,7 +23,6 @@ class ChatComponent extends Component {
     return axios
       .get("http://localhost:8080/chat")
       .then(result => {
-        console.log(result);
         const messages = result.data.map(obj => ({
           messageContent: obj.messageContent,
           sender: obj.sender,
@@ -69,7 +68,7 @@ class ChatComponent extends Component {
                   id="dialogueForm"
                   onSubmit={this.handleSubmit}
                   name="dialogueForm"
-                  nameForm="dialogueForm"
+                  nameform="dialogueForm"
                 >
                     <div className="input-group clearfix">
                       <input
@@ -109,9 +108,6 @@ class ChatComponent extends Component {
       to: this.state.to,
       id: Date.now()
     };
-
-    console.log("handleSubmitted");
-
     return axios.post("http://localhost:8080/chat/newMessage", newItem);
   }
 }

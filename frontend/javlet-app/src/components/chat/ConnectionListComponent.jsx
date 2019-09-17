@@ -10,6 +10,7 @@ render(){
       <ConnectComponent type={this.props.type}/>
       <ConnectComponent type={this.props.type}/>
       <ConnectComponent type={this.props.type}/>
+      
     </div>
    );
 }

@@ -5,8 +5,59 @@ import java.util.List;
 
 public class StudentAccountBean {
 
+	private String email;
+	private String givenName;
+	private String familyName;
+	private String googleID;
+	private String imageUrl;
+	
 	private String username;
 	private List<StudentAccountBean> connections;
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getGivenName() {
+		return givenName;
+	}
+
+	public void setGivenName(String givenName) {
+		this.givenName = givenName;
+	}
+
+	public String getFamilyName() {
+		return familyName;
+	}
+
+	public void setFamilyName(String familyName) {
+		this.familyName = familyName;
+	}
+
+	public String getGoogleID() {
+		return googleID;
+	}
+
+	public void setGoogleID(String googleID) {
+		this.googleID = googleID;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	
+	public StudentAccountBean() {
+		//initialise student account
+	}
 	
 	public StudentAccountBean(String username) {
 		this.username = username;
