@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,8 +65,7 @@ public class AccountController {
 	}
 	
 	@PostMapping(path="/login")
-    public boolean login(@RequestBody HashMap<String,String> loginInfo) {
-		boolean retVal = false;
+    public void login(@RequestBody HashMap<String,String> loginInfo) {
 		String[] arrOfStr = loginInfo.get("email").split("@");
 		String studentID = null;
 		
@@ -76,12 +76,21 @@ public class AccountController {
 			
 			if(!studentID.equals(null)) {
 				System.out.printf("Log in with: %s", studentID);
-				retVal = true;
+				validateLogin(true);
 			}
 		} else {
 			System.out.println("Incorrect student email/ID");
-			retVal = false;
+			validateLogin(false);
 		}
-		return retVal;		
+		
+	}
+	
+	@GetMapping(path = "/login")
+	public boolean validateLogin(boolean retVal) {
+		if(!retVal) {
+			return retVal;
+		} else {
+			return true;
+		}
 	}
 }
