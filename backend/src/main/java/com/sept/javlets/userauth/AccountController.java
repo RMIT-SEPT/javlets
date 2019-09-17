@@ -64,7 +64,8 @@ public class AccountController {
 	}
 	
 	@PostMapping(path="/login")
-    public void login(@RequestBody HashMap<String,String> loginInfo) {
+    public boolean login(@RequestBody HashMap<String,String> loginInfo) {
+		boolean retVal = false;
 		String[] arrOfStr = loginInfo.get("email").split("@");
 		String studentID = null;
 		
@@ -75,10 +76,12 @@ public class AccountController {
 			
 			if(!studentID.equals(null)) {
 				System.out.printf("Log in with: %s", studentID);
+				retVal = true;
 			}
 		} else {
 			System.out.println("Incorrect student email/ID");
+			retVal = false;
 		}
-		
+		return retVal;		
 	}
 }
