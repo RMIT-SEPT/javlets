@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import WallPostInputForm from './WallPostInputForm';
 
 class PostComponent extends Component{
   constructor(props) {
@@ -23,10 +22,10 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
+        // 'https://javlets-deployed.javets.appspot.com/wall'
         'http://localhost:8080/wall'
       )
       .then(result => {
-          console.log(result);
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
@@ -34,14 +33,11 @@ class PostComponent extends Component{
           const studentPosts = allPosts.filter(function(type){
             return type.type === "Student";
           })
-          // console.log("!!!")
-          // console.log(studentPosts)
           this.setState({ allPosts });
           this.setState({ mentorPosts });
           this.setState({ studentPosts });
       })
       .catch(error => {
-        console.error("error: ", error);
         this.setState({
           error: `${error}`
         });
@@ -59,20 +55,23 @@ class PostComponent extends Component{
     }
     return(
       <div>
-        <WallPostInputForm />
-        <h2>Filter Posts:</h2>
-        <input className="w3-radio" type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
-        <input className="w3-radio" type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />
-        <input className="w3-radio" type="radio" value="All" name="formSelect" onClick={this.handlePostTypeChange} /> Display All Posts<br />
-        <br />
-        {displayPosts.map(item => (  
-          <div className="post" key={item.id}>
-              <h2>{item.title}</h2>
-              <p>{item.body}</p>
-              <h4> By {item.author} ({item.type})</h4>
-          </div>
+        <div>
+          <h2>Filter Posts:</h2>
+          <input className="w3-radio" type="radio" value="Mentor"   name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
+          <input className="w3-radio" type="radio" value="Student"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />
+          <input className="w3-radio" type="radio" value="All"      name="formSelect" onClick={this.handlePostTypeChange} /> Display All Posts<br />
+          <br />
+        </div>
+        <div>
+          {displayPosts.map(item => (  
+            <div className="post" key={item.id}>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+                <h4> By {item.author} ({item.type})</h4>
+            </div>
           ))}
         </div>
+      </div>
     );
   }
 
