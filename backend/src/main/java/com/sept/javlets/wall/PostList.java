@@ -19,7 +19,7 @@ public class PostList {
 		this.posts = new ArrayList<PostBean>();
 		posts.add(new PostBean("Student", "A Test", "Learn to Dance 2", new StudentAccountBean("Williams"), ++idCounter));
 		posts.add(new PostBean("Mentor", "B Test", "Learn about Microservices 2", new StudentAccountBean("Johnson"), ++idCounter));
-		posts.add(new PostBean("Sham", "C Test", "Learn about Angular", new StudentAccountBean("Cello"), ++idCounter));
+		posts.add(new PostBean("Mentor", "C Test", "Learn about Angular", new StudentAccountBean("Cello"), ++idCounter));
 	}
 	
 	public void addPost(PostBean post) {
