@@ -2,6 +2,8 @@ package com.sept.javlets.userauth;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.HashMap;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -46,9 +48,22 @@ class AccountControllerTest {
 		StudentAccountBean user = accountController.getUser("Alice");
 		assertEquals("Alice", user.getUsername());
 		assertEquals(0, user.getConnections().size());
-		
 		accountController.removeUser("Alice");
 	}
+	
+	@Test
+	@DisplayName("User Attributes Test with gauth")
+	void testGAuth() {
+		HashMap<String, String> loginInfo = new HashMap<String,String>();
+		loginInfo.put("email", "s3333333@student.rmit.edu.au");
+		loginInfo.put("name", "Alice");
+		loginInfo.put("imageUrl", "something");
+		StudentAccountBean user = accountController.registerUser(loginInfo);
+		assertEquals("Alice", user.getUsername());
+		assertEquals("s3333333@student.rmit.edu.au", user.getEmail());
+		accountController.removeUser("Alice");
+	}
+	
 	
 	@Test
 	@DisplayName("Add Connections Test")
