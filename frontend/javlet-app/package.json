@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@stomp/stompjs": "^5.4.2",
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "cross-env": "^5.2.1",
@@ -13,10 +12,10 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-google-login": "^5.0.5",
+    "react-new-window": "^0.1.2",
     "react-scripts": "3.0.1",
-    "sockjs": "^0.3.19",
-    "sockjs-client": "^1.4.0",
-    "sockjs-client-node": "^1.0.0"
+    "react-webcam": "^3.0.1",
+    "typescript": "^3.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
