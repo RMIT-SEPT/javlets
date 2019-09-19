@@ -75,9 +75,9 @@ public class PostBean {
 		this.id = id;
 	}
 	
-//	public String toString() {
-//		return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
-//	}
+	public String toString() {
+		return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
+	}
 
 	//TODO: Implement
 //	public PrivacySetting getPrivacy() {
