@@ -6,8 +6,10 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "cross-env": "^5.2.1",
+    "install": "^0.13.0",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
+    "npm": "^6.11.3",
     "popper.js": "^1.15.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -15,6 +17,8 @@
     "react-new-window": "^0.1.2",
     "react-scripts": "3.0.1",
     "react-webcam": "^3.0.1",
+    "sockjs": "^0.3.19",
+    "stomp": "^0.1.1",
     "typescript": "^3.6.3"
   },
   "scripts": {
