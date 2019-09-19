@@ -1,33 +1,58 @@
 import React, { Component } from 'react'
 import Webcam from "react-webcam";
-import NewWindow from 'react-new-window'
-// import PostComponent from './../wall/PostComponent';
+// import NewWindow from 'react-new-window';
+import LiveChatCommenting from './LiveChatCommenting';
 
 
 class WebCamCapture extends Component {
+
+  enableWebcam = () => this.setState({ webcamEnabled: true });
+  disableWebCam = () => this.setState({webcamEnabled: false});
+
   constructor(props) {
-    super(props)
-    this.state = {
-    };
+    super(props);
+    this.state = { webcamEnabled: false };
   }
 
   render() {
     const videoConstraints = {
       facingMode: "user"
     };
- 
     return (
-      <NewWindow>
-      <div className="body-item wall">
-        <h1>Live Stream</h1>
-        <Webcam videoConstraints={videoConstraints} />
-        {/* <PostComponent posts={this.state.posts} /> */}
-        {/* implement a dedicated wall for each live session so comments can be handled */}
+      <div>
+        {this.state.webcamEnabled ? (
+          <>
+          <button type="disable" onClick={this.disableWebCam}>
+            Disable webcam
+          </button>
+          <br /><Webcam videoConstraints={videoConstraints} />
+
+          <h2>Comments </h2>
+          <LiveChatCommenting />
+          </>
+        ):(
+          <>
+          <button type="enable" onClick={this.enableWebcam}>
+            Make Live Stream
+          </button>
+          <button type="watch" onClick={this.enableWebcam}>
+            Watch Live Steam
+          </button>
+          </>
+        )}
+        {/* ... */}
       </div>
-      </NewWindow>
-        
     );
   }
+
+      // <NewWindow>
+      //   <div>
+      //     <h1>Live Stream</h1>
+      //     <Webcam videoConstraints={videoConstraints} />
+      //     <LiveChatCommenting />
+      //   </div>
+      // </NewWindow>
+    
 }
 
 // const WebcamComponent = () => <Webcam />;
