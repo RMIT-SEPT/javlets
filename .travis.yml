@@ -9,7 +9,7 @@ matrix:
     - cd backend
     script: 
     - mvn test -B
-    - apt-get install google-cloud-sdk-app-engine-java
+    - sudo apt-get install google-cloud-sdk-app-engine-java
     - mvn appengine:deploy
   - language: node_js
     before_install:
