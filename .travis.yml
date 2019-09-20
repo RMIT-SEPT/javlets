@@ -22,8 +22,8 @@ matrix:
       # skip_cleanup: true
       keyfile: ./client-secret.json
       project: javets
-      # on:
-      #   branch: all
+      on:
+        branch: gcloud-backend-config
   - language: node_js
     before_install:
     - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
