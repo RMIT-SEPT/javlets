@@ -140,15 +140,10 @@
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>2.0.0</version>
 				<configuration>
-					<deploy.projectId>javets</deploy.projectId>
+					<stage.enableJarSplitting>true</stage.enableJarSplitting>
+					<deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
 				</configuration>
             </plugin>
-
-			<plugin>
-			   <groupId>com.google.appengine</groupId>
-			   <artifactId>appengine-maven-plugin</artifactId>
-			   <version>1.9.76</version>
-			</plugin>
 
 		</plugins>
 	</build>
