@@ -14,7 +14,7 @@ matrix:
     before_script:
     # - cd backend
     script: 
-    - mvn test -B
+    # - mvn test -B
     # - mvn appengine:deploy
     deploy:
       provider: gae
