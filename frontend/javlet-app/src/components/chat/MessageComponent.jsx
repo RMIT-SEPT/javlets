@@ -4,9 +4,31 @@ import Stomp from "@stomp/stompjs"
 
 class MessageComponent extends Component{
     state = {  }
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            usernamePage: document.querySelector('#username-page'),
+            chatPage: document.querySelector('#chat-page'),
+            usernameForm: document.querySelector('#usernameForm'),
+            messageForm: document.querySelector('#messageForm'),
+            messageInput: document.querySelector('#message'),
+            messageArea: document.querySelector('#messageArea'),
+            connectingElement: document.querySelector('.connecting'),
+            
+            stompClient: null,
+            username: null,
+            
+            colors: [
+                '#2196F3', '#32c787', '#00BCD4', '#ff5652',
+                '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
+            ]
+        };  
+      }
+
 render(){
    return(
-   <React.Fragment>
+    <React.Fragment>
     <div id="username-page">
         <div class="username-page-container">
             <h1 class="title">Type your username</h1>
@@ -15,7 +37,7 @@ render(){
                     <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <button type="submit" id="accent username-submit">Start Chatting</button>
+                    <button type="submit" class="accent username-submit">Start Chatting</button>
                 </div>
             </form>
         </div>
@@ -36,7 +58,7 @@ render(){
                 <div class="form-group">
                     <div class="input-group clearfix">
                         <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                        <button type="submit" id="primary">Send</button>
+                        <button type="submit" class="primary">Send</button>
                     </div>
                 </div>
             </form>
@@ -45,81 +67,63 @@ render(){
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-    {/* <script src="/js/main.js"></script> */}
-	</React.Fragment>
+    <script src="/js/main.js"></script>
+    </React.Fragment>
    );
 }
-}
-export default MessageComponent;
 
-var usernamePage = document.querySelector('#username-page');
-var chatPage = document.querySelector('#chat-page');
-var usernameForm = document.querySelector('#usernameForm');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
+connect(event) {
+    this.username = document.querySelector('#name').value.trim();
 
-var stompClient = null;
-var username = null;
-
-var colors = [
-    '#2196F3', '#32c787', '#00BCD4', '#ff5652',
-    '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
-];
-
-function connect(event) {
-    username = document.querySelector('#name').value.trim();
-
-    if(username) {
-        usernamePage.classList.add('hidden');
-        chatPage.classList.remove('hidden');
+    if(this.username) {
+        this.usernamePage.classList.add('hidden');
+        this.chatPage.classList.remove('hidden');
 
         var socket = new SockJS('/ws');
-        stompClient = Stomp.over(socket);
+        this.stompClient = Stomp.over(socket);
 
-        stompClient.connect({}, onConnected, onError);
+        this.stompClient.connect({}, this.onConnected, this.onError);
     }
     event.preventDefault();
 }
 
 
-function onConnected() {
+onConnected() {
     // Subscribe to the Public Topic
-    stompClient.subscribe('/topic/public', onMessageReceived);
+    this.stompClient.subscribe('/topic/public', this.onMessageReceived);
 
     // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    this.stompClient.send("/app/chat.addUser",
         {},
-        JSON.stringify({sender: username, type: 'JOIN'})
+        JSON.stringify({sender: this.username, type: 'JOIN'})
     )
 
-    connectingElement.classList.add('hidden');
+    this.connectingElement.classList.add('hidden');
 }
 
 
-function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
+onError(error) {
+    this.connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+    this.connectingElement.style.color = 'red';
 }
 
 
-function sendMessage(event) {
-    var messageContent = messageInput.value.trim();
-    if(messageContent && stompClient) {
+sendMessage(event) {
+    var messageContent = this.messageInput.value.trim();
+    if(messageContent && this.stompClient) {
         var chatMessage = {
-            sender: username,
-            content: messageInput.value,
+            sender: this.username,
+            content: this.messageInput.value,
             type: 'CHAT'
         };
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
+        this.stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
+        this.messageInput.value = '';
     }
     event.preventDefault();
 }
 
 
-function onMessageReceived(payload) {
+onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
 
     var messageElement = document.createElement('li');
@@ -136,7 +140,7 @@ function onMessageReceived(payload) {
         var avatarElement = document.createElement('i');
         var avatarText = document.createTextNode(message.sender[0]);
         avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        avatarElement.style['background-color'] = this.getAvatarColor(message.sender);
 
         messageElement.appendChild(avatarElement);
 
@@ -152,29 +156,28 @@ function onMessageReceived(payload) {
 
     messageElement.appendChild(textElement);
 
-    messageArea.appendChild(messageElement);
-    messageArea.scrollTop = messageArea.scrollHeight;
+    this.messageArea.appendChild(messageElement);
+    this.messageArea.scrollTop = this.messageArea.scrollHeight;
 }
 
 
-function getAvatarColor(messageSender) {
+getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
         hash = 31 * hash + messageSender.charCodeAt(i);
     }
-    var index = Math.abs(hash % colors.length);
-    return colors[index];
+    var index = Math.abs(hash % this.colors.length);
+    return this.colors[index];
 }
-
-// usernameForm.addEventListener('submit', connect, true)
-// messageForm.addEventListener('submit', sendMessage, true)
-
-var el = document.getElementById('accent username-submit');
-var el2 = document.getElementById('primary');
-
-if(el){
-    usernameForm.addEventListener('submit', connect, true)
+componentDidMount(){
+    this.usernameForm.addEventListener('submit', this.connect, true)
+    this.messageForm.addEventListener('submit', this.sendMessage, true)
 }
-if(el2){
-messageForm.addEventListener('submit', sendMessage, true)
+ 
 }
+export default MessageComponent;
+
+// 'use strict';
+
+
+

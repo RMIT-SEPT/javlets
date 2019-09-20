@@ -10,25 +10,14 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @EnableWebSocketMessageBroker
 public class WsConfig implements WebSocketMessageBrokerConfigurer{
 	@Override
-	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/javlets").withSockJS();
-	}
-	
-	@Override
-//	public void configureMessageBroker(MessageBrokerRegistry registry) {
-//		registry.enableSimpleBroker("/topic");
-//		registry.setApplicationDestinationPrefixes("/app");
-//	}
-	
-	public void configureMessageBroker(MessageBrokerRegistry registry) {
-	    registry.setApplicationDestinationPrefixes("/app");
+    public void registerStompEndpoints(StompEndpointRegistry registry) {
+        registry.addEndpoint("/ws").withSockJS();
+    }
 
-	    // Use this for enabling a Full featured broker like RabbitMQ
-	    registry.enableStompBrokerRelay("/topic")
-	            .setRelayHost("localhost")
-	            .setRelayPort(61613)
-	            .setClientLogin("guest")
-	            .setClientPasscode("guest");
-	}
+    @Override
+    public void configureMessageBroker(MessageBrokerRegistry registry) {
+        registry.setApplicationDestinationPrefixes("/app");
+        registry.enableSimpleBroker("/topic");
+    }
 	
 }

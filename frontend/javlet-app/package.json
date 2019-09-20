@@ -22,7 +22,7 @@
     "react-websocket": "^2.0.2",
     "sockjs": "^0.3.19",
     "stomp": "^0.1.1",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
     "yarn": "^1.17.3"
   },
   "scripts": {
