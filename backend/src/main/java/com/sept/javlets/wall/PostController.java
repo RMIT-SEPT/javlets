@@ -19,8 +19,9 @@ import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.StudentAccountBean;
 
-// @CrossOrigins(origins = "https://javlets-deployed.javets.appspot.com/")
-@CrossOrigin(origins = "http://localhost:3000")
+// @CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://javlets-deployed-dot-javets.appspot.com/")
+// @CrossOrigin(origins = 'https://javlets-frontend-dot-javets.appspot.com/')
 @RestController
 @RequestMapping("/wall")
 public class PostController {
