@@ -22,10 +22,10 @@ matrix:
       skip_cleanup: true
       keyfile: ./client-secret.json
       project: javets
-      branches:
-        only:
-        - gcloud-backend-config
-        - development
+      # branches:
+      #   only:
+      #   - gcloud-backend-config
+      #   - development
 
 
   - language: node_js
