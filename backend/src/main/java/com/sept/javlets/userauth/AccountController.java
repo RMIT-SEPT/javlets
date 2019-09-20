@@ -36,7 +36,7 @@ public class AccountController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping(path="/${username}")
+	@GetMapping(path="/{username}")
 	public StudentAccountBean getUser(@PathVariable String username) {
 		return userRepository.findByUsername(username);
 	}
@@ -46,7 +46,7 @@ public class AccountController {
 		userRepository.deleteAll();
 	}
 	
-	@DeleteMapping(path="/${username}")
+	@DeleteMapping(path="/{username}")
 	public void removeUser(@PathVariable String username) {
 		userRepository.delete(userRepository.findByUsername(username));
 	}
