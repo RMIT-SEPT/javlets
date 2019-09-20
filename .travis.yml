@@ -12,7 +12,7 @@ matrix:
     # - sudo apt-get install google-cloud-sdk-app-engine-java
     # - gcloud components install app-engine-java
     before_script:
-    # - cd backend
+    - cd backend
     script: 
     # - mvn test -B
     # - mvn appengine:deploy
