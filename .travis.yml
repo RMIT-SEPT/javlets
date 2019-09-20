@@ -16,7 +16,7 @@ matrix:
     # - cd backend
     script: 
     - mvn test -B
-    # - mvn appengine:deploy
+    - mvn appengine:deploy
     deploy:
       provider: gae
       skip_cleanup: true
