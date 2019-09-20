@@ -142,6 +142,7 @@
 				<configuration>
 					<stage.enableJarSplitting>true</stage.enableJarSplitting>
 					<deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
+					<deploy.version>GCLOUD_CONFIG</deploy.version>
 				</configuration>
             </plugin>
 
