@@ -3,8 +3,8 @@ matrix:
   - language: java
     sudo: true
     before_install:
-    - chmod +x mvnw
     - cd backend
+    - chmod +x mvnw
     - openssl aes-256-cbc -K $encrypted_58574288ee15_key -iv $encrypted_58574288ee15_iv -in client-secret.json.enc -out client-secret.json -d
     - gcloud auth activate-service-account --key-file client-secret.json
 
