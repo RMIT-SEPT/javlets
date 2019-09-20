@@ -18,6 +18,11 @@ public class WsConfig implements WebSocketMessageBrokerConfigurer{
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic");
+//        registry.enableStompBrokerRelay("/topic")
+//        .setRelayHost("localhost")
+//        .setRelayPort(3000)
+//        .setClientLogin("guest")
+//        .setClientPasscode("guest");
     }
 	
 }

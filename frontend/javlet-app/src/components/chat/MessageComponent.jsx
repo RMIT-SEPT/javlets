@@ -79,7 +79,7 @@ connect(event) {
         this.usernamePage.classList.add('hidden');
         this.chatPage.classList.remove('hidden');
 
-        var socket = new SockJS('/ws');
+        var socket = new SockJS('/javlets');
         this.stompClient = Stomp.over(socket);
 
         this.stompClient.connect({}, this.onConnected, this.onError);
@@ -169,7 +169,7 @@ getAvatarColor(messageSender) {
     var index = Math.abs(hash % this.colors.length);
     return this.colors[index];
 }
-componentDidMount(){
+componentWillMount(){
     this.usernameForm.addEventListener('submit', this.connect, true)
     this.messageForm.addEventListener('submit', this.sendMessage, true)
 }

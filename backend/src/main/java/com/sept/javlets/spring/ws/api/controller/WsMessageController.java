@@ -11,7 +11,7 @@ import com.sept.javlets.spring.ws.api.model.WsMessage;
 @Controller
 public class WsMessageController {
 	
-	@MessageMapping("/chat.send")
+	@MessageMapping("/chat.sendMessage")
 	@SendTo("/topic/public")
 	public WsMessage sendmesageMessage(@Payload WsMessage chatMessage) {
 		return chatMessage;
