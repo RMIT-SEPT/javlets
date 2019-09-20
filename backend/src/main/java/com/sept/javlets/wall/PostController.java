@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sept.javlets.userauth.AccountController;
 import com.sept.javlets.userauth.StudentAccountBean;
 
-// @CrossOrigins(origins = "https://javlets-deployed.javets.appspot.com/")
-@CrossOrigin(origins = "http://localhost:3000")
+// @CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://javlets-deployed-dot-javets.appspot.com/")
+// @CrossOrigin(origins = 'https://javlets-frontend-dot-javets.appspot.com/')
 @RestController
 public class PostController {
 	

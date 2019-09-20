@@ -3,17 +3,26 @@ matrix:
   - language: java
     # sudo: false
     before_install:
-    - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
+    - cd backend
+    - openssl aes-256-cbc -K $encrypted_58574288ee15_key -iv $encrypted_58574288ee15_iv -in client-secret.json.enc -out client-secret.json -d
     - gcloud auth activate-service-account --key-file client-secret.json
+
     install: 
-    - gcloud config set project javets
+    # - gcloud config set project javets
     # - sudo apt-get install google-cloud-sdk-app-engine-java
     # - gcloud components install app-engine-java
     before_script:
-    - cd backend
+    # - cd backend
     script: 
     - mvn test -B
-    - mvn appengine:deploy
+    # - mvn appengine:deploy
+    deploy:
+      provider: gae
+      # skip_cleanup: true
+      keyfile: ./client-secret.json
+      project: javets
+      on:
+        branch: all
   - language: node_js
     before_install:
     - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
