@@ -138,7 +138,7 @@
 			<plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.0.0</version>
+                <version>2.1.0</version>
 				<configuration>
 					<stage.enableJarSplitting>true</stage.enableJarSplitting>
 					<deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
