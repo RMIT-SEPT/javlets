@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import SockJS from "sockjs-client"
-import Stomp from "stomp/stompjs"
+import Stomp from "@stomp/stompjs"
 
 class MessageComponent extends Component{
     state = {  }
@@ -15,7 +15,7 @@ render(){
                     <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="accent username-submit">Start Chatting</button>
+                    <button type="submit" id="accent username-submit">Start Chatting</button>
                 </div>
             </form>
         </div>
@@ -36,7 +36,7 @@ render(){
                 <div class="form-group">
                     <div class="input-group clearfix">
                         <input type="text" id="message" placeholder="Type a message..." autocomplete="off" class="form-control"/>
-                        <button type="submit" class="primary">Send</button>
+                        <button type="submit" id="primary">Send</button>
                     </div>
                 </div>
             </form>
@@ -166,5 +166,15 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-usernameForm.addEventListener('submit', connect, true)
+// usernameForm.addEventListener('submit', connect, true)
+// messageForm.addEventListener('submit', sendMessage, true)
+
+var el = document.getElementById('accent username-submit');
+var el2 = document.getElementById('primary');
+
+if(el){
+    usernameForm.addEventListener('submit', connect, true)
+}
+if(el2){
 messageForm.addEventListener('submit', sendMessage, true)
+}
