@@ -9,11 +9,11 @@ matrix:
     - gcloud auth activate-service-account --key-file client-secret.json
 
     install: 
-    # - gcloud config set project javets
-    # - sudo apt-get install google-cloud-sdk-app-engine-java
-    # - gcloud components install app-engine-java
+    - gcloud config set project javets
+    - sudo apt-get install google-cloud-sdk-app-engine-java
+    - gcloud components install app-engine-java
     before_script:
-    # - cd backend
+    - cd backend
     script: 
     - mvn test -B
     - mvn appengine:deploy
