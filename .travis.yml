@@ -22,9 +22,7 @@ matrix:
       skip_cleanup: true
       keyfile: ./client-secret.json
       project: javets
-      branches:
-        only:
-        - development
+      on: development
 
 
   - language: node_js
@@ -50,9 +48,7 @@ matrix:
       skip_cleanup: true
       keyfile: ../../client-secret.json
       project: javets
-      branches: 
-        only:
-        - development
+      on: development
 
 # before_install:
 # # [START auth]
