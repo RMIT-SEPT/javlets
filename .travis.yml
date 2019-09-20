@@ -16,16 +16,16 @@ matrix:
     # - cd backend
     script: 
     - mvn test -B
-    - mvn appengine:deploy
-    deploy:
-      provider: gae
-      skip_cleanup: true
-      keyfile: ./client-secret.json
-      project: javets
-      on:
-        branch: 
-          - gcloud-backend-config
-          - development
+    # - mvn appengine:deploy
+    # deploy:
+    #   provider: gae
+    #   skip_cleanup: true
+    #   keyfile: ./client-secret.json
+    #   project: javets
+    #   on:
+    #     branch: 
+    #       - gcloud-backend-config
+    #       - development
 
 
   - language: node_js
