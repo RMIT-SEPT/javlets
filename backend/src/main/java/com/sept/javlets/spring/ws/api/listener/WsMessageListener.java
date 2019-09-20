@@ -24,10 +24,12 @@ public class WsMessageListener {
 	 @EventListener
 	    public void handleWebSocketConnectListener(SessionConnectedEvent event) {
 	        logger.info("Received a new web socket connection");
+	        System.out.println("Got a message1");
 	    }
 	
 	 @EventListener
 	    public void handleWebSocketDisconnectListener(SessionDisconnectEvent event) {
+		 	System.out.println("got another message");
 	        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
 	        String username = (String) headerAccessor.getSessionAttributes().get("username");
