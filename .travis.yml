@@ -22,10 +22,10 @@ matrix:
       skip_cleanup: true
       keyfile: ./client-secret.json.enc
       project: javets
-      on:
-        branch: 
-          - gcloud-backend-config
-          - development
+      branches:
+        only:
+        - gcloud-backend-config
+        - development
 
 
   - language: node_js
@@ -51,8 +51,9 @@ matrix:
       skip_cleanup: true
       keyfile: ../../client-secret.json.enc
       project: javets
-      on:
-        branch: development
+      branches: 
+        only:
+        - development
 
 # before_install:
 # # [START auth]
