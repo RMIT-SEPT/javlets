@@ -2,61 +2,51 @@ package com.sept.javlets.wall;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.HashMap;
-
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.sept.javlets.userauth.AccountController;
+import com.sept.javlets.mongo.PostRepository;
+import com.sept.javlets.mongo.UserRepository;
+import com.sept.javlets.userauth.StudentAccountBean;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class PostTest {
 
-	private static PostController postController;
-	private static AccountController accountController;
+	@Autowired
+	private UserRepository userRepository;
 	
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		accountController = new AccountController();
-		postController = new PostController(accountController);
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
+	@Autowired
+	private PostRepository postRepository;
 
 	@BeforeEach
 	void setUp() throws Exception {
-		accountController.registerUser("TestUser1");
+		StudentAccountBean user = new StudentAccountBean("Test User");
+		userRepository.save(user);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		postController.removeAllPosts();
-		accountController.removeUser("TestUser1");
+		postRepository.deleteAll();
+		userRepository.deleteAll();
 	}
 
 	@Test
+	@DisplayName("Making a Post")
 	void testPost() {
-		HashMap<String, String> samplePost = new HashMap<String, String>();
-		samplePost.put("postType", "Student");
-		samplePost.put("title", "Test Title 1");
-		samplePost.put("body", "Test Post Body 1");
-		samplePost.put("author", "TestUser1");
-		samplePost.put("id", "123456");
+		postRepository.save(new PostBean("Student", 
+										"A Tragedy", 
+										"Did you ever hear the story of Darth Plagueis the Wise?", 
+										userRepository.findByUsername("Test User")
+										));
 		
-		postController.newPost(samplePost);
-		
-		// Includes hardcoded test posts in the PostList class, when they get removed then 
-		//   the assert statement should change
-		assertEquals(4, postController.getAllPosts().size());
-	}
-	
-	@Test
-	void test() {
-		
+		assertEquals(1, postRepository.count());
 	}
 
 }
