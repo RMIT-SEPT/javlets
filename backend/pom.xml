@@ -104,7 +104,7 @@
 			<artifactId>spring-data-releasetrain</artifactId>
 			<version>Lovelace-SR9</version>
 			<type>pom</type>
-			<scope>import</scope>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
