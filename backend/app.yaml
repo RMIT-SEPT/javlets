@@ -12,7 +12,7 @@
 # limitations under the License.
 
 # [START gae_flex_quickstart_yaml]
-runtime: java
+runtime: java8
 env: flex
 service: javlets-deployed
 
