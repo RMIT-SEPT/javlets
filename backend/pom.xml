@@ -141,7 +141,7 @@
                 <version>2.1.0</version>
 				<configuration>
 					<stage.enableJarSplitting>true</stage.enableJarSplitting>
-					<deploy.projectId>GCLOUD_CONFIG</deploy.projectId>
+					<deploy.projectId>javets</deploy.projectId>
 					<deploy.version>GCLOUD_CONFIG</deploy.version>
 				</configuration>
             </plugin>
