@@ -11,7 +11,8 @@ matrix:
     install: 
     # - gcloud config set project javets
     # - sudo apt-get install google-cloud-sdk-app-engine-java
-    # - gcloud components install app-engine-java
+    # - gcloud components install 
+    - app-engine-java
     before_script:
     # - cd backend
     script: 
@@ -20,7 +21,7 @@ matrix:
     deploy:
       provider: gae
       skip_cleanup: true
-      keyfile: ./client-secret.json.enc
+      keyfile: ./client-secret.json
       project: javets
       branches:
         only:
@@ -49,7 +50,7 @@ matrix:
     deploy:
       provider: gae
       skip_cleanup: true
-      keyfile: ../../client-secret.json.enc
+      keyfile: ../../client-secret.json
       project: javets
       branches: 
         only:
