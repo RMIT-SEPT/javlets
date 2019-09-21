@@ -5,8 +5,9 @@ class MessageComponent extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            app: require('express')(),
-            http: require('http').createServer(this.app),
+            express: require('express'),
+            app: express(),
+            server: require('http').createServer(this.app),
             io: require('socket.io')(this.http)
         };
         this.submitForm = this.submitForm.bind(this);

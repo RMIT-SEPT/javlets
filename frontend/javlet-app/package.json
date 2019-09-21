@@ -21,7 +21,7 @@
     "react-stomp": "^4.1.1",
     "react-webcam": "^3.0.1",
     "react-websocket": "^2.0.2",
-    "socket.io": "^2.3.0",
+    "socket.io": "*",
     "sockjs": "^0.3.19",
     "stomp": "^0.1.1",
     "typescript": "^3.6.3",
