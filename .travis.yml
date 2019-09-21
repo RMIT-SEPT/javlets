@@ -9,6 +9,15 @@ matrix:
     
     script: 
     - mvn test -B
+    - mvn clean package
+    after_success:
+    - docker build -t dimmerworld/javlet-back .
+    deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash docker_push
+        on:
+            commit_message = /(#deploy)/
 
 #Frontend 
   - language: node_js
@@ -28,10 +37,11 @@ matrix:
     - npm install
     script:
     - npm test
+    after_success:
     - docker build -t dimmerworld/javlet-front .
     deploy:
         provider: script
         skip_cleanup: true
         script: bash docker_push
         on:
-            branch: docker
+            commit_message = /(#deploy)/
