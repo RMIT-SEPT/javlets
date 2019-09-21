@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import WallPostInputForm from './WallPostInputForm';
 
 class PostComponent extends Component{
   constructor(props) {
@@ -23,7 +22,8 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
-        'http://localhost:8080/wall'
+        'https://javlets-deployed-dot-javets.appspot.com/wall'
+        // 'http://localhost:8080/wall'
       )
       .then(result => {
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
@@ -33,8 +33,6 @@ class PostComponent extends Component{
           const studentPosts = allPosts.filter(function(type){
             return type.type === "Student";
           })
-          // console.log("!!!")
-          // console.log(studentPosts)
           this.setState({ allPosts });
           this.setState({ mentorPosts });
           this.setState({ studentPosts });
@@ -58,7 +56,6 @@ class PostComponent extends Component{
     return(
       <div>
         <div>
-          <WallPostInputForm />
           <h2>Filter Posts:</h2>
           <input className="w3-radio" type="radio" value="Mentor"   name="formSelect" onClick={this.handlePostTypeChange} /> Display Mentor Posts <br />
           <input className="w3-radio" type="radio" value="Student"  name="formSelect" onClick={this.handlePostTypeChange} /> Display Student Posts<br />

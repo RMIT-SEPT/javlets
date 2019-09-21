@@ -3,16 +3,31 @@ package com.sept.javlets.userauth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentAccountBean {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "students")
+public class StudentAccountBean {
+	
+	@Id
+	private String id;
+	
 	private String email;
 	private String givenName;
 	private String familyName;
 	private String googleID;
 	private String imageUrl;
-	
 	private String username;
 	private List<StudentAccountBean> connections;
+	
+	public StudentAccountBean() {
+		//initialise student account
+	}
+	
+	public StudentAccountBean(String username) {
+		this.username = username;
+		this.connections = new ArrayList<StudentAccountBean>();
+	}
 	
 	public String getEmail() {
 		return email;
@@ -53,15 +68,13 @@ public class StudentAccountBean {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-
 	
-	public StudentAccountBean() {
-		//initialise student account
+	public String getId() {
+		return id;
 	}
-	
-	public StudentAccountBean(String username) {
-		this.username = username;
-		this.connections = new ArrayList<StudentAccountBean>();
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getUsername() {
@@ -83,5 +96,6 @@ public class StudentAccountBean {
 	public boolean removeConnection(StudentAccountBean connection) {
 		return connections.remove(connection);
 	}
+
 	
 }

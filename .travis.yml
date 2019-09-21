@@ -1,22 +1,81 @@
 matrix:
   include:
-    - language: java
-      sudo: false
-      before_script:
-        - cd backend
-      script: mvn test -B
+  - language: java
+    sudo: true
+    before_install:
+    - cd backend
+    # - chmod +x mvnw
+    - openssl aes-256-cbc -K $encrypted_58574288ee15_key -iv $encrypted_58574288ee15_iv -in client-secret.json.enc -out client-secret.json -d
+    - gcloud auth activate-service-account --key-file client-secret.json
 
-    - language: node_js
-      before_install:
-        - cd frontend/javlet-app
-      node_js:
-        - '8'
-      cache:
-        directories:
-            - node_modules
-      before_script:
-        - npm update
-      install:
-        - npm install
-      script:
-        - npm test
+    install: 
+    # - gcloud config set project javets
+    # - sudo apt-get install google-cloud-sdk-app-engine-java
+    # - gcloud components install app-engine-java
+    before_script:
+    # - cd backend
+    script: 
+    - mvn test -B
+    - mvn appengine:deploy
+    # deploy:
+    #   provider: gae
+    #   skip_cleanup: true
+    #   keyfile: ./client-secret.json
+    #   project: javets
+    #   on: gcloud-backend-config
+
+
+  - language: node_js
+    before_install:
+    - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
+    - gcloud auth activate-service-account --key-file client-secret.json
+    - cd frontend/javlet-app
+    node_js:
+    - '8'
+    cache:
+      directories:
+      - node_modules
+    before_script:
+    - npm update
+    install:
+    - gcloud config set project javets
+    - npm install
+    script:
+    - npm test
+    # - gcloud -q app deploy
+    deploy:
+      provider: gae
+      skip_cleanup: true
+      keyfile: ../../client-secret.json
+      project: javets
+      on: development
+
+# before_install:
+# # [START auth]
+# - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
+# - gcloud auth activate-service-account --key-file client-secret.json
+# - cd frontend/javlet-app/
+# # [END auth]
+# install:
+# - gcloud config set project javets
+# - npm install
+# script:
+# - npm test
+# - gcloud -q app deploy
+
+
+
+
+# [START deploy]
+# Deploy the app
+# - openssl aes-256-cbc -K $encrypted_7cadf327361e_key -iv $encrypted_7cadf327361e_iv -in client-secret.json.enc -out client-secret.json -d
+# - gcloud auth activate-service-account --key-file client-secret.json
+# deploy:
+#   provider: gae
+#   keyfile: ../../client-secret.json
+#   project: javets
+#   on:
+#     all_branches: true
+
+# [END deploy]
+

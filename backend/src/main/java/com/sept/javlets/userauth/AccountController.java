@@ -1,60 +1,58 @@
 package com.sept.javlets.userauth;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(origins = "http://localhost:3000")
-@RestController
-public class AccountController {
+import com.sept.javlets.mongo.UserRepository;
 
-	private StudentAccountBean studentAccount;
-	private HashMap<String, StudentAccountBean> accounts;
+@RestController
+@RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
+public class AccountController {
 	
+	@Autowired 
+	private UserRepository userRepository;
 	
-	public AccountController() {
-		this.accounts = new HashMap<String, StudentAccountBean>();
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public StudentAccountBean add(@RequestParam String username) {
+		StudentAccountBean user = new StudentAccountBean(username);
+		return userRepository.save(user);
 	}
 	
-	public StudentAccountBean registerUser(HashMap<String,String> loginInfo) {
-		if (!accounts.containsKey(loginInfo.get("name"))) {
-			
-			studentAccount = new StudentAccountBean(loginInfo.get("name"));
-			studentAccount.setEmail(loginInfo.get("email"));
-			studentAccount.setImageUrl(loginInfo.get("imageUrl"));
-			
-			accounts.put(loginInfo.get("name"), studentAccount);
-		}
-		
-		return accounts.get(loginInfo.get("name"));
+	@GetMapping
+	public List<StudentAccountBean> getAllUsers() {
+		return userRepository.findAll();
 	}
 	
-	public StudentAccountBean registerUser(String username) {
-		if (!accounts.containsKey(username)) {
-			studentAccount = new StudentAccountBean(username);
-			accounts.put(username, studentAccount);
-		}
-		return accounts.get(username);
+	@GetMapping(path="/{username}")
+	public StudentAccountBean getUser(@PathVariable String username) {
+		return userRepository.findByUsername(username);
 	}
 	
-	public boolean removeUser(String username) {
-		boolean removed = false;
-		if (accounts.remove(username) != null) {
-			removed = true;
-		}
-		return removed;
+	@DeleteMapping
+	public void removeAllUsers() {
+		userRepository.deleteAll();
 	}
 	
-	public StudentAccountBean getUser(String username) {
-		return accounts.get(username);
-	}
-	
-	public Map<String, StudentAccountBean> getAllAccounts() {
-		return accounts;
+	@DeleteMapping(path="/{username}")
+	public void removeUser(@PathVariable String username) {
+		userRepository.delete(userRepository.findByUsername(username));
 	}
 	
 	public boolean validateID(String ID) {
@@ -67,10 +65,12 @@ public class AccountController {
     public void login(@RequestBody HashMap<String,String> loginInfo) {
 		String[] arrOfStr = loginInfo.get("email").split("@");
 		String studentID = null;
-		
+		/////////////////////////////////////////////////////////////////////
+		// TODO: Create StudentAccountBean object properly with all fields //
+		/////////////////////////////////////////////////////////////////////
 		if(validateID(arrOfStr[0])) {
 			studentID = arrOfStr[0];
-			registerUser(loginInfo);
+			add(studentID);
 			System.out.println(studentID);
 			
 			if(!studentID.equals(null)) {

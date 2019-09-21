@@ -2,10 +2,17 @@ package com.sept.javlets.chat;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import com.sept.javlets.userauth.StudentAccountBean;
 
+@Document(collection="messages")
 public class MessageBean {
 
+	@Id
+	private String id;
+	
 	private String messageContent;
 	private StudentAccountBean sender;
 	private StudentAccountBean recipient;

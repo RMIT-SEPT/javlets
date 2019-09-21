@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import PostComponent from './PostComponent';
 import WebCamCapture from './../liveStream/webcam';
+import WallPostInputForm from './WallPostInputForm';
 
 
 class WallComponent extends Component{
+
+  enableLiveStream = () => this.setState({ liveStream: true });
+  disableLiveStream = () => this.setState({liveStream: false});
+  makeAPost = () => this.setState({makePost: true});
+  hideForm = () => this.setState({makePost: false});
+
   constructor(props) {
     super(props);
     this.state = {
-      liveStream: false
+      liveStream: false,
+      makePost: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -16,13 +24,37 @@ class WallComponent extends Component{
 
     return(
       <div className="body-item wall">
+        
+        {this.state.liveStream ? (
+          <>
+          <h1> Live Stream</h1>
+            <button type="disable" onClick={this.disableLiveStream}>
+              Display The Wall
+            </button>
+            <WebCamCapture />
+            </>
+            ) : ( 
+              <>
+              <h1>The Wall </h1>
+              {this.state.makePost ?( 
+                  <button type="disablePost" onClick={this.hideForm}>
+                    Hide Form
+                  </button>
+                  ):(
+                  <button type="enablePost" onClick={this.makeAPost}>
+                    Make a Post
+                  </button>
+                )}
+              <button type="enable" onClick={this.enableLiveStream}>
+                Display Video
+              </button>
+              {this.state.makePost ? (<WallPostInputForm />):(false)}
+                <div className="postList">
+                <PostComponent posts={this.state.posts} />
+                </div>
+              </>
+          )}
 
-        {this.state.liveStream ? (<WebCamCapture />) : ( false )}
-
-        <h1>The Wall <input className="w3-btn w3-blue" type="submit" value="Live Stream" onClick={this.handleSubmit}/></h1>
-          <div className="postList">
-          <PostComponent posts={this.state.posts} />
-          </div>
       </div>
     );
   }
@@ -34,6 +66,7 @@ class WallComponent extends Component{
   handleSubmit(event) {
     event.preventDefault();
     this.setState({ liveStream: true }); 
+    this.setState({ showWall: false });
   }
 }
 
