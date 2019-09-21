@@ -11,11 +11,15 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WsConfig implements WebSocketMessageBrokerConfigurer{
 	@Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").withSockJS();
+
+        registry.addEndpoint("/javlets").withSockJS();
+        System.out.println("in config1");
     }
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
+        System.out.println("in config2");
+
         registry.setApplicationDestinationPrefixes("/app");
         registry.enableSimpleBroker("/topic");
 //        registry.enableStompBrokerRelay("/topic")
