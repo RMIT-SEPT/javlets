@@ -10,7 +10,7 @@ import cookie from 'js-cookie';
 
 
 function BodyContent(props) {
-  if ( props.isloggedin) {
+  if (true) { // props.isloggedin
     return <React.Fragment>
       <ChatComponent />
       <WallComponent />
