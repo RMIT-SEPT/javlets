@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
 import axios from "axios";
-import MessageComponent from "./MessageComponent";
+// import MessageComponent from "./MessageComponent";
 
 class ChatComponent extends Component {
   constructor(props) {
