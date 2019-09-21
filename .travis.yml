@@ -25,7 +25,7 @@ matrix:
         script: bash docker_push
         on:
             all_branches: true
-            condition: $TRAVIS_TAG =~ /(#deploy)/
+            condition: $TRAVIS_COMMIT_MESSAGE == *"#deploy"*
 
 #Frontend 
   - language: node_js
@@ -60,4 +60,4 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            condition: $TRAVIS_TAG =~ /(#deploy)/
+            condition: $TRAVIS_COMMIT_MESSAGE == *"#deploy"*
