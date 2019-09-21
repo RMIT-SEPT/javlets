@@ -16,7 +16,7 @@ import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.StudentAccountBean;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://javlet.social/")
 @RestController
 @RequestMapping("/chat")
 public class MessageController {
