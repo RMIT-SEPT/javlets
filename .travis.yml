@@ -16,7 +16,7 @@ matrix:
     - mvn test -B
     - mvn clean package
     
-    after_success:
+    before_deploy:
     - docker build -t dimmerworld/javlet-back .
     
     deploy:
@@ -52,12 +52,13 @@ matrix:
     script:
     - npm test
     
-    after_success:
-    - docker build -t dimmerworld/javlet-front .
+    before_deploy:
+        - docker build -t dimmerworld/javlet-front .
     
     deploy:
         provider: script
         skip_cleanup: true
         script: bash docker_push
         on:
+            all_branches: true
             condition: $TRAVIS_COMMIT_MESSAGE == *"#deploy"*
