@@ -24,7 +24,8 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            condition: commit_message =~ /(#deploy)/
+            all_branches: true
+            condition: commit_message =~ /#deploy/
 
 #Frontend 
   - language: node_js
