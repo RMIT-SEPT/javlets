@@ -28,7 +28,7 @@ matrix:
     - npm install
     script:
     - npm test
-    - docker build -t javlet-frontend .
+    - docker build -t dimmerworld/javlet-front .
     deploy:
         provider: script
         skip_cleanup: true
