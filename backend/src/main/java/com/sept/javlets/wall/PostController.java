@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
-// @CrossOrigin(origins = "http://localhost:3000")
-//@CrossOrigin(origins = "http://javlet.social")
-// @CrossOrigin(origins = 'https://javlets-frontend-dot-javets.appspot.com/')
+@CrossOrigin(origins = "http://javlet.social:80")
 @RestController
 @RequestMapping("/wall")
 public class PostController {
