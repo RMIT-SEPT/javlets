@@ -20,7 +20,7 @@ import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 // @CrossOrigin(origins = "http://localhost:3000")
-@CrossOrigin(origins = "http://javlet.social")
+//@CrossOrigin(origins = "http://javlet.social")
 // @CrossOrigin(origins = 'https://javlets-frontend-dot-javets.appspot.com/')
 @RestController
 @RequestMapping("/wall")
