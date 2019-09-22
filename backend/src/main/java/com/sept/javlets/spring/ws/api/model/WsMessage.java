@@ -5,10 +5,6 @@ public class WsMessage {
     private String sender;
     private MessageType type;
 
-    public enum MessageType {
-        CHAT, LEAVE, JOIN
-    }
-
     public String getContent() {
         return content;
     }
@@ -31,5 +27,9 @@ public class WsMessage {
 
     public void setType(MessageType type) {
         this.type = type;
+    }
+
+    public enum MessageType {
+        CHAT, LEAVE, JOIN
     }
 }
