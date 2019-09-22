@@ -9,19 +9,18 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class WsMessageController {
-	
-	@MessageMapping("/chat.sendMessage")
-	@SendTo("/topic/public")
-	public WsMessage sendmesageMessage(@Payload WsMessage chatMessage) {
-		System.out.println("send message");
-		return chatMessage;
-	}
-	
-	@MessageMapping("/chat.register")
-	@SendTo("/topic/public")
-	public WsMessage register(@Payload WsMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-		System.out.println("register");
-		headerAccessor.getSessionAttributes().put("Username", chatMessage.getSender());
-		return chatMessage;
-	}	
+
+    @MessageMapping("/chat.register")
+    @SendTo("/topic/public")
+    public WsMessage register(@Payload WsMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        headerAccessor.getSessionAttributes().put("Username", chatMessage.getSender());
+        return chatMessage;
+    }
+
+    @MessageMapping("/chat.send")
+    @SendTo("/topic/public")
+    public WsMessage sendmesageMessage(@Payload WsMessage chatMessage) {
+        return chatMessage;
+    }
+
 }
