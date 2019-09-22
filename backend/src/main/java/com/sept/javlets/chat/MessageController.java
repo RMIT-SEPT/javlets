@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
-@CrossOrigin(origins = "http://javlet.social:80")
 @RestController
 @RequestMapping("/chat")
 public class MessageController {
