@@ -1,16 +1,16 @@
 package com.sept.javlets.mongo;
 
-import java.util.List;
-
+import com.sept.javlets.chat.MessageBean;
+import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import com.sept.javlets.chat.MessageBean;
-import com.sept.javlets.userauth.StudentAccountBean;
+import java.util.List;
 
 @Repository
 public interface MessageRepository extends MongoRepository<MessageBean, String> {
-	public List<MessageBean> findBySender(StudentAccountBean sender);
-	public List<MessageBean> findByRecipient(StudentAccountBean recipient);
-	
+    List<MessageBean> findBySender(StudentAccountBean sender);
+
+    List<MessageBean> findByRecipient(StudentAccountBean recipient);
+
 }
