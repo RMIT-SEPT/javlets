@@ -14,7 +14,7 @@ const responseGoogle = (response) => {
 
   cookie.set('isLogged', true)
   window.location.reload();
-  return axios.post("http://localhost:8080/login", newItem);
+  return axios.post("http://javlet.social:8080/login", newItem);
 }
 
 
