@@ -9,6 +9,7 @@
     "cross-env": "^5.2.1",
     "express": "^4.17.1",
     "install": "^0.13.0",
+    "mongodb": "^3.3.2",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",
     "npm": "^6.11.3",
@@ -31,7 +32,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+	"test": "jest --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"

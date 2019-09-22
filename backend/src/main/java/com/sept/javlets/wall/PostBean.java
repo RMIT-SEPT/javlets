@@ -2,77 +2,83 @@ package com.sept.javlets.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sept.javlets.userauth.StudentAccountBean;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Document(collection = "posts")
 public class PostBean {
 
-	//TODO: Implement
+    //TODO: Implement
 //	private PrivacySetting privacy;
-	
-	private String type;
-	private String title;
-	private String body;
-	private StudentAccountBean authorAccount;
-	private long id;
 
-	
-	public PostBean() {
-		
-	}
-	
-	public PostBean(String type, String title, String body, StudentAccountBean authorAccount, long id) {
-		this.type = type;
-		this.title = title;
-		this.body = body;
-		this.authorAccount = authorAccount;
-		this.id = id;
+    @Id
+    private String id;
+
+    private String type;
+    private String title;
+    private String body;
+    private StudentAccountBean authorAccount;
+
+    public PostBean() {
+
+    }
+
+    public PostBean(String type, String title, String body, StudentAccountBean authorAccount) {
+        this.type = type;
+        this.title = title;
+        this.body = body;
+        this.authorAccount = authorAccount;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
+    }
 
-	}
 
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public String getBody() {
-		return body;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public StudentAccountBean getAuthorAccount() {
-		return authorAccount;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	public void setAuthor(StudentAccountBean authorAccount) {
-		this.authorAccount = authorAccount;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public StudentAccountBean getAuthorAccount() {
+        return authorAccount;
+    }
 
-	//TODO: Implement
+    public void setAuthor(StudentAccountBean authorAccount) {
+        this.authorAccount = authorAccount;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String toString() {
+        return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
+    }
+
+    //TODO: Implement
 //	public PrivacySetting getPrivacy() {
 //		return privacy;
 //	}
@@ -80,7 +86,6 @@ public class PostBean {
 //	public void setPrivacy(PrivacySetting privacy) {
 //		this.privacy = privacy;
 //	}
-	
-	
-	
+
+
 }

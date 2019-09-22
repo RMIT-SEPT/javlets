@@ -12,13 +12,15 @@
 	</parent>
 	<groupId>com.sept</groupId>
 	<artifactId>javlets</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>0.2-PRE</version>
+	<packaging>jar</packaging>
 	<name>javlets</name>
 	<description>RMIT Social Application Backend</description>
 
 	<properties>
 		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -98,6 +100,19 @@
 			<version>5.4.2</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+		</dependency>
+    
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-releasetrain</artifactId>
+			<version>Lovelace-SR9</version>
+			<type>pom</type>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- RabbitMQ Starter Dependency -->
 		<dependency>
@@ -112,6 +127,16 @@
 			<artifactId>spring-boot-starter-reactor-netty</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		
+		<dependency>
+		  <groupId>de.flapdoodle.embed</groupId>
+		  <artifactId>de.flapdoodle.embed.mongo</artifactId>
+		</dependency>
+		
 	</dependencies>
 
 	<build>

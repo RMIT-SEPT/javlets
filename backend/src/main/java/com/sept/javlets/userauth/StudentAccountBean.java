@@ -1,87 +1,101 @@
 package com.sept.javlets.userauth;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Document(collection = "students")
 public class StudentAccountBean {
 
-	private String email;
-	private String givenName;
-	private String familyName;
-	private String googleID;
-	private String imageUrl;
-	
-	private String username;
-	private List<StudentAccountBean> connections;
-	
-	public String getEmail() {
-		return email;
-	}
+    @Id
+    private String id;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    private String email;
+    private String givenName;
+    private String familyName;
+    private String googleID;
+    private String imageUrl;
+    private String username;
+    private List<StudentAccountBean> connections;
 
-	public String getGivenName() {
-		return givenName;
-	}
+    public StudentAccountBean() {
+        //initialise student account
+    }
 
-	public void setGivenName(String givenName) {
-		this.givenName = givenName;
-	}
+    public StudentAccountBean(String username) {
+        this.username = username;
+        this.connections = new ArrayList<StudentAccountBean>();
+    }
 
-	public String getFamilyName() {
-		return familyName;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setFamilyName(String familyName) {
-		this.familyName = familyName;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getGoogleID() {
-		return googleID;
-	}
+    public String getGivenName() {
+        return givenName;
+    }
 
-	public void setGoogleID(String googleID) {
-		this.googleID = googleID;
-	}
+    public void setGivenName(String givenName) {
+        this.givenName = givenName;
+    }
 
-	public String getImageUrl() {
-		return imageUrl;
-	}
+    public String getFamilyName() {
+        return familyName;
+    }
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
+    public void setFamilyName(String familyName) {
+        this.familyName = familyName;
+    }
 
-	
-	public StudentAccountBean() {
-		//initialise student account
-	}
-	
-	public StudentAccountBean(String username) {
-		this.username = username;
-		this.connections = new ArrayList<StudentAccountBean>();
-	}
+    public String getGoogleID() {
+        return googleID;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public void setGoogleID(String googleID) {
+        this.googleID = googleID;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getImageUrl() {
+        return imageUrl;
+    }
 
-	public List<StudentAccountBean> getConnections() {
-		return connections;
-	}
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
-	public void addConnection(StudentAccountBean connection) {
-		connections.add(connection);
-	}
-	
-	public boolean removeConnection(StudentAccountBean connection) {
-		return connections.remove(connection);
-	}
-	
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public List<StudentAccountBean> getConnections() {
+        return connections;
+    }
+
+    public void addConnection(StudentAccountBean connection) {
+        connections.add(connection);
+    }
+
+    public boolean removeConnection(StudentAccountBean connection) {
+        return connections.remove(connection);
+    }
+
+
 }

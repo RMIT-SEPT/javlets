@@ -21,7 +21,7 @@ class ChatComponent extends Component {
 
   fetch() {
     return axios
-      .get("http://localhost:8080/chat")
+      .get("http://javlet.social:8080/chat")
       .then(result => {
         const messages = result.data.map(obj => ({
           messageContent: obj.messageContent,
@@ -108,7 +108,7 @@ class ChatComponent extends Component {
       to: this.state.to,
       id: Date.now()
     };
-    return axios.post("http://localhost:8080/chat/newMessage", newItem);
+    return axios.post("http://javlet.social:8080/chat/newMessage", newItem);
   }
 }
 export default ChatComponent;

@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
 
-
-
-
-  
-
 class ConnectComponent extends Component{
 
     state = {  }
