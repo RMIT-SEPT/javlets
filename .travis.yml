@@ -61,4 +61,4 @@ matrix:
         script: bash docker_push
         on:
             all_branches: true
-            condition: ($TRAVIS_COMMIT_MESSAGE == *"#deploy"*) OR ($TRAVIS_COMMIT_MESSAGE == *"#deployfront"*)
+            condition: [$TRAVIS_COMMIT_MESSAGE == *"#deploy"*] OR [$TRAVIS_COMMIT_MESSAGE == *"#deployfront"*]
