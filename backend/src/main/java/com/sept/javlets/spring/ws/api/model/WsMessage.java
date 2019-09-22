@@ -1,35 +1,35 @@
 package com.sept.javlets.spring.ws.api.model;
 
 public class WsMessage {
-	private String content;
-	private String sender;
-	private MessageType type;
-	
-	public enum MessageType{
-		CHAT,LEAVE,JOIN
-	}
-	
-	public String getContent() {
-		return content;
-	}
+    private String content;
+    private String sender;
+    private MessageType type;
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public String getContent() {
+        return content;
+    }
 
-	public String getSender() {
-		return sender;
-	}
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
+    public String getSender() {
+        return sender;
+    }
 
-	public MessageType getType() {
-		return type;
-	}
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
-	public void setType(MessageType type) {
-		this.type = type;
-	}
+    public MessageType getType() {
+        return type;
+    }
+
+    public void setType(MessageType type) {
+        this.type = type;
+    }
+
+    public enum MessageType {
+        CHAT, LEAVE, JOIN
+    }
 }

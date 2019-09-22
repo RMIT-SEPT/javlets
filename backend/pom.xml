@@ -11,8 +11,8 @@
 	</parent>
 	<groupId>com.sept</groupId>
 	<artifactId>javlets</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<version>0.2-PRE</version>
+	<packaging>jar</packaging>
 	<name>javlets</name>
 	<description>RMIT Social Application Backend</description>
 
@@ -117,7 +117,6 @@
 		<dependency>
 		  <groupId>de.flapdoodle.embed</groupId>
 		  <artifactId>de.flapdoodle.embed.mongo</artifactId>
-		  <scope>test</scope>
 		</dependency>
 		
 	</dependencies>
@@ -134,17 +133,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
 			</plugin>
-
-			<plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>appengine-maven-plugin</artifactId>
-                <version>2.1.0</version>
-				<configuration>
-					<stage.enableJarSplitting>true</stage.enableJarSplitting>
-					<deploy.projectId>javets</deploy.projectId>
-					<deploy.version>GCLOUD_CONFIG</deploy.version>
-				</configuration>
-            </plugin>
 
 		</plugins>
 	</build>

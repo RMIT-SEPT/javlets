@@ -1,70 +1,69 @@
 package com.sept.javlets.chat;
 
-import java.time.LocalDateTime;
-
+import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.sept.javlets.userauth.StudentAccountBean;
+import java.time.LocalDateTime;
 
-@Document(collection="messages")
+@Document(collection = "messages")
 public class MessageBean {
 
-	@Id
-	private String id;
-	
-	private String messageContent;
-	private StudentAccountBean sender;
-	private StudentAccountBean recipient;
-	private LocalDateTime date;
-    
-	public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
-		this.date = LocalDateTime.now();
-		this.messageContent = messageContent;
-		this.sender = sender;
-		this.recipient = recipient;
-	}
-	
-	public MessageBean() {
-		super();
-	}
-	
-	public MessageBean(String messageContent, StudentAccountBean sender) {
-		this.date = LocalDateTime.now();
-		this.messageContent = messageContent;
-		this.sender = sender;
-	}
+    @Id
+    private String id;
 
-	public String getMessageContent() {
-		return messageContent;
-	}
+    private String messageContent;
+    private StudentAccountBean sender;
+    private StudentAccountBean recipient;
+    private LocalDateTime date;
 
-	public void setMessageContent(String messageContent) {
-		this.messageContent = messageContent;
-	}
+    public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
+        this.date = LocalDateTime.now();
+        this.messageContent = messageContent;
+        this.sender = sender;
+        this.recipient = recipient;
+    }
 
-	public StudentAccountBean getSender() {
-		return sender;
-	}
+    public MessageBean() {
+        super();
+    }
 
-	public void setSender(StudentAccountBean sender) {
-		this.sender = sender;
-	}
+    public MessageBean(String messageContent, StudentAccountBean sender) {
+        this.date = LocalDateTime.now();
+        this.messageContent = messageContent;
+        this.sender = sender;
+    }
 
-	public StudentAccountBean getRecipient() {
-		return recipient;
-	}
+    public String getMessageContent() {
+        return messageContent;
+    }
 
-	public void setRecipient(StudentAccountBean recipient) {
-		this.recipient = recipient;
-	}
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
+    }
 
-	public LocalDateTime getDate() {
-		return date;
-	}
+    public StudentAccountBean getSender() {
+        return sender;
+    }
 
-	public void setDate(LocalDateTime date) {
-		this.date = date;
-	}
+    public void setSender(StudentAccountBean sender) {
+        this.sender = sender;
+    }
+
+    public StudentAccountBean getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(StudentAccountBean recipient) {
+        this.recipient = recipient;
+    }
+
+    public LocalDateTime getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
 
 }
