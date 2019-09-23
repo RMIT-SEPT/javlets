@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
-import { Stomp } from '@stomp/stompjs';
+import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 
 class ChatComponent extends Component {
@@ -20,25 +20,22 @@ class ChatComponent extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   
+  
   componentDidMount() {
     console.log('Component did mount');
-    this.client = Stomp.client('ws://localhost:8080/socket/websocket');
-
-    this.client.onConnect(() => {
-      console.log('onConnect');
 
 
-      this.client.subscribe("/chat/socket/trig", (message) => {
-        console.log("TRIGGER");
-        if(message.body) {
-          console.log(message.body);
-        }
-      });
+    this.client = Stomp.over(new WebSocket("ws://javlet.social:8080/socket/websocket"));
 
+    this.client.connect({ login: null, passcode: null }, () => {
+      console.log("Connected");
 
+      this.client.subscribe('/chat', message => {
+        this.addMessage(message.body);
     });
 
-    this.client.activate();
+
+  });
   }
 
   render() {
@@ -110,8 +107,7 @@ class ChatComponent extends Component {
 
     console.log(JSON.stringify(newItem));
 
-    this.client.publish({destination: '/app/message', body: JSON.stringify(newItem)});
-    this.addMessage(msg)
+    this.client.send('/app/message', JSON.stringify(newItem));
     }
   }
 

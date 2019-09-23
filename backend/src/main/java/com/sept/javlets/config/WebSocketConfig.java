@@ -1,4 +1,4 @@
-package com.sept.javlets;
+package com.sept.javlets.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
