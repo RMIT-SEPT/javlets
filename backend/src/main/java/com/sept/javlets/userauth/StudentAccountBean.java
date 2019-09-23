@@ -15,7 +15,6 @@ public class StudentAccountBean {
     private String email;
     private String givenName;
     private String familyName;
-    private String googleID;
     private String imageUrl;
     private String username;
     private List<StudentAccountBean> connections;
@@ -24,8 +23,8 @@ public class StudentAccountBean {
         //initialise student account
     }
 
-    public StudentAccountBean(String username) {
-        this.username = username;
+    public StudentAccountBean(String id) {
+        this.id = id;
         this.connections = new ArrayList<StudentAccountBean>();
     }
 
@@ -51,14 +50,6 @@ public class StudentAccountBean {
 
     public void setFamilyName(String familyName) {
         this.familyName = familyName;
-    }
-
-    public String getGoogleID() {
-        return googleID;
-    }
-
-    public void setGoogleID(String googleID) {
-        this.googleID = googleID;
     }
 
     public String getImageUrl() {

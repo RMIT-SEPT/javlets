@@ -26,27 +26,26 @@ public class PostController {
     public void add(@RequestBody HashMap<String, String> postInfo) {
         System.out.println("Received request");
         System.out.println("Author: " + postInfo.get("author"));
-        StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
-        if (author == null) {
-            author = new StudentAccountBean(postInfo.get("author"));
-            System.out.println("Before inserting");
-            userRepository.insert(author);
-        }
 
-        System.out.println("Request 3453");
+
+
+//        StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
+//        if (author == null) {
+//            author = new StudentAccountBean(postInfo.get("author"));
+//            System.out.println("Before inserting");
+//            userRepository.insert(author);
+//        }
+
+        // Use new GAuth pls TODO
 
         PostBean post = new PostBean(
                 postInfo.get("postType"),
                 postInfo.get("title"),
                 postInfo.get("body"),
-                author
+                new StudentAccountBean(postInfo.get("author"))
         );
 
-
-        System.out.println("Request 3456");
-
         postRepository.save(post);
-        System.out.println("Request 3457");
     }
 
     @GetMapping

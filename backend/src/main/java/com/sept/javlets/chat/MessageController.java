@@ -2,11 +2,14 @@ package com.sept.javlets.chat;
 
 import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
+import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+
+import java.util.Optional;
 
 @Controller
 public class MessageController {
@@ -17,6 +20,13 @@ public class MessageController {
     MessageController(SimpMessagingTemplate template){
         this.template = template;
     }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
 
 //    @PostMapping(path = "/newMessage")
 //    public void add(@RequestBody HashMap<String, String> chatInfo) {
@@ -42,7 +52,13 @@ public class MessageController {
 
     @MessageMapping("/message")
     public void message(MessageBean mBean) {
-        System.out.println("MESSAGE RECEIVED: " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient().getUsername());
-        this.template.convertAndSend("/chat", mBean.getMsg());
+        userRepository.findById(mBean.getSenderId()).ifPresent(mBean::setSender);
+        userRepository.findById(mBean.getRecipientId()).ifPresent(mBean::setRecipient);
+
+        messageRepository.save(mBean);
+
+
+        System.out.println("MESSAGE RECEIVED: " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
+        this.template.convertAndSend("/chat", mBean);
     }
 }

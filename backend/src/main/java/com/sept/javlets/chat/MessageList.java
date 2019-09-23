@@ -11,9 +11,6 @@ public class MessageList {
 
     public MessageList() {
         this.messages = new ArrayList<MessageBean>();
-
-        messages.add(new MessageBean("Hey", new StudentAccountBean("John")));
-        messages.add(new MessageBean("Hi", new StudentAccountBean("Josh")));
     }
 
     public void addMessage(MessageBean message) {

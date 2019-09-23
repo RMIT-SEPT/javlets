@@ -42,7 +42,6 @@ class PostComponent extends Component{
           error: `${error}`
         });
       });
-      
   }
 
   render(){
