@@ -30,7 +30,7 @@ function App() {
         <HeaderComponent />
       </header>
       <body className="App-body">
-        <BodyContent isloggedin={cookie.get('isLogged')}/>
+        <BodyContent isloggedin={cookie.get('id')}/>
       </body>
     </div>
   );

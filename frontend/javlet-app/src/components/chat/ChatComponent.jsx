@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
+import cookie from 'js-cookie';
 
 class ChatComponent extends Component {
 
@@ -9,12 +10,10 @@ class ChatComponent extends Component {
     super(props);
     this.state = {
       messages: [],
-      error: "",
 
       msg: "",
       sender: "John",
       recipient: "Jill",
-      id: 0
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,17 +23,15 @@ class ChatComponent extends Component {
   componentDidMount() {
     console.log('Component did mount');
 
-
     this.client = Stomp.over(new WebSocket("ws://javlet.social:8080/socket/websocket"));
 
     this.client.connect({ login: null, passcode: null }, () => {
       console.log("Connected");
 
-      this.client.subscribe('/chat', message => {
-        this.addMessage(message.body);
+      this.client.subscribe('/chat', response => {
+        console.log(response);
+        this.setState(state => ({ messages: [JSON.parse(response.body), ...state.messages] }))
     });
-
-
   });
   }
 
@@ -67,7 +64,7 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message} sender="Sent:"/> // {item.sender.username}
+          <MessageComponent message={message.msg} sender={message.sender.username}/>
         )}
                 </ul>
                     <div className="input-group clearfix">
@@ -111,9 +108,8 @@ class ChatComponent extends Component {
           
     const newItem = {
       msg: msg,
-      sender: this.state.sender,
-      recipient: this.state.recipient,
-      id: Date.now()
+      senderId: cookie.get('id'),
+      recipientId: this.state.recipient,
     };
 
     console.log(JSON.stringify(newItem));
@@ -122,7 +118,5 @@ class ChatComponent extends Component {
     }
   }
 
-  addMessage = message =>
-  this.setState(state => ({ messages: [message, ...state.messages] }))
 }
 export default ChatComponent;
