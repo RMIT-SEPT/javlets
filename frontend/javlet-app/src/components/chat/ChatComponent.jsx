@@ -61,7 +61,7 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList">
                   {this.state.messages.map(item => (
-                    <MessageComponent message={item.messageContent} sender={item.sender.username}/>
+                    <MessageComponent message={item.messageContent} sender="user"/> // {item.sender.username}
                   ))}
                 </ul>
                 <form

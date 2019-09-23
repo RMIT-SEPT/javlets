@@ -78,6 +78,7 @@ class WallPostInputForm extends Component {
         id: Date.now()
       };
 
+      window.location.reload();
       return axios.post('http://javlet.social:8080/wall/newPost', newItem);
     }
   }
