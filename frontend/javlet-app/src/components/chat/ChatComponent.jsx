@@ -38,6 +38,17 @@ class ChatComponent extends Component {
   });
   }
 
+  scrollToBottom() {
+    const scrollHeight = this.messageList.scrollHeight;
+    const height = this.messageList.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     return (
       <div className="body-item">
@@ -54,7 +65,7 @@ class ChatComponent extends Component {
             <h2>Message</h2>
             <div id="dialogue-page" className="chatArea">
               <div className="dialogue-container">
-                <ul id="messageList">
+                <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
           <MessageComponent message={message} sender="user"/> // {item.sender.username}
         )}
