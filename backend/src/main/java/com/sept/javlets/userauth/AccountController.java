@@ -3,22 +3,22 @@ package com.sept.javlets.userauth;
 
 import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class AccountController {
 
     @Autowired
     private UserRepository userRepository;
 
-    // Add new user
+    // Add new user, (Not in database)
      void add(HashMap<String, String> loginInfo) {
-        StudentAccountBean user = new StudentAccountBean(loginInfo.get("Id"));
+
+         // Create bean
+        StudentAccountBean user = new StudentAccountBean(loginInfo.get("id"));
         String[] names = loginInfo.get("name").split(" ");
         if(names.length == 2){
             user.setGivenName(names[0]);
@@ -46,21 +46,31 @@ public class AccountController {
         String[] arrOfStr = loginInfo.get("email").split("@");
 
         if (validateId(arrOfStr[0])) {
+            if(!userRepository.findById(loginInfo.get("id")).isPresent()){
                 add(loginInfo);
+                System.out.println("New user registered");
+            }
 
-                System.out.printf("Log in with: %s\n", arrOfStr[0]);
+            System.out.printf("Log in: %s\n", arrOfStr[0]);
                 return true;
         } else {
-            System.out.println("Incorrect student email/Id");
+            System.out.println("Login attempt: Not valid student email");
             return false;
         }
 }
 
     @GetMapping("/get")
     @ResponseBody
-    public StudentAccountBean getInfo(@RequestParam String Id) {
-        System.out.println(userRepository.findById(Id).isPresent());
-        return null;
+    public StudentAccountBean getInfo(@RequestParam String id) {
+        Optional<StudentAccountBean> user = userRepository.findById(id);
+        return user.orElse(null);
+    }
+
+
+    // Registered user count
+    @GetMapping("/count")
+    public long getUserCount() {
+         return userRepository.count();
     }
 
 

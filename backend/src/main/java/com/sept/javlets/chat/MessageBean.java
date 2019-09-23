@@ -1,43 +1,40 @@
 package com.sept.javlets.chat;
 
+import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.StudentAccountBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 @Document(collection = "messages")
 public class MessageBean {
 
     @Id
-    private String id;
+    private String datetime;
 
     private String msg;
+
+    private String senderId;
+    private String recipientId;
+
     private StudentAccountBean sender;
     private StudentAccountBean recipient;
-    private LocalDateTime date;
 
-    public MessageBean(String msg, StudentAccountBean sender, StudentAccountBean recipient) {
-        this.date = LocalDateTime.now();
+    MessageBean(String msg, String senderId, String recipientId) {
+        this.datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
         this.msg = msg;
-        this.sender = sender;
-        this.recipient = recipient;
+        this.senderId = senderId;
+        this.recipientId = recipientId;
     }
 
     public MessageBean() {
         super();
     }
 
-    public MessageBean(String msg, StudentAccountBean sender) {
-        this.date = LocalDateTime.now();
-        this.msg = msg;
-        this.sender = sender;
-    }
-
-    public MessageBean(String msg) {
-        this.date = LocalDateTime.now();
-        this.msg = msg;
-    }
 
     public String getMsg() {
         return msg;
@@ -63,12 +60,28 @@ public class MessageBean {
         this.recipient = recipient;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public String getDateTime() {
+        return datetime;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void getDateTime(String date) {
+        this.datetime = date;
+    }
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getRecipientId() {
+        return recipientId;
+    }
+
+    public void setRecipientId(String recipientId) {
+        this.recipientId = recipientId;
     }
 
 }

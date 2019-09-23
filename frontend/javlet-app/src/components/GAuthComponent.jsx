@@ -5,13 +5,10 @@ import axios from "axios";
 import cookie from 'js-cookie';
 
 const responseGoogle = (response) => {
-
-  console.log(response);
-
-  var ID = response.profileObj.googleId
+  var id = response.profileObj.googleId
 
   const newItem = {
-    ID: ID,
+    id: id,
     email: response.profileObj.email,
     name: response.profileObj.name,
     imageUrl: response.profileObj.imageUrl,
@@ -19,12 +16,11 @@ const responseGoogle = (response) => {
 
 
   // Send to server to authenicate
-  axios.post('http://localhost:8080/user/login', newItem)
+  axios.post('http://javlet.social:8080/auth/login', newItem)
   .then(function (response) {
     if(response.data){
       // Valid login
-      cookie.set('ID', ID)
-      alert("Logged in");
+      cookie.set('id', id)
       window.location.reload();
     }else{
       // Invalid (Not rmit student email)
@@ -34,6 +30,11 @@ const responseGoogle = (response) => {
 }
 
 class GAuthComponent extends Component{
+ 
+  state = {
+    user: [],
+    count: 0
+  }
 
   logout() {
     cookie.remove('id');
@@ -41,24 +42,29 @@ class GAuthComponent extends Component{
   }
 
   componentDidMount() {
-    alert("Trigger");
-    
-    axios.get('http://localhost:8080/user/get?Id=' + cookie.get('ID'))
-    .then(function (response) {
-      console.log(response);
-    })
+    if(cookie.get('id')){
+    axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+    .then((response) => {
+      this.setState({user: response.data});
+    });
+    axios.get('http://javlet.social:8080/auth/count')
+    .then((response) => {
+      console.log(response.data);
+      this.setState({count: response.data});
+    });
   }
+}
 
 render(){
   if(cookie.get('id')){
  return(
 
 <React.Fragment>
-  {this.getUserObj}
-  <p>You are logged in</p>
-  <button onClick={this.logout}>
-      Logout
-    </button>
+  <div className = "userLogout">
+  <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.username}</b>)</p>
+  <p><b>User count:</b> {this.state.count}</p>
+  <button onClick={this.logout}>Logout</button>
+  </div>
 </React.Fragment>
 
  );

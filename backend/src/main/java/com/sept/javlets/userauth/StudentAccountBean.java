@@ -60,11 +60,11 @@ public class StudentAccountBean {
         this.imageUrl = imageUrl;
     }
 
-    public String getid() {
+    public String getId() {
         return id;
     }
 
-    public void setId(String Id) {
+    public void setId(String id) {
         this.id = id;
     }
 
