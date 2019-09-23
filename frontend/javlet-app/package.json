@@ -13,15 +13,17 @@
     "react-google-login": "^5.0.5",
     "react-new-window": "^0.1.2",
     "react-scripts": "3.0.1",
+    "react-stomp": "^4.2.0",
     "react-webcam": "^3.0.1",
     "typescript": "^3.6.3",
+    "webstomp-client": "^1.2.6",
     "yarn": "^1.17.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-	"test": "jest --coverage"
+    "test": "jest --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
