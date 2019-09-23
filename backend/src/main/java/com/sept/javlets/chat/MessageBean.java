@@ -12,14 +12,14 @@ public class MessageBean {
     @Id
     private String id;
 
-    private String messageContent;
+    private String msg;
     private StudentAccountBean sender;
     private StudentAccountBean recipient;
     private LocalDateTime date;
 
-    public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
+    public MessageBean(String msg, StudentAccountBean sender, StudentAccountBean recipient) {
         this.date = LocalDateTime.now();
-        this.messageContent = messageContent;
+        this.msg = msg;
         this.sender = sender;
         this.recipient = recipient;
     }
@@ -28,18 +28,23 @@ public class MessageBean {
         super();
     }
 
-    public MessageBean(String messageContent, StudentAccountBean sender) {
+    public MessageBean(String msg, StudentAccountBean sender) {
         this.date = LocalDateTime.now();
-        this.messageContent = messageContent;
+        this.msg = msg;
         this.sender = sender;
     }
 
-    public String getMessageContent() {
-        return messageContent;
+    public MessageBean(String msg) {
+        this.date = LocalDateTime.now();
+        this.msg = msg;
     }
 
-    public void setMessageContent(String messageContent) {
-        this.messageContent = messageContent;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public StudentAccountBean getSender() {
