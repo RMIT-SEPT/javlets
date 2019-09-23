@@ -16,55 +16,53 @@ public class AccountController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public StudentAccountBean add(@RequestParam String username) {
-        StudentAccountBean user = new StudentAccountBean(username);
-        return userRepository.save(user);
-    }
-
-    @GetMapping
-    public List<StudentAccountBean> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping(path = "/{username}")
-    public StudentAccountBean getUser(@PathVariable String username) {
-        return userRepository.findByUsername(username);
-    }
-
-    @DeleteMapping
-    public void removeAllUsers() {
-        userRepository.deleteAll();
-    }
-
-    @DeleteMapping(path = "/{username}")
-    public void removeUser(@PathVariable String username) {
-        userRepository.delete(userRepository.findByUsername(username));
-    }
-
-    public boolean validateID(String ID) {
-        return ID.matches("(s|e)\\d{7}");
-    }
-
-    @PostMapping(path = "/login")
-    public void login(@RequestBody HashMap<String, String> loginInfo) {
-        String[] arrOfStr = loginInfo.get("email").split("@");
-        String studentID = null;
-        /////////////////////////////////////////////////////////////////////
-        // TODO: Create StudentAccountBean object properly with all fields //
-        /////////////////////////////////////////////////////////////////////
-        if (validateID(arrOfStr[0])) {
-            studentID = arrOfStr[0];
-            add(studentID);
-            System.out.println(studentID);
-
-            if (!studentID.equals(null)) {
-                System.out.printf("Log in with: %s", studentID);
-            }
-        } else {
-            System.out.println("Incorrect student email/ID");
+    // Add new user
+     void add(HashMap<String, String> loginInfo) {
+        StudentAccountBean user = new StudentAccountBean(loginInfo.get("Id"));
+        String[] names = loginInfo.get("name").split(" ");
+        if(names.length == 2){
+            user.setGivenName(names[0]);
+            user.setFamilyName(names[1]);
         }
 
+        // Username is gotten from email
+        String email = loginInfo.get("email");
+
+        user.setEmail(email);
+        user.setUsername(loginInfo.get("email").split("@")[0]);
+
+        // Finally, saving user
+         userRepository.save(user);
     }
+
+
+
+    private boolean validateId(String Id) {
+        return Id.matches("(s|e)\\d{7}");
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/login")
+    public boolean login(@RequestBody HashMap<String, String> loginInfo) {
+        String[] arrOfStr = loginInfo.get("email").split("@");
+
+        if (validateId(arrOfStr[0])) {
+                add(loginInfo);
+
+                System.out.printf("Log in with: %s\n", arrOfStr[0]);
+                return true;
+        } else {
+            System.out.println("Incorrect student email/Id");
+            return false;
+        }
+}
+
+    @GetMapping("/get")
+    @ResponseBody
+    public StudentAccountBean getInfo(@RequestParam String Id) {
+        System.out.println(userRepository.findById(Id).isPresent());
+        return null;
+    }
+
+
+
 }
