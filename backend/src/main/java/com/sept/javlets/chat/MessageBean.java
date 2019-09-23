@@ -8,23 +8,27 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 
 @Document(collection = "messages")
 public class MessageBean {
 
     @Id
-    private String datetime;
+    private String id;
 
     private String msg;
 
     private String senderId;
     private String recipientId;
 
+    private String datetime;
+
     private StudentAccountBean sender;
     private StudentAccountBean recipient;
 
     MessageBean(String msg, String senderId, String recipientId) {
+        this.id = Long.toString(new Random().nextLong()); // Using long to ID since time is unreliable if sent message at same time
         this.datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
         this.msg = msg;
         this.senderId = senderId;

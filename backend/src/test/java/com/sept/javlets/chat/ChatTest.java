@@ -52,15 +52,19 @@ class ChatTest {
     @Test
     @DisplayName("Create Chat Message")
     void testChatMessage() {
+
+        StudentAccountBean alice = new StudentAccountBean("aliceid");
+        alice.setGivenName("Alice");
+
+        StudentAccountBean bob = new StudentAccountBean("bobid");
+
         MessageBean message = new MessageBean("Hello, Bob!",
-                "Alice",
-                "Bob");
+                "aliceid",
+                "bobid");
         messageRepository.save(message);
         assertEquals(1, messageRepository.count());
-        assertEquals("Alice",
-                messageRepository.findBySender(
-                        userRepository.findByUsername(
-                                "Alice")).get(0).getSender());
+        assertEquals("Hello, Bob!",
+                messageRepository.findBySenderId("aliceid").get(0).getMsg());
     }
 
     @Test
@@ -69,9 +73,11 @@ class ChatTest {
         MessageBean message1 = new MessageBean("Hello, Bob!",
                 "Alice",
                 "Bob");
+
         MessageBean message2 = new MessageBean("Hello, Alice!",
                 "Bob",
                 "Alice");
+
         messageRepository.save(message1);
         messageRepository.save(message2);
 

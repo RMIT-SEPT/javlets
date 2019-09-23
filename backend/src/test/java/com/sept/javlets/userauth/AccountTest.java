@@ -31,10 +31,10 @@ class AccountTest {
     @Test
     @DisplayName("User Attributes Test")
     void testUserAttributes() {
-        StudentAccountBean alice = new StudentAccountBean("Alice");
+        StudentAccountBean alice = new StudentAccountBean("21312123312312321");
         userRepository.save(alice);
 
-        assertEquals("Alice", alice.getUsername());
+        assertEquals("21312123312312321", alice.getId());
         assertEquals(0, alice.getConnections().size());
     }
 
