@@ -6,7 +6,7 @@ render(){
    return(
     <div className="chat">
         <h4>{this.props.sender}</h4>
-      <p> <img className='w3-circle' alt="" src={'https://loremflickr.com/100/100/person' + this.props.message} />{this.props.message}</p>
+      <p> <img className='w3-circle' alt="" src={'https://img.icons8.com/cotton/64/000000/name--v2.png'} />{this.props.message}</p>
     </div>
    );
 }

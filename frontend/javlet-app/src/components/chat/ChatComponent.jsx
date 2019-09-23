@@ -62,12 +62,12 @@ class ChatComponent extends Component {
           </div>
 
           <div className="innerChatChild">
-            <h2>Message</h2>
+            <h2>Javlets Conversation</h2>
             <div id="dialogue-page" className="chatArea">
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message} sender="user"/> // {item.sender.username}
+          <MessageComponent message={message} sender="Sent:"/> // {item.sender.username}
         )}
                 </ul>
                     <div className="input-group clearfix">
