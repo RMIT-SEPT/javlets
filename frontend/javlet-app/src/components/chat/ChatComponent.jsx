@@ -64,7 +64,7 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.msg} sender={message.sender.username}/>
+          <MessageComponent message={message.msg} datetime={message.datetime} sender={message.sender.givenName}/>
         )}
                 </ul>
                     <div className="input-group clearfix">
