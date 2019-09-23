@@ -9,8 +9,10 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends MongoRepository<MessageBean, String> {
-    List<MessageBean> findBySender(StudentAccountBean sender);
 
+    List<MessageBean> findBySenderId(String senderId);
+
+    List<MessageBean> findBySender(StudentAccountBean sender);
     List<MessageBean> findByRecipient(StudentAccountBean recipient);
 
 }
