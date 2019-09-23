@@ -41,7 +41,7 @@ public class MessageController {
 
 
     @MessageMapping("/message")
-    @SendTo("/chat")
+    @SendTo("/chat/socket")
     public String message(MessageBean mBean) {
         System.out.println("MESSAGE RECEIVED: " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient().getUsername());
         this.template.convertAndSend("/topic", mBean.getMsg());

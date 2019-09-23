@@ -28,7 +28,7 @@ class ChatComponent extends Component {
       console.log('onConnect');
 
 
-      this.client.subscribe("/chat", (message) => {
+      this.client.subscribe("/chat/socket/trig", (message) => {
         console.log("TRIGGER");
         if(message.body) {
           console.log(message.body);
