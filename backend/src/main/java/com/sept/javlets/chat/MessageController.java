@@ -9,6 +9,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Controller
@@ -52,13 +54,15 @@ public class MessageController {
 
     @MessageMapping("/message")
     public void message(MessageBean mBean) {
+        String datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now()).toString();
+
         userRepository.findById(mBean.getSenderId()).ifPresent(mBean::setSender);
         userRepository.findById(mBean.getRecipientId()).ifPresent(mBean::setRecipient);
-
+        mBean.setDateTime(datetime);
         messageRepository.save(mBean);
 
 
-        System.out.println("MESSAGE RECEIVED: " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
+        System.out.println("MESSAGE RECEIVED (" + datetime +"): " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
         this.template.convertAndSend("/chat", mBean);
     }
 }

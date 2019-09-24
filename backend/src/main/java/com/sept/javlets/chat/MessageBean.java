@@ -29,7 +29,6 @@ public class MessageBean {
 
     MessageBean(String msg, String senderId, String recipientId) {
         this.id = Long.toString(new Random().nextLong()); // Using long to ID since time is unreliable if sent message at same time
-        this.datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now());
         this.msg = msg;
         this.senderId = senderId;
         this.recipientId = recipientId;
@@ -68,7 +67,7 @@ public class MessageBean {
         return datetime;
     }
 
-    public void getDateTime(String date) {
+    public void setDateTime(String date) {
         this.datetime = date;
     }
 
