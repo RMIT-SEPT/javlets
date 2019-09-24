@@ -65,7 +65,7 @@ class WallPostInputForm extends Component {
     }
   
     handleSubmit(event) {
-      event.preventDefault();
+      // event.preventDefault();
       if (!this.state.title.length) {
         return;
       }
