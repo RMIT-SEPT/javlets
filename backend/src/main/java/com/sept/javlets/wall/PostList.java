@@ -33,10 +33,11 @@ public class PostList {
         posts.clear();
     }
 
-    public List<PostBean> filterAuthor(StudentAccountBean author) {
+    //if tis is method is to filter posts by author, would it be better to do in front end based on gAuther username?
+    public List<PostBean> filterAuthor(String userName) {
         List<PostBean> authorPosts = new ArrayList<PostBean>();
         for (PostBean post : this.posts) {
-            if (post.getAuthorAccount().equals(author))
+            if (post.getUserId().equals(userName))
                 authorPosts.add(post);
         }
 

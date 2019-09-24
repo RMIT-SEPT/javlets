@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 
+// @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/wall")
 public class PostController {
@@ -26,23 +27,24 @@ public class PostController {
     public void add(@RequestBody HashMap<String, String> postInfo) {
         System.out.println("Received request");
         System.out.println("Author: " + postInfo.get("author"));
+        System.out.println("User Id: " + postInfo.get("userId"));
 
 
+    //    StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
+    //    if (author == null) {
+    //        author = new StudentAccountBean(postInfo.get("author"));
+    //        System.out.println("Before inserting");
+    //        userRepository.insert(author);
+    //    }
 
-//        StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
-//        if (author == null) {
-//            author = new StudentAccountBean(postInfo.get("author"));
-//            System.out.println("Before inserting");
-//            userRepository.insert(author);
-//        }
-
-        // Use new GAuth pls TODO
 
         PostBean post = new PostBean(
                 postInfo.get("postType"),
                 postInfo.get("title"),
                 postInfo.get("body"),
-                new StudentAccountBean(postInfo.get("author"))
+                postInfo.get("author"),
+                Long.parseLong(postInfo.get("postId")),
+                postInfo.get("userId")
         );
 
         postRepository.save(post);

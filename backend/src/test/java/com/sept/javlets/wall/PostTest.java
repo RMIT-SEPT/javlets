@@ -39,10 +39,11 @@ class PostTest {
     @Test
     @DisplayName("Making a Post")
     void testPost() {
-        postRepository.save(new PostBean("Student",
-                "A Tragedy",
-                "Did you ever hear the story of Darth Plagueis the Wise?",
-                userRepository.findByUsername("Test User")
+        postRepository.save(
+            // new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
+            //                     userRepository.findByUsername("Test User")
+            new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
+                                "Jane Dilton", 123, "s123"
         ));
 
         assertEquals(1, postRepository.count());
