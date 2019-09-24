@@ -24,10 +24,7 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            branches:
-              only:
-              - master
-              - development
+            all_branches: true
             condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$
 
 #Frontend 
@@ -63,8 +60,5 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            branches:
-              only:
-              - master
-              - development
+            all_branches: true
             condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(front| | (.*?))?( (.*?))?$
