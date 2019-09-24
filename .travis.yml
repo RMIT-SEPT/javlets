@@ -25,8 +25,7 @@ matrix:
         script: bash docker_push
         on:
             all_branches: true
-            condition: $TRAVIS_BRANCH =~ ^(master|release|development)$
-            condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$
+            condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$ AND $TRAVIS_BRANCH =~ ^(master|release|development)$
 
 #Frontend 
   - language: node_js
