@@ -10,6 +10,7 @@ matrix:
     sudo: true
     
     before_install:
+    - echo $TRAVIS_BRANCH
     - cd backend
     
     script: 
