@@ -45,7 +45,11 @@ class GAuthComponent extends Component{
     if(cookie.get('id')){
     axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
     .then((response) => {
-      this.setState({user: response.data});
+      if(response.data.id != null){
+        this.setState({user: response.data});
+      }else{
+        this.logout();
+      }
     });
     axios.get('http://javlet.social:8080/auth/count')
     .then((response) => {
