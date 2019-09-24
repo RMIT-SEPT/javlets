@@ -16,7 +16,6 @@ class WallPostInputForm extends Component {
       this.handlePostTypeChange = this.handlePostTypeChange.bind(this);
       this.handleTitleChange = this.handleTitleChange.bind(this);
       this.handleBodyChange = this.handleBodyChange.bind(this);
-      // this.handleAuthorChange = this.handleAuthorChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
@@ -40,11 +39,6 @@ class WallPostInputForm extends Component {
             <br />
             <input onChange={this.handleBodyChange} value={this.state.body} />
             <br />
-            
-            {/* <label> Author </label>
-            <br />
-            <input onChange={this.handleAuthorChange} value={this.state.value}/>
-            <br /> */}
 
             <br />
             <input className="w3-radio" type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Mentor <br />
@@ -69,13 +63,9 @@ class WallPostInputForm extends Component {
     handleBodyChange(event) {
       this.setState({ body: event.target.value });
     }
-
-    // handleAuthorChange(event) {
-    //     this.setState({ author: this.state.user.givenName });
-    // }
   
     handleSubmit(event) {
-      // event.preventDefault();
+      event.preventDefault();
       if (!this.state.title.length) {
         return;
       }
@@ -88,7 +78,6 @@ class WallPostInputForm extends Component {
         userId: this.state.user.username
       };
 
-      // window.location.reload();
       return axios.post('http://javlet.social:8080/wall/newPost', newItem);
       // return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
