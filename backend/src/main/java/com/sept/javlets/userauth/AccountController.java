@@ -5,6 +5,7 @@ import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -72,6 +73,13 @@ public class AccountController {
     public long getUserCount() {
          return userRepository.count();
     }
+
+    // DEBUG
+    @GetMapping("/userdb")
+    public List<StudentAccountBean> getUserDB() {
+        return userRepository.findAll();
+    }
+
 
 
 
