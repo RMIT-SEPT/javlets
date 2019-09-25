@@ -31,6 +31,7 @@ public class AccountController {
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public StudentAccountBean add(@RequestParam String username) {
+		// TODO: Use user input to determine account type
 		StudentAccountBean user = new StudentAccountBean(username);
 		return userRepository.save(user);
 	}
