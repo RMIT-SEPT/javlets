@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
+import com.sept.javlets.userauth.AccountBean;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -35,8 +36,8 @@ public class MessageController {
 //		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
 //		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
 		//Hardcoded values for testing
-		StudentAccountBean author = userRepository.findByUsername("Jamie");
-		StudentAccountBean recipient = userRepository.findByUsername("Chanboth");
+		AccountBean author = userRepository.findByUsername("Jamie");
+		AccountBean recipient = userRepository.findByUsername("Chanboth");
 		
 		MessageBean post = new MessageBean(chatInfo.get("body"), author, recipient);
 		messageRepository.save(post);

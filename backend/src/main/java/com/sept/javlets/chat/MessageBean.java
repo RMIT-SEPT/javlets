@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.sept.javlets.userauth.AccountBean;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @Document(collection="messages")
@@ -14,14 +15,14 @@ public class MessageBean {
 	private String id;
 	
 	private String messageContent;
-	private StudentAccountBean sender;
-	private StudentAccountBean recipient;
+	private AccountBean sender;
+	private AccountBean recipient;
 	private LocalDateTime date;
     
-	public MessageBean(String messageContent, StudentAccountBean sender, StudentAccountBean recipient) {
+	public MessageBean(String messageContent, AccountBean author, AccountBean recipient) {
 		this.date = LocalDateTime.now();
 		this.messageContent = messageContent;
-		this.sender = sender;
+		this.sender = author;
 		this.recipient = recipient;
 	}
 	
@@ -43,7 +44,7 @@ public class MessageBean {
 		this.messageContent = messageContent;
 	}
 
-	public StudentAccountBean getSender() {
+	public AccountBean getSender() {
 		return sender;
 	}
 
@@ -51,7 +52,7 @@ public class MessageBean {
 		this.sender = sender;
 	}
 
-	public StudentAccountBean getRecipient() {
+	public AccountBean getRecipient() {
 		return recipient;
 	}
 

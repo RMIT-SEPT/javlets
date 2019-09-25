@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sept.javlets.userauth.AccountBean;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -19,17 +20,17 @@ public class PostBean {
 	private String type;
 	private String title;
 	private String body;
-	private StudentAccountBean authorAccount;
+	private AccountBean authorAccount;
 	
 	public PostBean() {
 		
 	}
 	
-	public PostBean(String type, String title, String body, StudentAccountBean authorAccount) {
+	public PostBean(String type, String title, String body, AccountBean author) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
-		this.authorAccount = authorAccount;
+		this.authorAccount = author;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
 	}
@@ -59,7 +60,7 @@ public class PostBean {
 		this.body = body;
 	}
 
-	public StudentAccountBean getAuthorAccount() {
+	public AccountBean getAuthorAccount() {
 		return authorAccount;
 	}
 

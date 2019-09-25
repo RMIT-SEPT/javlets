@@ -36,12 +36,12 @@ public class AccountController {
 	}
 	
 	@GetMapping
-	public List<StudentAccountBean> getAllUsers() {
+	public List<AccountBean> getAllUsers() {
 		return userRepository.findAll();
 	}
 	
 	@GetMapping(path="/{username}")
-	public StudentAccountBean getUser(@PathVariable String username) {
+	public AccountBean getUser(@PathVariable String username) {
 		return userRepository.findByUsername(username);
 	}
 	

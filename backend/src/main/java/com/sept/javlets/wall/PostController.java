@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
+import com.sept.javlets.userauth.AccountBean;
 import com.sept.javlets.userauth.StudentAccountBean;
 
 // @CrossOrigin(origins = "http://localhost:3000")
@@ -37,7 +38,7 @@ public class PostController {
 	public void add(@RequestBody HashMap<String, String> postInfo) {
 		System.out.println("Received request");
 		System.out.println("Author: " + postInfo.get("author"));
-		StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
+		AccountBean author = userRepository.findByUsername(postInfo.get("author"));
 		if (author == null) {
 			author = new StudentAccountBean(postInfo.get("author"));
 			System.out.println("Before inserting");
