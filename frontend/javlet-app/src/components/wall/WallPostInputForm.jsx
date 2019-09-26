@@ -1,22 +1,30 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import cookie from 'js-cookie';
 
 class WallPostInputForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          newPost: '', 
-          postType: '',
-          title: '', 
-          body: '',
-          author: '',
-          id: 0
+        user: [],
+        newPost: '', 
+        postType: '',
+        title: '', 
+        body: '',
+        id: 0
       };  
       this.handlePostTypeChange = this.handlePostTypeChange.bind(this);
       this.handleTitleChange = this.handleTitleChange.bind(this);
       this.handleBodyChange = this.handleBodyChange.bind(this);
-      this.handleAuthorChange = this.handleAuthorChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount() {
+      if(cookie.get('id')){
+        axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+        .then((response) => {
+          this.setState({user: response.data});
+        });
+      }
     }
   
     render() {
@@ -30,11 +38,6 @@ class WallPostInputForm extends Component {
             <label> Body </label>
             <br />
             <input onChange={this.handleBodyChange} value={this.state.body} />
-            <br />
-            
-            <label> Author </label>
-            <br />
-            <input onChange={this.handleAuthorChange} value={this.state.value}/>
             <br />
 
             <br />
@@ -60,10 +63,6 @@ class WallPostInputForm extends Component {
     handleBodyChange(event) {
       this.setState({ body: event.target.value });
     }
-
-    handleAuthorChange(event) {
-        this.setState({ author: event.target.value });
-    }
   
     handleSubmit(event) {
       // event.preventDefault();
@@ -74,12 +73,13 @@ class WallPostInputForm extends Component {
         postType: this.state.postType,
         title: this.state.title,
         body: this.state.body,
-        author: this.state.author,
-        id: Date.now()
+        author: this.state.user.givenName + " " + this.state.user.familyName,
+        postId: Date.now(),
+        userId: this.state.user.username
       };
 
-      window.location.reload();
       return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      // return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
   

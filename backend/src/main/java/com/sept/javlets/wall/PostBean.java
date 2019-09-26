@@ -1,7 +1,7 @@
 package com.sept.javlets.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sept.javlets.userauth.StudentAccountBean;
+// import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,25 +13,28 @@ public class PostBean {
 //	private PrivacySetting privacy;
 
     @Id
-    private String id;
-
+    private long postId;
     private String type;
     private String title;
     private String body;
-    private StudentAccountBean authorAccount;
+    private String author;
+    private String userId;
 
     public PostBean() {
 
     }
 
-    public PostBean(String type, String title, String body, StudentAccountBean authorAccount) {
-        this.type = type;
-        this.title = title;
-        this.body = body;
-        this.authorAccount = authorAccount;
+    public PostBean(String type, String title, String body, String author, long postId, String userId) {
+		this.type = type;
+		this.title = title;
+		this.body = body;
+		this.author = author;
+        this.postId = postId;
+        this.userId = userId;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
-    }
+
+	}
 
 
     public String getType() {
@@ -58,24 +61,28 @@ public class PostBean {
         this.body = body;
     }
 
-    public StudentAccountBean getAuthorAccount() {
-        return authorAccount;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setAuthor(StudentAccountBean authorAccount) {
-        this.authorAccount = authorAccount;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getId() {
-        return id;
+    public Long getId() {
+        return postId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(Long id) {
+        this.postId = id;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String toString() {
-        return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
+        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n, UserID: %s", postId, author, title, body, type, userId);
     }
 
     //TODO: Implement
