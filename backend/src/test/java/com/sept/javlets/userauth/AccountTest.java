@@ -21,7 +21,7 @@ class AccountTest {
 	@Test
 	@DisplayName("Account Creation and Removal")
 	void testAccountCreationAndRemoval() {
-		StudentAccountBean alice = new StudentAccountBean("Alice");
+		AccountBean alice = new AccountBean("Alice");
 		userRepository.save(alice);
 		assertEquals(1, userRepository.count());
 		
@@ -32,7 +32,7 @@ class AccountTest {
 	@Test
 	@DisplayName("User Attributes Test")
 	void testUserAttributes() {
-		StudentAccountBean alice = new StudentAccountBean("Alice");
+		AccountBean alice = new AccountBean("Alice");
 		userRepository.save(alice);
 		
 		assertEquals("Alice", alice.getUsername());
@@ -42,8 +42,8 @@ class AccountTest {
 	@Test
 	@DisplayName("Add Connections Test")
 	void testAddConnections() {
-		StudentAccountBean alice = new StudentAccountBean("Alice");
-		StudentAccountBean bob = new StudentAccountBean("Bob");
+		AccountBean alice = new AccountBean("Alice");
+		AccountBean bob = new AccountBean("Bob");
 		alice.addConnection(bob);
 		assertEquals(1, alice.getConnections().size());
 	}

@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "students")
-public abstract class AccountBean {
+public class AccountBean {
 
 	@Id
 	private String id;
@@ -18,6 +18,8 @@ public abstract class AccountBean {
 	private String googleID;
 	private String imageUrl;
 	private String username;
+	private boolean isMentor;
+	
 	private List<AccountBean> connections;
 	
 	public AccountBean() {
@@ -95,6 +97,14 @@ public abstract class AccountBean {
 	
 	public boolean removeConnection(AccountBean connection) {
 		return connections.remove(connection);
+	}
+
+	public boolean isMentor() {
+		return isMentor;
+	}
+
+	public void setMentor(boolean isMentor) {
+		this.isMentor = isMentor;
 	}
 	
 }

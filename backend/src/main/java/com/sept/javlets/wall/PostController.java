@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.AccountBean;
-import com.sept.javlets.userauth.StudentAccountBean;
 
 // @CrossOrigin(origins = "http://localhost:3000")
 @CrossOrigin(origins = "https://javlets-deployed-dot-javets.appspot.com/")
@@ -40,7 +39,7 @@ public class PostController {
 		System.out.println("Author: " + postInfo.get("author"));
 		AccountBean author = userRepository.findByUsername(postInfo.get("author"));
 		if (author == null) {
-			author = new StudentAccountBean(postInfo.get("author"));
+			author = new AccountBean(postInfo.get("author"));
 			System.out.println("Before inserting");
 			userRepository.insert(author);
 		}

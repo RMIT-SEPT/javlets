@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.userauth.AccountBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,8 +38,8 @@ class ChatTest {
 	
 	@BeforeEach
     void setUp() {
-		StudentAccountBean alice = new StudentAccountBean("Alice");
-		StudentAccountBean bob = new StudentAccountBean("Bob");
+		AccountBean alice = new AccountBean("Alice");
+		AccountBean bob = new AccountBean("Bob");
 		userRepository.save(alice);
 		userRepository.save(bob);
     }

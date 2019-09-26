@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sept.javlets.userauth.AccountBean;
-import com.sept.javlets.userauth.StudentAccountBean;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Document(collection="posts")
@@ -64,7 +63,7 @@ public class PostBean {
 		return authorAccount;
 	}
 
-	public void setAuthor(StudentAccountBean authorAccount) {
+	public void setAuthor(AccountBean authorAccount) {
 		this.authorAccount = authorAccount;
 	}
 

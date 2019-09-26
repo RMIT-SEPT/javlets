@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
 import com.sept.javlets.userauth.AccountBean;
-import com.sept.javlets.userauth.StudentAccountBean;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -33,8 +31,8 @@ public class MessageController {
 		System.out.println("Received request CHAT");
 		System.out.println();
 		
-//		StudentAccountBean author = userRepository.findByUsername(chatInfo.get("from"));
-//		StudentAccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
+//		AccountBean author = userRepository.findByUsername(chatInfo.get("from"));
+//		AccountBean recipient = userRepository.findByUsername(chatInfo.get("to"));
 		//Hardcoded values for testing
 		AccountBean author = userRepository.findByUsername("Jamie");
 		AccountBean recipient = userRepository.findByUsername("Chanboth");

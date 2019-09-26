@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.userauth.AccountBean;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -27,7 +27,7 @@ class PostTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		StudentAccountBean user = new StudentAccountBean("Test User");
+		AccountBean user = new AccountBean("Test User");
 		userRepository.save(user);
 	}
 

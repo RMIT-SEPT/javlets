@@ -30,9 +30,9 @@ public class AccountController {
 	
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public StudentAccountBean add(@RequestParam String username) {
+	public AccountBean add(@RequestParam String username) {
 		// TODO: Use user input to determine account type
-		StudentAccountBean user = new StudentAccountBean(username);
+		AccountBean user = new AccountBean(username);
 		return userRepository.save(user);
 	}
 	
@@ -67,7 +67,7 @@ public class AccountController {
 		String[] arrOfStr = loginInfo.get("email").split("@");
 		String studentID = null;
 		/////////////////////////////////////////////////////////////////////
-		// TODO: Create StudentAccountBean object properly with all fields //
+		// TODO: Create AccountBean object properly with all fields //
 		/////////////////////////////////////////////////////////////////////
 		if(validateID(arrOfStr[0])) {
 			studentID = arrOfStr[0];
