@@ -99,6 +99,12 @@ input, button {
 	min-height: 38px;
 }
 
+.input-group{
+  float: none;
+  display: inline-block;
+  vertical-align: middle;  
+}
+
 label input{
   margin-left: 2em;
 }
