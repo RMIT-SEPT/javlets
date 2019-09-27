@@ -1,5 +1,6 @@
 package com.sept.javlets.mongo;
 
+import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

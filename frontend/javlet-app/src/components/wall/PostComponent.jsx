@@ -22,11 +22,11 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
-        'https://javlets-deployed-dot-javets.appspot.com/wall'
+        'http://javlet.social:8080/wall'
         // 'http://localhost:8080/wall'
       )
       .then(result => {
-          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
+          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.postId}));
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
           })
@@ -42,7 +42,6 @@ class PostComponent extends Component{
           error: `${error}`
         });
       });
-      
   }
 
   render(){

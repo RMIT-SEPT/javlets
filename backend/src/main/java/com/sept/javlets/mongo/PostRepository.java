@@ -1,7 +1,6 @@
 package com.sept.javlets.mongo;
 
-import java.util.List;
-
+import com.sept.javlets.wall.PostBean;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
