@@ -22,10 +22,6 @@ public class AccountBean {
 	
 	private List<AccountBean> connections;
 	
-	public AccountBean() {
-		//initialise account
-	}
-	
 	public AccountBean(String username) {
 		this.username = username;
 		this.connections = new ArrayList<AccountBean>();
@@ -34,29 +30,6 @@ public class AccountBean {
 	public String getEmail() {
 		return email;
 	}
-
-    @Id
-    private String id;
-
-    private String email;
-    private String givenName;
-    private String familyName;
-    private String imageUrl;
-    private String username;
-    private List<StudentAccountBean> connections;
-
-    public StudentAccountBean() {
-        //initialise student account
-    }
-
-    public StudentAccountBean(String id) {
-        this.id = id;
-        this.connections = new ArrayList<StudentAccountBean>();
-    }
-
-    public String getEmail() {
-        return email;
-    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -104,6 +77,22 @@ public class AccountBean {
 
 	public void setMentor(boolean isMentor) {
 		this.isMentor = isMentor;
+	}
+	
+	public String getGoogleID() {
+		return googleID;
+	}
+
+	public void setGoogleID(String googleID) {
+		this.googleID = googleID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 }

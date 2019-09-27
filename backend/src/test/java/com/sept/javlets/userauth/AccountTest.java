@@ -47,27 +47,4 @@ class AccountTest {
 		assertEquals(1, alice.getConnections().size());
 	}
 
-        userRepository.delete(alice);
-        assertEquals(0, userRepository.count());
-    }
-
-    @Test
-    @DisplayName("User Attributes Test")
-    void testUserAttributes() {
-        StudentAccountBean alice = new StudentAccountBean("21312123312312321");
-        userRepository.save(alice);
-
-        assertEquals("21312123312312321", alice.getId());
-        assertEquals(0, alice.getConnections().size());
-    }
-
-    @Test
-    @DisplayName("Add Connections Test")
-    void testAddConnections() {
-        StudentAccountBean alice = new StudentAccountBean("Alice");
-        StudentAccountBean bob = new StudentAccountBean("Bob");
-        alice.addConnection(bob);
-        assertEquals(1, alice.getConnections().size());
-    }
-
 }
