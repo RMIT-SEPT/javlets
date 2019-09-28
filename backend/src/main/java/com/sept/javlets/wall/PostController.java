@@ -42,11 +42,12 @@ public class PostController {
 					postInfo.get("title"),
 					postInfo.get("body"),
 					userRepository.findByUsername(postInfo.get("userId")),
+					postInfo.get("author"),
 					Long.parseLong(postInfo.get("postId")),
 					postInfo.get("category"),
 					postInfo.get("selectDate"));
 			postRepository.save(post);
-			System.out.println("Post saved");
+			System.out.println("Live post saved");
 
 		} else if (postInfo.get("category").equals("wallpost")){
 						
@@ -55,10 +56,11 @@ public class PostController {
 					postInfo.get("title"),
 					postInfo.get("body"),
 					userRepository.findByUsername(postInfo.get("userId")),
+					postInfo.get("author"),
 					Long.parseLong(postInfo.get("postId")),
 					postInfo.get("category"));
 			postRepository.save(post);
-			System.out.println("Post saved");
+			System.out.println("Wall post saved");
 			
 		} else {
 			System.err.println("Error: Invalid post category");

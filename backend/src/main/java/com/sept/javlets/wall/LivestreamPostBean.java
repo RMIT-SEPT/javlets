@@ -7,9 +7,9 @@ public class LivestreamPostBean extends PostBean {
     // Scheduled date for the livestream -- TODO: Store as a proper date format (or long)
     private String selectDate;
 	
-	public LivestreamPostBean(String type, String title, String body, AccountBean author, long postId, String category,
+	public LivestreamPostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String category,
 			String selectDate) {
-		super(type, title, body, author, postId, category);
+		super(type, title, body, author, msgAuthor, postId, category);
 		
 		this.selectDate = selectDate;
 	}

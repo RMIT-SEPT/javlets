@@ -20,7 +20,7 @@ class WallPostInputForm extends Component {
     }
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
+        axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
         .then((response) => {
           this.setState({user: response.data});
         });
@@ -91,8 +91,8 @@ class WallPostInputForm extends Component {
       };
       this.setState({title: '', body: ''})
       this.setState( {posts: this.state.posts.concat(newItem)})
-      ///return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      return axios.post('http://localhost:8080/wall/newPost', newItem);;
+      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      // return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
   

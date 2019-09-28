@@ -25,6 +25,8 @@ public class PostBean {
 	
 	// Account associated with the post -- **contains all user information**
     private AccountBean author;
+    // This is temporary as above auther is null
+    private String msgAuthor;
     
     // Post category - either wallpost or livestream
     private String category;
@@ -34,11 +36,12 @@ public class PostBean {
 
     public PostBean() {}
     
-    public PostBean(String type, String title, String body, AccountBean author, long postId, String category) {
+    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String category) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
         this.author = author;
+        this.msgAuthor = msgAuthor;
         this.postId = postId;
         this.category = category;
 
@@ -59,6 +62,14 @@ public class PostBean {
 
 	public void setAuthor(AccountBean authorAccount) {
 		this.author = authorAccount;
+    }
+
+    public String getMsgAuther(){
+        return msgAuthor;
+    }
+
+    public void setMsgAuther(String author){
+        this.msgAuthor = author;
     }
 
     public void setTitle(String title) {
@@ -94,7 +105,8 @@ public class PostBean {
 	}
 
     public String toString() {
-        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, msgAuthor, title, body, type);
     }
 
     //TODO: Implement

@@ -20,11 +20,12 @@ class ScheduledLiveStream extends Component{
   refreshWall() {
       return axios
       .get(
-        //'http://javlet.social:8080/wall'
-        'http://localhost:8080/wall'
+        'http://javlet.social:8080/wall'
+        // 'http://localhost:8080/wall'
       )
       .then(result => {
-          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.msgAuthor, id: obj.postId, category: obj.category, selectDate: obj.selectDate}));
+          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, 
+                                                        author: obj.msgAuther, id: obj.postId, category: obj.category, selectDate: obj.selectDate}));
           
           const livestreamPosts = allPosts.filter(function(category){
             return category.category === "livestream";
