@@ -17,26 +17,29 @@ public class AccountController {
 	private UserRepository userRepository;
 	
     // Add new user
-	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
-    void add(HashMap<String, String> loginInfo) {
-
-        // Create bean
-       AccountBean user = new AccountBean(loginInfo.get("id"));
-       String[] names = loginInfo.get("name").split(" ");
-       if(names.length == 2){
-           user.setGivenName(names[0]);
-           user.setFamilyName(names[1]);
-       }
-
-       // Username is gotten from email
-       String email = loginInfo.get("email");
-
-       user.setEmail(email);
-       user.setUsername(loginInfo.get("email").split("@")[0]);
-
-       // Finally, saving user
-        userRepository.save(user);
+	//@PostMapping
+	//@ResponseStatus(code = HttpStatus.CREATED)
+    public AccountBean add(HashMap<String, String> loginInfo) {
+    	AccountBean user = userRepository.findByUsername(loginInfo.get("id"));
+    	if (user == null) {
+	        // Create bean
+	       user = new AccountBean(loginInfo.get("id"));
+	       String[] names = loginInfo.get("name").split(" ");
+	       if(names.length == 2){
+	           user.setGivenName(names[0]);
+	           user.setFamilyName(names[1]);
+	       }
+	
+	       // Username is gotten from email
+	       String email = loginInfo.get("email");
+	
+	       user.setEmail(email);
+	       user.setUsername(loginInfo.get("email").split("@")[0]);
+	
+	       // Finally, saving user
+	        userRepository.save(user);
+    	}
+        return user;
    }
 	
     @GetMapping("/userdb")
@@ -44,9 +47,10 @@ public class AccountController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping(path="/{username}")
-	public AccountBean getUser(@PathVariable String username) {
-		return userRepository.findByUsername(username);
+	@GetMapping(path="/get/{id}")
+	public AccountBean getUser(@PathVariable String id) {
+		System.out.println("ID: " + id);
+		return userRepository.findByUsername(id);
 	}
 	
 	@DeleteMapping
@@ -59,21 +63,23 @@ public class AccountController {
 		userRepository.delete(userRepository.findByUsername(username));
 	}
 
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
-    public boolean login(@RequestBody HashMap<String, String> loginInfo) {
+    @PostMapping(path="/login")
+    public AccountBean login(@RequestBody HashMap<String, String> loginInfo) {
         String[] arrOfStr = loginInfo.get("email").split("@");
 
         if (validateId(arrOfStr[0])) {
+        	AccountBean acc = null;
             if(!userRepository.findById(loginInfo.get("id")).isPresent()){
-                add(loginInfo);
+                acc = add(loginInfo);
                 System.out.println("New user registered");
+                System.out.println(acc.toString());
             }
 
             System.out.printf("Log in: %s\n", arrOfStr[0]);
-                return true;
+            return acc;
         } else {
             System.out.println("Login attempt: Not valid student email");
-            return false;
+            return null;
         }
     }
 

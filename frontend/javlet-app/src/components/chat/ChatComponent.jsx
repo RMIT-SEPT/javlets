@@ -23,7 +23,9 @@ class ChatComponent extends Component {
   componentDidMount() {
     console.log('Component did mount');
 
-    this.client = Stomp.over(new WebSocket("ws://javlet.social:8080/socket/websocket"));
+    this.client = Stomp.over(new WebSocket(
+	//"ws://javlet.social:8080/socket/websocket"
+	"ws://localhost:8080/socket/websocket"));
 
     this.client.connect({ login: null, passcode: null }, () => {
       console.log("Connected");

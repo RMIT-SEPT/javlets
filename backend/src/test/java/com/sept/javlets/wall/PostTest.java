@@ -41,8 +41,6 @@ class PostTest {
     @DisplayName("Making a Post")
     void testPost() {
         postRepository.save(
-            // new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
-            //                     userRepository.findByUsername("Test User")
             new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
                                 userRepository.findByUsername("Test User"), 123));
 

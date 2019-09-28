@@ -5,7 +5,8 @@ import axios from "axios";
 import cookie from 'js-cookie';
 
 const responseGoogle = (response) => {
-  var id = response.profileObj.googleId
+  var id = response.profileObj.googleId;
+  var studentId = response.profileObj.email.split('@')[0];
 
   const newItem = {
     id: id,
@@ -16,11 +17,13 @@ const responseGoogle = (response) => {
 
 
   // Send to server to authenicate
-  axios.post('http://javlet.social:8080/auth/login', newItem)
+  axios.post(//'http://javlet.social:8080/auth/login'
+  'http://localhost:8080/auth/login', newItem)
   .then(function (response) {
     if(response.data){
       // Valid login
-      cookie.set('id', id)
+      cookie.set('id', id);
+	  cookie.set('studentId', studentId);
       window.location.reload();
     }else{
       // Invalid (Not rmit student email)
@@ -43,7 +46,8 @@ class GAuthComponent extends Component{
 
   componentDidMount() {
     if(cookie.get('id')){
-    axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+    axios.get(//'http://javlet.social:8080/auth/get?id='
+	'http://localhost:8080/auth/get/' + cookie.get('studentId'))
     .then((response) => {
       if(response.data.id != null){
         this.setState({user: response.data});
@@ -51,7 +55,8 @@ class GAuthComponent extends Component{
         this.logout();
       }
     });
-    axios.get('http://javlet.social:8080/auth/count')
+    axios.get(//'http://javlet.social:8080/auth/count'
+	'http://localhost:8080/auth/count')
     .then((response) => {
       console.log(response.data);
       this.setState({count: response.data});

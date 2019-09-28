@@ -10,7 +10,7 @@ import java.util.List;
 public class AccountBean {
 
 	@Id
-	private String id;
+	private String mongoId;
 	
 	private String email;
 	private String givenName;

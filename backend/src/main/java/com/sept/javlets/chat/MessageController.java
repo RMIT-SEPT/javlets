@@ -22,7 +22,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/chat")
+@CrossOrigin(origins = "http://localhost:3000")
 public class MessageController {
 	
 	@Autowired
