@@ -54,7 +54,6 @@ class LiveChatCommenting extends Component {
   
     handleSubmit(event) {
       event.preventDefault();
-      document.getElementById("form").reset();
       if (!this.state.title.length) {
         return;
       }

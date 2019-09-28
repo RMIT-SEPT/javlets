@@ -19,18 +19,22 @@ public class PostBean {
     private String body;
     private String author;
     private String userId;
+    private String category;
+    private String selectDate;
 
     public PostBean() {
 
     }
 
-    public PostBean(String type, String title, String body, String author, long postId, String userId) {
+    public PostBean(String type, String title, String body, String author, long postId, String userId, String category, String selectDate) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
 		this.author = author;
         this.postId = postId;
         this.userId = userId;
+        this.category = category;
+        this.selectDate = selectDate;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
 
@@ -79,6 +83,14 @@ public class PostBean {
 
     public String getUserId() {
         return userId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getSelectDate() {
+        return selectDate;
     }
 
     public String toString() {

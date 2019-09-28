@@ -25,13 +25,13 @@ class WallComponent extends Component{
     return(
       <div className="body-item wall">
         {this.state.liveStream ? (
-          <livestream>
+          <div>
             <h1>Live Stream</h1>
             <button type="disable" onClick={this.disableLiveStream}> Show Wall </button>
             <WebCamCapture />
-          </livestream>
+          </div>
           ):(
-          <wall>
+          <div>
             <h1>The Wall </h1>
             {this.state.makePost ?( 
               <button type="disablePost" onClick={this.hideForm}> Show Wall </button>
@@ -40,7 +40,7 @@ class WallComponent extends Component{
             )}
               <button type="enable" onClick={this.enableLiveStream}> Show Live Stream </button>
               {this.state.makePost ? (<WallPostInputForm />):( <PostComponent className="postList" posts={this.state.posts} />)}
-          </wall>
+          </div>
           )}
       </div>
     );

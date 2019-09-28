@@ -43,7 +43,9 @@ public class PostController {
                 postInfo.get("body"),
                 postInfo.get("author"),
                 Long.parseLong(postInfo.get("postId")),
-                postInfo.get("userId")
+                postInfo.get("userId"),
+                postInfo.get("category"),
+                postInfo.get("selectDate")
         );
 
         postRepository.save(post);

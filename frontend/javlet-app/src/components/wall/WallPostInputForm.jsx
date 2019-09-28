@@ -7,6 +7,7 @@ class WallPostInputForm extends Component {
       super(props)
       this.state = {
         user: [],
+        posts: [],
         postType: '',
         title: '', 
         body: '',
@@ -47,6 +48,16 @@ class WallPostInputForm extends Component {
             <input className="w3-btn w3-blue" type="submit" value="Submit" />
             
           </form>
+          <div>
+            {this.state.posts.reverse().map(item => (  
+              <div className="post" key={item.id}>
+                <h5>{item.selectDate}</h5>
+                <h2>{item.title}</h2>
+                <p>{item.body}</p>
+                <h4> By {item.author} ({item.postType})</h4>
+              </div>
+            ))}
+        </div>
         </div>
         
       );
@@ -74,11 +85,14 @@ class WallPostInputForm extends Component {
         body: this.state.body,
         author: this.state.user.givenName + " " + this.state.user.familyName,
         postId: Date.now(),
-        userId: this.state.user.username
+        userId: this.state.user.username,
+        category: 'wallpost',
+        selectDate: ''
       };
       this.setState({title: '', body: ''})
-      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      // return axios.post('http://localhost:8080/wall/newPost', newItem);
+      this.setState( {posts: this.state.posts.concat(newItem)})
+      // return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
   

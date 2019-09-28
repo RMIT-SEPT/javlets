@@ -1,18 +1,35 @@
 import React, { Component } from 'react'
+import DatePicker from "react-datepicker";
+import axios from 'axios';
+import cookie from 'js-cookie';
+ 
+import "react-datepicker/dist/react-datepicker.css";
 
 class ScheduleForm extends Component {
     constructor(props) {
       super(props);
       this.state = {
-          posts: [],
-          newPost: '',
-          title: '', 
-          body: '',
-          id: 0
+        user: [],
+        posts: [],
+        newPost: '',
+        title: '', 
+        newDate: new Date(),
+        body: '',
+        id: 0
       };  
       this.handleTitleChange = this.handleTitleChange.bind(this);
+      this.handleDateChange = this.handleDateChange.bind(this);
       this.handleBodyChange = this.handleBodyChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+      if(cookie.get('id')){
+        axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+        .then((response) => {
+          this.setState({user: response.data});
+        });
+      }
     }
   
     render() {
@@ -26,7 +43,7 @@ class ScheduleForm extends Component {
               <br />
 
               <label> Date/Time </label> <br />
-              <input onChange={this.handleTitleChange} value={this.state.title}/>
+              <DatePicker selected={this.state.newDate} onChange={this.handleDateChange} showTimeSelect dateFormat="Pp" />
               <br />
               
               <label> Details </label>
@@ -40,8 +57,10 @@ class ScheduleForm extends Component {
           <div>
             {this.state.posts.reverse().map(item => (  
               <div className="post" key={item.id}>
+                <h5>{item.selectDate}</h5>
                 <h2>{item.title}</h2>
                 <p>{item.body}</p>
+                <h4> By {item.author} ({item.postType})</h4>
               </div>
             ))}
         </div>
@@ -53,24 +72,35 @@ class ScheduleForm extends Component {
         this.setState({ title: event.target.value });
     }
 
+    handleDateChange = date => {
+      this.setState({
+        newDate: date
+      });
+    };
+
     handleBodyChange(event) {
       this.setState({ body: event.target.value });
     }
   
     handleSubmit(event) {
       event.preventDefault();
-      document.getElementById("form").reset();
       if (!this.state.title.length) {
         return;
       }
       const newItem = {
         title: this.state.title,
+        selectDate: "Livestream scheduled for: " + this.state.newDate.toString(),
         body: this.state.body,
-        id: Date.now()
+        author: this.state.user.givenName + " " + this.state.user.familyName,
+        postId: Date.now(),
+        userId: this.state.user.username,
+        postType: 'Mentor',
+        category: 'livestream'
       };
       this.setState( {posts: this.state.posts.concat(newItem)})
-      this.setState({title: "", body: ""});
-      
+      this.setState({title: "", newDate: new Date(), body: ""});
+      // return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
 

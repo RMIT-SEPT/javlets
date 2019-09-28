@@ -22,11 +22,11 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
-        'http://javlet.social:8080/wall'
-        // 'http://localhost:8080/wall'
+        // 'http://javlet.social:8080/wall'
+        'http://localhost:8080/wall'
       )
       .then(result => {
-          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.postId}));
+          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.author, id: obj.postId, selectDate: obj.selectDate}));
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
           })
@@ -64,9 +64,10 @@ class PostComponent extends Component{
         <div>
           {displayPosts.map(item => (  
             <div className="post" key={item.id}>
-                <h2>{item.title}</h2>
-                <p>{item.body}</p>
-                <h4> By {item.author} ({item.type})</h4>
+              <h6>{item.selectDate}</h6>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+              <h4> By {item.author} ({item.type})</h4>
             </div>
           ))}
         </div>

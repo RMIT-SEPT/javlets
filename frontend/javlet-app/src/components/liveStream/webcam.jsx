@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Webcam from "react-webcam";
 import LiveChatCommenting from './LiveChatCommenting';
 import ScheduleForm from './ScheduleForm'
+import ScheduledLiveStream from './ScheduledLiveStream'
 
 
 class WebCamCapture extends Component {
@@ -43,19 +44,14 @@ class WebCamCapture extends Component {
           
           {this.state.scheduleStream ? (
             <>
-            <button type="create" onClick={this.showschedule}> Show Scheduled Live Streams </button>
+            <button type="create" onClick={this.showschedule}> Show Live Stream Schedules </button>
             <ScheduleForm/>
             </>
             ):(
             <>
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
             <h2>Upcoming Streams</h2>
-            <list>
-              <ul>0900h 11th October by Samwise</ul>
-              <ul>1730h 3rd November by Elia</ul>
-              <ul>1400h 1st Decemeber by Jason</ul>
-              <ul>1100h 2nd Decemeber by Jason</ul>
-            </list>
+            <ScheduledLiveStream/>
             </>
           )}
           </>

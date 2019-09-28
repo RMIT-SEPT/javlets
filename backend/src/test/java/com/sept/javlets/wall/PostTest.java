@@ -43,7 +43,7 @@ class PostTest {
             // new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
             //                     userRepository.findByUsername("Test User")
             new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
-                                "Jane Dilton", 123, "s123"
+                                "Jane Dilton", 123, "s123", "LivePost", "date"
         ));
 
         assertEquals(1, postRepository.count());
