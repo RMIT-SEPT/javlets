@@ -28,7 +28,7 @@ class PostComponent extends Component{
       .then(result => {
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, 
                                                                 body: obj.body, msgAuthor: obj.msgAuther, id: obj.id, selectDate: obj.selectDate}));
-          console.log(result.data)
+          // console.log(result.data)
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
           })
