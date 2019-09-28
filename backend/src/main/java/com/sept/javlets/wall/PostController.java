@@ -40,8 +40,13 @@ public class PostController {
                 postInfo.get("postType"),
                 postInfo.get("title"),
                 postInfo.get("body"),
-                userRepository.findByUsername(postInfo.get("userId")),
-                Long.parseLong(postInfo.get("postId"))
+				userRepository.findByUsername(postInfo.get("userId")),
+				postInfo.get("author"),
+				Long.parseLong(postInfo.get("postId")),
+				postInfo.get("userId"),
+                postInfo.get("category"),
+                postInfo.get("selectDate")
+                
         );
 		System.out.println("Post object created");
 		
