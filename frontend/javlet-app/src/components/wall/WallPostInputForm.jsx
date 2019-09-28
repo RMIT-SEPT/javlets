@@ -77,14 +77,9 @@ class WallPostInputForm extends Component {
         userId: this.state.user.username
       };
       this.setState({title: '', body: ''})
-      this.saveNewPost(newItem)
-      
-    }
-    saveNewPost(newItem){
-      axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      // axios.post('http://localhost:8080/wall/newPost', newItem);
+      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      // return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
   
-
   export default WallPostInputForm;

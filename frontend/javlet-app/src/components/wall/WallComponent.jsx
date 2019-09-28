@@ -6,7 +6,7 @@ import WallPostInputForm from './WallPostInputForm';
 
 class WallComponent extends Component{
 
-  enableLiveStream = () => this.setState({ liveStream: true });
+  enableLiveStream = () => this.setState({ liveStream: true, makePost: false });
   disableLiveStream = () => this.setState({liveStream: false});
   makeAPost = () => this.setState({makePost: true});
   hideForm = () => this.setState({makePost: false});
@@ -27,7 +27,7 @@ class WallComponent extends Component{
         {this.state.liveStream ? (
           <livestream>
             <h1>Live Stream</h1>
-            <button type="disable" onClick={this.disableLiveStream}> Display The Wall </button>
+            <button type="disable" onClick={this.disableLiveStream}> Show Wall </button>
             <WebCamCapture />
           </livestream>
           ):(
@@ -38,7 +38,7 @@ class WallComponent extends Component{
             ):(
               <button type="enablePost" onClick={this.makeAPost}> Create Post </button>
             )}
-              <button type="enable" onClick={this.enableLiveStream}> Live Stream </button>
+              <button type="enable" onClick={this.enableLiveStream}> Show Live Stream </button>
               {this.state.makePost ? (<WallPostInputForm />):( <PostComponent className="postList" posts={this.state.posts} />)}
           </wall>
           )}
