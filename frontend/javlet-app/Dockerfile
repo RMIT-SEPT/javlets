@@ -7,6 +7,7 @@ RUN npm run build
 
 FROM httpd:2.4
 COPY --from=build-stage /app/build/ /usr/local/apache2/htdocs
+COPY --from=build-stage /app/server.cer /usr/local/apache2/conf/
 
 RUN sed -i \
         -e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
