@@ -42,11 +42,11 @@ class WallComponent extends Component{
                   </button>
                   ):(
                   <button type="enablePost" onClick={this.makeAPost}>
-                    Make a Post
+                    Create Post
                   </button>
                 )}
               <button type="enable" onClick={this.enableLiveStream}>
-                Display Video
+                Live Stream
               </button>
               {this.state.makePost ? (<WallPostInputForm />):(false)}
                 <div className="postList">
