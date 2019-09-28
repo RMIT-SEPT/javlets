@@ -18,6 +18,8 @@ public class MessageBean {
 	private AccountBean recipient;
 	private LocalDateTime date;
     
+	public MessageBean() {}
+	
 	public MessageBean(String messageContent, AccountBean author, AccountBean recipient) {
 		this.date = LocalDateTime.now();
 		this.messageContent = messageContent;

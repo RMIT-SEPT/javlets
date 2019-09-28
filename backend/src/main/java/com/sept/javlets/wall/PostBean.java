@@ -32,6 +32,8 @@ public class PostBean {
     //TODO: Implement
 //	private PrivacySetting privacy;
 
+    public PostBean() {}
+    
     public PostBean(String type, String title, String body, AccountBean author, long postId, String category) {
 		this.type = type;
 		this.title = title;
