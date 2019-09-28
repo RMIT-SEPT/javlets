@@ -5,11 +5,7 @@ RUN npm install
 COPY ./ /app/
 RUN npm run build
 
-FROM httpd:2.4
-COPY --from=build-stage /app/build/ /usr/local/apache2/htdocs
-
-RUN sed -i \
-        -e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
-        -e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
-        -e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
-        conf/httpd.conf
+FROM nginx:1.15
+COPY --from=build-stage /app/build/ /usr/share/nginx/html
+# Copy the default nginx.conf provided by tiangolo/node-frontend
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf
