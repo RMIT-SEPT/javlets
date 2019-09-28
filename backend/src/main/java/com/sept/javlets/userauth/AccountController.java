@@ -3,44 +3,61 @@ package com.sept.javlets.userauth;
 
 import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
+	
+	@Autowired 
+	private UserRepository userRepository;
+	
+    // Add new user
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+    void add(HashMap<String, String> loginInfo) {
 
-    @Autowired
-    private UserRepository userRepository;
+        // Create bean
+       AccountBean user = new AccountBean(loginInfo.get("id"));
+       String[] names = loginInfo.get("name").split(" ");
+       if(names.length == 2){
+           user.setGivenName(names[0]);
+           user.setFamilyName(names[1]);
+       }
 
-    // Add new user, (Not in database)
-     void add(HashMap<String, String> loginInfo) {
+       // Username is gotten from email
+       String email = loginInfo.get("email");
 
-         // Create bean
-        StudentAccountBean user = new StudentAccountBean(loginInfo.get("id"));
-        String[] names = loginInfo.get("name").split(" ");
-        if(names.length == 2){
-            user.setGivenName(names[0]);
-            user.setFamilyName(names[1]);
-        }
+       user.setEmail(email);
+       user.setUsername(loginInfo.get("email").split("@")[0]);
 
-        // Username is gotten from email
-        String email = loginInfo.get("email");
-
-        user.setEmail(email);
-        user.setUsername(loginInfo.get("email").split("@")[0]);
-
-        // Finally, saving user
-         userRepository.save(user);
-    }
-
-
-
-    private boolean validateId(String Id) {
-        return Id.matches("(s|e)\\d{7}");
-    }
+       // Finally, saving user
+        userRepository.save(user);
+   }
+	
+    @GetMapping("/userdb")
+	public List<AccountBean> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	@GetMapping(path="/{username}")
+	public AccountBean getUser(@PathVariable String username) {
+		return userRepository.findByUsername(username);
+	}
+	
+	@DeleteMapping
+	public void removeAllUsers() {
+		userRepository.deleteAll();
+	}
+	
+	@DeleteMapping(path="/{username}")
+	public void removeUser(@PathVariable String username) {
+		userRepository.delete(userRepository.findByUsername(username));
+	}
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public boolean login(@RequestBody HashMap<String, String> loginInfo) {
@@ -58,29 +75,16 @@ public class AccountController {
             System.out.println("Login attempt: Not valid student email");
             return false;
         }
-}
-
-    @GetMapping("/get")
-    @ResponseBody
-    public StudentAccountBean getInfo(@RequestParam String id) {
-        Optional<StudentAccountBean> user = userRepository.findById(id);
-        return user.orElse(null);
     }
-
 
     // Registered user count
     @GetMapping("/count")
     public long getUserCount() {
          return userRepository.count();
     }
-
-    // DEBUG
-    @GetMapping("/userdb")
-    public List<StudentAccountBean> getUserDB() {
-        return userRepository.findAll();
+    
+    private boolean validateId(String Id) {
+        return Id.matches("(s|e)\\d{7}");
     }
-
-
-
 
 }

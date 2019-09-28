@@ -1,36 +1,36 @@
 package com.sept.javlets.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-// import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection = "posts")
+import com.sept.javlets.userauth.AccountBean;
+
+@JsonIgnoreProperties(ignoreUnknown=true)
+@Document(collection="posts")
 public class PostBean {
-
-    //TODO: Implement
-//	private PrivacySetting privacy;
-
-    @Id
-    private long postId;
-    private String type;
-    private String title;
-    private String body;
-    private String author;
+	
+	@Id
+	private String mongoId;
+	
+	private long postId;
+	private String type;
+	private String title;
+	private String body;
+    private AccountBean author;
+    private String msgAuthor;
     private String userId;
     private String category;
     private String selectDate;
+    //TODO: Implement
+//	private PrivacySetting privacy;
 
-    public PostBean() {
-
-    }
-
-    public PostBean(String type, String title, String body, String author, long postId, String userId, String category, String selectDate) {
+    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String userId, String category, String selectDate) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
-		this.author = author;
+        this.author = author;
+        this.msgAuthor = msgAuthor;
         this.postId = postId;
         this.userId = userId;
         this.category = category;
@@ -40,21 +40,28 @@ public class PostBean {
 
 	}
 
-
     public String getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+	public AccountBean getAuthor() {
+		return author;
+	}
 
-    public String getTitle() {
-        return title;
+	public void setAuthor(AccountBean authorAccount) {
+		this.author = authorAccount;
+    }
+    
+    public String getMsgAuthor(){
+        return msgAuthor;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTitle(){
+        return title;
     }
 
     public String getBody() {
@@ -63,14 +70,6 @@ public class PostBean {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public Long getId() {
@@ -94,7 +93,7 @@ public class PostBean {
     }
 
     public String toString() {
-        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n, UserID: %s", postId, author, title, body, type, userId);
+        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, msgAuthor, title, body, type);
     }
 
     //TODO: Implement
