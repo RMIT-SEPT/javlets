@@ -14,6 +14,6 @@ RUN sed -i \
         -e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
         conf/httpd.conf
 
-COPY --from=build-stage /app/build/dev.conf /etc/apache2/sites-enabled/dev.conf
-COPY --from=build-stage /app/build/ssl.crt /etc/apache2/ssl/ssl.crt
-COPY --from=build-stage /app/build/ssl.key /etc/apache2/ssl/ssl.key
+COPY --from=build-stage /app/dev.conf /etc/apache2/sites-enabled/dev.conf
+COPY --from=build-stage /app/ssl.crt /etc/apache2/ssl/ssl.crt
+COPY --from=build-stage /app/ssl.key /etc/apache2/ssl/ssl.key
