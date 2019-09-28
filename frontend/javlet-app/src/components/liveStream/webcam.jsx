@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Webcam from "react-webcam";
-// import NewWindow from 'react-new-window';
 import LiveChatCommenting from './LiveChatCommenting';
 
 
@@ -25,78 +24,29 @@ class WebCamCapture extends Component {
           <button type="disable" onClick={this.disableWebCam}>
             Disable webcam
           </button>
-          <br /><Webcam videoConstraints={videoConstraints} />
+           <br /><Webcam videoConstraints={videoConstraints} />
 
           <h2>Comments </h2>
           <LiveChatCommenting />
           </>
         ):(
           <>
-          <button type="enable" onClick={this.enableWebcam}>
-            Make Live Stream
+          <button type="create" onClick={this.enableWebcam}>
+            Create Live Stream
           </button>
-          <button type="watch" onClick={this.enableWebcam}>
-            Watch Live Steam
-          </button>
+          <h2>Upcoming Streams</h2>
+          <list>
+            <ul>0900h 11th October by Samwise</ul>
+            <ul>1730h 3rd November by Elia</ul>
+            <ul>1400h 1st Decemeber by Jason</ul>
+            <ul>1100h 2nd Decemeber by Jason</ul>
+          </list>
           </>
         )}
-        {/* ... */}
+
       </div>
     );
-  }
-
-      // <NewWindow>
-      //   <div>
-      //     <h1>Live Stream</h1>
-      //     <Webcam videoConstraints={videoConstraints} />
-      //     <LiveChatCommenting />
-      //   </div>
-      // </NewWindow>
-    
+  }    
 }
-
-// const WebcamComponent = () => <Webcam />;
-
-// const videoConstraints = {
-//     width: 1280,
-//     height: 720,
-//     facingMode: "user"
-//   };
-   
-// const WebcamCapture = () => {
-//   const webcamRef = React.useRef(null);
-
-//   const capture = React.useCallback(
-//       () => {
-//       const imageSrc = webcamRef.current.getScreenshot();
-//       },
-//       [webcamRef]
-//   );
-
-//   return (
-//       <>      
-//       <Webcam
-//           audio={false}
-//           height={720}
-//           ref={webcamRef}
-//           screenshotFormat="image/jpeg"
-//           width={1280}
-//           videoConstraints={videoConstraints}
-//       />
-//       <button onClick={capture}>Capture photo</button>
-      
-//       </>
-//   );
-// };
-
-  // class WebcamCapture extends Component {
-  //   render() {
-  //     const videoConstraints = {
-  //       facingMode: { exact: "environment" }
-  //     };
-   
-  //     return <Webcam videoConstraints={videoConstraints} />;
-  //   }
-  // }
 
 export default WebCamCapture;
