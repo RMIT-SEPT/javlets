@@ -84,7 +84,7 @@ class ChatComponent extends Component {
                         value={this.state.message}
                         onChange={e => this.setState({ message: e.target.value })}
                         className="w3-input form-control"
-                        autocomplete="off"
+                        autoComplete="off"
                       />
                       <input type="submit"
                        className="w3-btn w3-blue" 
