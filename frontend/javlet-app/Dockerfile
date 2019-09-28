@@ -7,10 +7,15 @@ RUN npm run build
 
 FROM httpd:2.4
 COPY --from=build-stage /app/build/ /usr/local/apache2/htdocs
-COPY --from=build-stage /app/server.cer /usr/local/apache2/conf
 
 RUN sed -i \
         -e 's/^#\(Include .*httpd-ssl.conf\)/\1/' \
         -e 's/^#\(LoadModule .*mod_ssl.so\)/\1/' \
         -e 's/^#\(LoadModule .*mod_socache_shmcb.so\)/\1/' \
         conf/httpd.conf
+
+RUN a2enmod rewrite
+RUN a2enmod ssl
+COPY --from=build-stage /app/build/dev.conf /etc/apache2/sites-enabled/dev.conf
+COPY --from=build-stage /app/build/ssl.crt /etc/apache2/ssl/ssl.crt
+COPY --from=build-stage /app/build/ssl.key /etc/apache2/ssl/ssl.key
