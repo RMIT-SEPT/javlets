@@ -1,9 +1,14 @@
 package com.sept.javlets.userauth;
 
 
+import com.sept.javlets.chat.MessageBean;
 import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -80,6 +85,34 @@ public class AccountController {
         return userRepository.findAll();
     }
 
+    @GetMapping(path="/get/{username}")
+    public void addConnection(@PathVariable String username, @RequestBody HashMap<String, String> newConnectionInfo){
+    	
+    	StudentAccountBean currentUser = (userRepository.findByUsername(username));
+    	
+    	StudentAccountBean toConnect = new StudentAccountBean(newConnectionInfo.get("username"));
+		
+		for(StudentAccountBean accounts : currentUser.getConnections()) {			
+			if(!accounts.getUsername().equals(newConnectionInfo.get("username"))){
+				currentUser.addConnection(toConnect);
+				System.out.println("New connection added");
+			}
+		}
+    }
+    
+//    @MessageMapping("/message")
+//    public void message(MessageBean mBean) {
+//        String datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now()).toString();
+//
+//        userRepository.findById(mBean.getSenderId()).ifPresent(mBean::setSender);
+//        userRepository.findById(mBean.getRecipientId()).ifPresent(mBean::setRecipient);
+//        mBean.setDateTime(datetime);
+//        messageRepository.save(mBean);
+//
+//
+//        System.out.println("MESSAGE RECEIVED (" + datetime +"): " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
+//        this.template.convertAndSend("/chat", mBean);
+//    }
 
 
 
