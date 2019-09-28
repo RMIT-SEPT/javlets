@@ -24,39 +24,31 @@ class WallComponent extends Component{
 
     return(
       <div className="body-item wall">
-        
         {this.state.liveStream ? (
-          <>
-          <h1> Live Stream</h1>
-            <button type="disable" onClick={this.disableLiveStream}>
-              Display The Wall
-            </button>
+          <livestream>
+            <h1>Live Stream</h1>
+            <button type="disable" onClick={this.disableLiveStream}> Display The Wall </button>
             <WebCamCapture />
-            </>
-            ) : ( 
-              <>
-              <h1>The Wall </h1>
-              {this.state.makePost ?( 
-                  <button type="disablePost" onClick={this.hideForm}>
-                    Hide Form
-                  </button>
-                  ):(
-                  <button type="enablePost" onClick={this.makeAPost}>
-                    Create Post
-                  </button>
-                )}
-              <button type="enable" onClick={this.enableLiveStream}>
-                Live Stream
-              </button>
-              {this.state.makePost ? (<WallPostInputForm />):(false)}
-                <div className="postList">
-                <PostComponent posts={this.state.posts} />
-                </div>
-              </>
+          </livestream>
+          ):(
+          <wall>
+            <h1>The Wall </h1>
+            {this.state.makePost ?( 
+              <button type="disablePost" onClick={this.hideForm}> Show Wall </button>
+            ):(
+              <button type="enablePost" onClick={this.makeAPost}> Create Post </button>
+            )}
+              <button type="enable" onClick={this.enableLiveStream}> Live Stream </button>
+              {this.state.makePost ? (<WallPostInputForm />):( <PostComponent className="postList" posts={this.state.posts} />)}
+          </wall>
           )}
-
       </div>
     );
+  }
+
+
+  refreshPage() {
+    window.location.reload();
   }
 
   handlePostTypeChange(event) {

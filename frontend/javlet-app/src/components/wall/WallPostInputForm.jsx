@@ -4,10 +4,9 @@ import cookie from 'js-cookie';
 
 class WallPostInputForm extends Component {
     constructor(props) {
-      super(props);
+      super(props)
       this.state = {
         user: [],
-        newPost: '', 
         postType: '',
         title: '', 
         body: '',
@@ -46,12 +45,12 @@ class WallPostInputForm extends Component {
             <br />
             
             <input className="w3-btn w3-blue" type="submit" value="Submit" />
+            
           </form>
         </div>
         
       );
     }
-    
     handlePostTypeChange(event) {
         this.setState({ postType: event.target.value });
     }
@@ -65,7 +64,7 @@ class WallPostInputForm extends Component {
     }
   
     handleSubmit(event) {
-      // event.preventDefault();
+      event.preventDefault();
       if (!this.state.title.length) {
         return;
       }
@@ -77,9 +76,13 @@ class WallPostInputForm extends Component {
         postId: Date.now(),
         userId: this.state.user.username
       };
-
-      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      // return axios.post('http://localhost:8080/wall/newPost', newItem);
+      this.setState({title: '', body: ''})
+      this.saveNewPost(newItem)
+      
+    }
+    saveNewPost(newItem){
+      axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      // axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
   
