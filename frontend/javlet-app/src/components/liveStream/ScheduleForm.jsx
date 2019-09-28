@@ -99,8 +99,8 @@ class ScheduleForm extends Component {
       };
       this.setState( {posts: this.state.posts.concat(newItem)})
       this.setState({title: "", newDate: new Date(), body: ""});
-      // return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      return axios.post('http://localhost:8080/wall/newPost', newItem);
+      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      // return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
 
