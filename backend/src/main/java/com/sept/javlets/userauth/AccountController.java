@@ -1,51 +1,64 @@
 package com.sept.javlets.userauth;
 
 
-import com.sept.javlets.chat.MessageBean;
 import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
+	
+	@Autowired 
+	private UserRepository userRepository;
+	
+    // Add new user
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+    void add(HashMap<String, String> loginInfo) {
 
-    @Autowired
-    private UserRepository userRepository;
+        // Create bean
+       AccountBean user = new AccountBean(loginInfo.get("id"));
+       String[] names = loginInfo.get("name").split(" ");
+       if(names.length == 2){
+           user.setGivenName(names[0]);
+           user.setFamilyName(names[1]);
+       }
 
-    // Add new user, (Not in database)
-     void add(HashMap<String, String> loginInfo) {
+       // Username is gotten from email
+       String email = loginInfo.get("email");
 
-         // Create bean
-        StudentAccountBean user = new StudentAccountBean(loginInfo.get("id"));
-        String[] names = loginInfo.get("name").split(" ");
-        if(names.length == 2){
-            user.setGivenName(names[0]);
-            user.setFamilyName(names[1]);
-        }
+       user.setEmail(email);
+       user.setUsername(loginInfo.get("email").split("@")[0]);
 
-        // Username is gotten from email
-        String email = loginInfo.get("email");
-
-        user.setEmail(email);
-        user.setUsername(loginInfo.get("email").split("@")[0]);
-
-        // Finally, saving user
-         userRepository.save(user);
-    }
-
-
-
-    private boolean validateId(String Id) {
-        return Id.matches("(s|e)\\d{7}");
-    }
+       // Finally, saving user
+        userRepository.save(user);
+   }
+	
+    @GetMapping("/userdb")
+	public List<AccountBean> getAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	@GetMapping(path="/{username}")
+	public AccountBean getUser(@PathVariable String username) {
+		return userRepository.findByUsername(username);
+	}
+	
+	@DeleteMapping
+	public void removeAllUsers() {
+		userRepository.deleteAll();
+	}
+	
+	@DeleteMapping(path="/{username}")
+	public void removeUser(@PathVariable String username) {
+		userRepository.delete(userRepository.findByUsername(username));
+	}
 
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public boolean login(@RequestBody HashMap<String, String> loginInfo) {
@@ -63,57 +76,31 @@ public class AccountController {
             System.out.println("Login attempt: Not valid student email");
             return false;
         }
-}
-
-    @GetMapping("/get")
-    @ResponseBody
-    public StudentAccountBean getInfo(@RequestParam String id) {
-        Optional<StudentAccountBean> user = userRepository.findById(id);
-        return user.orElse(null);
     }
-
 
     // Registered user count
     @GetMapping("/count")
     public long getUserCount() {
          return userRepository.count();
     }
-
-    // DEBUG
-    @GetMapping("/userdb")
-    public List<StudentAccountBean> getUserDB() {
-        return userRepository.findAll();
+    
+    private boolean validateId(String Id) {
+        return Id.matches("(s|e)\\d{7}");
     }
 
     @GetMapping(path="/get/{username}")
     public void addConnection(@PathVariable String username, @RequestBody HashMap<String, String> newConnectionInfo){
     	
-    	StudentAccountBean currentUser = (userRepository.findByUsername(username));
+    	AccountBean currentUser = (userRepository.findByUsername(username));
     	
-    	StudentAccountBean toConnect = new StudentAccountBean(newConnectionInfo.get("username"));
+    	AccountBean toConnect = new AccountBean(newConnectionInfo.get("username"));
 		
-		for(StudentAccountBean accounts : currentUser.getConnections()) {			
+		for(AccountBean accounts : currentUser.getConnections()) {			
 			if(!accounts.getUsername().equals(newConnectionInfo.get("username"))){
 				currentUser.addConnection(toConnect);
 				System.out.println("New connection added");
 			}
 		}
     }
-    
-//    @MessageMapping("/message")
-//    public void message(MessageBean mBean) {
-//        String datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now()).toString();
-//
-//        userRepository.findById(mBean.getSenderId()).ifPresent(mBean::setSender);
-//        userRepository.findById(mBean.getRecipientId()).ifPresent(mBean::setRecipient);
-//        mBean.setDateTime(datetime);
-//        messageRepository.save(mBean);
-//
-//
-//        System.out.println("MESSAGE RECEIVED (" + datetime +"): " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
-//        this.template.convertAndSend("/chat", mBean);
-//    }
-
-
 
 }
