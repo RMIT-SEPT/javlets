@@ -72,17 +72,4 @@ public class MessageController {
         this.template.convertAndSend("/chat", message);
     }
     
-//    @MessageMapping("/message")
-//    public void message(MessageBean mBean) {
-//        String datetime = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss").format(LocalDateTime.now()).toString();
-//
-//        userRepository.findBIdd(mBean.getSenderId()).ifPresent(mBean::setSender);
-//        userRepository.findById(mBean.getRecipientId()).ifPresent(mBean::setRecipient);
-//        mBean.setDateTime(datetime);
-//        messageRepository.save(mBean);
-//
-//
-//        System.out.println("MESSAGE RECEIVED (" + datetime +"): " + mBean.getSender().getUsername() + " sent \"" + mBean.getMsg() + "\" to " + mBean.getRecipient());
-//        this.template.convertAndSend("/chat", mBean);
-//    }
 }

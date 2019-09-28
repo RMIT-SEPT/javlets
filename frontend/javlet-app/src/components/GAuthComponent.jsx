@@ -6,7 +6,7 @@ import cookie from 'js-cookie';
 
 const responseGoogle = (response) => {
   var id = response.profileObj.googleId;
-  var studentId = response.profileObj.email.split('@')[0];
+  var studentId = (response.profileObj.email.split('@'))[0];
 
   const newItem = {
     id: id,
@@ -17,8 +17,10 @@ const responseGoogle = (response) => {
 
 
   // Send to server to authenicate
-  axios.post(//'http://javlet.social:8080/auth/login'
-  'http://localhost:8080/auth/login', newItem)
+  axios.post(
+  //'http://javlet.social:8080/auth/login'
+  'http://localhost:8080/auth/login'
+  , newItem)
   .then(function (response) {
     if(response.data){
       // Valid login
@@ -41,6 +43,7 @@ class GAuthComponent extends Component{
 
   logout() {
     cookie.remove('id');
+	cookie.remove('studentId');
     window.location.reload();
   }
 

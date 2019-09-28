@@ -111,7 +111,7 @@ class ChatComponent extends Component {
           
     const newItem = {
       msg: msg,
-      senderId: cookie.get('id'),
+      senderId: cookie.get('studentId'),
       recipientId: this.state.recipient,
     };
 
