@@ -28,6 +28,12 @@ public class AccountBean {
 		this.username = username;
 		this.connections = new ArrayList<AccountBean>();
 	}
+
+	public AccountBean(String googleID, String username) {
+		this.googleID = googleID;
+		this.username = username;
+		this.connections = new ArrayList<AccountBean>();
+	}
 	
 	public String getEmail() {
 		return email;
@@ -96,5 +102,10 @@ public class AccountBean {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("UserName: %s, GoogleId: %s, familyName: %s, GivenName: %s, Email: %s%n", username, googleID, familyName, givenName, email);
+    }
 	
 }

@@ -22,8 +22,8 @@ class PostComponent extends Component{
   refreshWall() {
       return axios
       .get(
-        'http://javlet.social:8080/wall'
-        // 'http://localhost:8080/wall'
+        // 'http://javlet.social:8080/wall'
+        'http://localhost:8080/wall'
       )
       .then(result => {
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, 
@@ -66,7 +66,7 @@ class PostComponent extends Component{
         </div>
         <div>
           {displayPosts.map(item => (  
-            <div className="post" key={item.id}>
+            <div className="post" key={item.postId}>
               <h6>{item.selectDate}</h6>
               <h2>{item.title}</h2>
               <p>{item.body}</p>
