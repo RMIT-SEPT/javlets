@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import API from  '../../Constants.js'
 
 class PostComponent extends Component{
   constructor(props) {
@@ -21,10 +22,7 @@ class PostComponent extends Component{
 
   refreshWall() {
       return axios
-      .get(
-        'http://javlet.social:8080/wall'
-        // 'http://localhost:8080/wall'
-      )
+      .get(API)
       .then(result => {
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, 
                                                                 body: obj.body, msgAuthor: obj.msgAuther, id: obj.id, selectDate: obj.selectDate}));

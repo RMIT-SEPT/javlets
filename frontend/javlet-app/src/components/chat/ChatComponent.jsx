@@ -3,6 +3,7 @@ import ConnectionListComponent from "./ConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 import cookie from 'js-cookie';
+import API from "../../Constants.js"
 
 class ChatComponent extends Component {
 
@@ -24,8 +25,8 @@ class ChatComponent extends Component {
     console.log('Component did mount');
 
     this.client = Stomp.over(new WebSocket(
-	//"ws://javlet.social:8080/socket/websocket"
-	"ws://localhost:8080/socket/websocket"));
+	"ws://" + API + "/socket/websocket"
+));
 
     this.client.connect({ login: null, passcode: null }, () => {
       console.log("Connected");
@@ -111,7 +112,7 @@ class ChatComponent extends Component {
           
     const newItem = {
       msg: msg,
-      senderId: cookie.get('studentId'),
+      senderId: cookie.get('id'),
       recipientId: this.state.recipient,
     };
 
