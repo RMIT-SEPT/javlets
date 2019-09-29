@@ -10,17 +10,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
+// @CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
 	
 	@Autowired 
 	private UserRepository userRepository;
 	
     // Add new user
-	//@PostMapping
-	//@ResponseStatus(code = HttpStatus.CREATED)
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
     public AccountBean add(HashMap<String, String> loginInfo) {
-    	AccountBean user = userRepository.findByUsername(loginInfo.get("id"));
+    	AccountBean user = userRepository.findByUsername(loginInfo.get("email").split("@")[0]);
     	if (user == null) {
 	        // Create bean
 	       user = new AccountBean(loginInfo.get("id"));
@@ -29,13 +29,11 @@ public class AccountController {
 	           user.setGivenName(names[0]);
 	           user.setFamilyName(names[1]);
 	       }
-	
-	       // Username is gotten from email
-	       String email = loginInfo.get("email");
-	
-	       user.setEmail(email);
-	       user.setUsername(loginInfo.get("email").split("@")[0]);
-	
+		   
+	       user.setEmail(loginInfo.get("email"));
+		   user.setUsername(loginInfo.get("email").split("@")[0]);
+		   user.setImageUrl(loginInfo.get("imageUrl"));
+
 	       // Finally, saving user
 	        userRepository.save(user);
     	}
@@ -69,13 +67,16 @@ public class AccountController {
 
         if (validateId(arrOfStr[0])) {
         	AccountBean acc = null;
-            if(!userRepository.findById(loginInfo.get("id")).isPresent()){
+            if(userRepository.findByUsername(arrOfStr[0])==null){
                 acc = add(loginInfo);
                 System.out.println("New user registered");
                 System.out.println(acc.toString());
-            }
-
-            System.out.printf("Log in: %s\n", arrOfStr[0]);
+			}
+			else{
+				acc = userRepository.findByUsername(arrOfStr[0]);
+			}
+			System.out.printf("Log in: %s\n", arrOfStr[0]);
+			System.out.println(userRepository.findByUsername(arrOfStr[0]).toString());
             return acc;
         } else {
             System.out.println("Login attempt: Not valid student email");

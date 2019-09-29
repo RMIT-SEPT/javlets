@@ -22,10 +22,10 @@ public class AccountBean {
 	
 	private List<AccountBean> connections;
 	
-	public AccountBean() {}
+	// public AccountBean() {}
 	
-	public AccountBean(String username) {
-		this.username = username;
+	public AccountBean(String googleID) {
+		this.googleID = googleID;
 		this.connections = new ArrayList<AccountBean>();
 	}
 	
@@ -96,5 +96,10 @@ public class AccountBean {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
+	public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("UserName: %s, GoogleId: %s, familyName: %s, GivenName: %s, Email: %s%n", username, googleID, familyName, givenName, email);
+    }
 	
 }
