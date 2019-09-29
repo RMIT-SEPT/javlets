@@ -22,7 +22,7 @@ public class AccountBean {
 	
 	private List<AccountBean> connections;
 	
-	// public AccountBean() {}
+	public AccountBean() {}
 	
 	public AccountBean(String username) {
 		this.username = username;
