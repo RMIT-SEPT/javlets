@@ -40,14 +40,19 @@ class PostTest {
     @Test
     @DisplayName("Making a Post")
     void testPost() {
-        postRepository.save(
-            // new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
-            //                     userRepository.findByUsername("Test User")
-            new PostBean("Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
-                                userRepository.findByUsername("Jane Dilton"), "h3", 123, "s123", "LivePost", "date"
-        ));
+        postRepository.save(new PostBean(
+        		"Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
+                                userRepository.findByUsername("Test User"), "testAuther", 123, "wallpost"));
 
         assertEquals(1, postRepository.count());
+    }
+    
+    @Test
+    @DisplayName("Making a Livestream Post")
+    void testLivestreamPost() {
+    	postRepository.save(new LivestreamPostBean(
+    			"Mentor", "Monday Lecture", "Please watch this livestream at the date posted", userRepository.findByUsername("Test User"), "testAuther",
+    				124, "livestream", "1 January 2020"));
     }
 
 }

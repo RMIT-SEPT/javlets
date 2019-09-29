@@ -13,36 +13,48 @@ public class PostBean {
 	@Id
 	private String mongoId;
 	
+	// DateTime information stored as a long
 	private long postId;
+	
+	// Type of post (Student or Mentor)
 	private String type;
+	
+	// Post title and body
 	private String title;
 	private String body;
+	
+	// Account associated with the post -- **contains all user information**
     private AccountBean author;
+    // This is temporary as above auther is null
     private String msgAuthor;
-    private String userId;
+    
+    // Post category - either wallpost or livestream
     private String category;
-    private String selectDate;
+    
     //TODO: Implement
 //	private PrivacySetting privacy;
 
-    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String userId, String category, String selectDate) {
+    public PostBean() {}
+    
+    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String category) {
 		this.type = type;
 		this.title = title;
 		this.body = body;
         this.author = author;
         this.msgAuthor = msgAuthor;
         this.postId = postId;
-        this.userId = userId;
         this.category = category;
-        this.selectDate = selectDate;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
-
 	}
 
-    public String getType() {
+	public String getType() {
         return type;
     }
+	
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public AccountBean getAuthor() {
 		return author;
@@ -51,9 +63,13 @@ public class PostBean {
 	public void setAuthor(AccountBean authorAccount) {
 		this.author = authorAccount;
     }
-    
-    public String getMsgAuthor(){
+
+    public String getMsgAuther(){
         return msgAuthor;
+    }
+
+    public void setMsgAuther(String author){
+        this.msgAuthor = author;
     }
 
     public void setTitle(String title) {
@@ -79,20 +95,17 @@ public class PostBean {
     public void setId(Long id) {
         this.postId = id;
     }
-
-    public String getUserId() {
-        return userId;
-    }
-
+    
     public String getCategory() {
-        return category;
-    }
+		return category;
+	}
 
-    public String getSelectDate() {
-        return selectDate;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
     public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
         return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, msgAuthor, title, body, type);
     }
 

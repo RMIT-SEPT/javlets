@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/wall")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PostController {
 	
 	@Autowired
@@ -32,24 +34,38 @@ public class PostController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public void add(@RequestBody HashMap<String, String> postInfo) {
 		System.out.println("Received request");
-		System.out.println("Author: " + postInfo.get("author"));		
+		System.out.println("Author: " + postInfo.get("author"));
+		PostBean post;
+		if (postInfo.get("category").equals("livestream")) {
+			post = new LivestreamPostBean(
+					postInfo.get("postType"),
+					postInfo.get("title"),
+					postInfo.get("body"),
+					userRepository.findByUsername(postInfo.get("userId")),
+					postInfo.get("author"),
+					Long.parseLong(postInfo.get("postId")),
+					postInfo.get("category"),
+					postInfo.get("selectDate"));
+			postRepository.save(post);
+			System.out.println("Live post saved");
+
+		} else if (postInfo.get("category").equals("wallpost")){
+						
+			post = new PostBean(
+					postInfo.get("postType"),
+					postInfo.get("title"),
+					postInfo.get("body"),
+					userRepository.findByUsername(postInfo.get("userId")),
+					postInfo.get("author"),
+					Long.parseLong(postInfo.get("postId")),
+					postInfo.get("category"));
+			postRepository.save(post);
+			System.out.println("Wall post saved");
+			
+		} else {
+			System.err.println("Error: Invalid post category");
+		}		
 		
-        PostBean post = new PostBean(
-                postInfo.get("postType"),
-                postInfo.get("title"),
-                postInfo.get("body"),
-				userRepository.findByUsername(postInfo.get("userId")),
-				postInfo.get("author"),
-				Long.parseLong(postInfo.get("postId")),
-				postInfo.get("userId"),
-                postInfo.get("category"),
-                postInfo.get("selectDate")
-                
-        );
-		System.out.println("Post object created");
-		
-		postRepository.save(post);
-		System.out.println("Post saved");
 	}
 	
 	@GetMapping

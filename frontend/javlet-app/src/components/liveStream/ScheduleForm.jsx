@@ -25,9 +25,10 @@ class ScheduleForm extends Component {
 
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+        axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
+        // axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
         .then((response) => {
-          this.setState({user: response.data});
+            this.setState({user: response.data});
         });
       }
     }
@@ -56,7 +57,7 @@ class ScheduleForm extends Component {
 
           <div>
             {this.state.posts.reverse().map(item => (  
-              <div className="post" key={item.id}>
+              <div className="post" key={item.postId}>
                 <h5>{item.selectDate}</h5>
                 <h2>{item.title}</h2>
                 <p>{item.body}</p>
