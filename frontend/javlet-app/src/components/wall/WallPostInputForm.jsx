@@ -20,9 +20,10 @@ class WallPostInputForm extends Component {
     }
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+        // axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
+        axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
         .then((response) => {
-          this.setState({user: response.data});
+            this.setState({user: response.data});
         });
       }
     }

@@ -21,7 +21,6 @@ const responseGoogle = (response) => {
   axios.post('http://localhost:8080/auth/login', newItem)
   .then((response) => {
     if(response.data){
-      console.log(response.data + "!!!!!!!!!!!!!")
       // Valid login
       cookie.set('id', id);
 	    cookie.set('studentId', studentId);
@@ -49,9 +48,9 @@ class GAuthComponent extends Component{
   componentDidMount() {
     if(cookie.get('id')){
       // axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
-      axios.get('http://localhost:8080/auth/get?id=' + cookie.get('id'))
+      axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
       .then((response) => {
-        if(response.data.id != null){
+        if(response.data != null){
           this.setState({user: response.data});
         }else{
           this.logout();

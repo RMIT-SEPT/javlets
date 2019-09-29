@@ -48,6 +48,7 @@ public class AccountController {
 	@GetMapping(path="/get/{id}")
 	public AccountBean getUser(@PathVariable String id) {
 		System.out.println("ID: " + id);
+		System.out.println(userRepository.findByUsername(id));
 		return userRepository.findByUsername(id);
 	}
 	
