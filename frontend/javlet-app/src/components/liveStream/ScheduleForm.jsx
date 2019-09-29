@@ -25,8 +25,8 @@ class ScheduleForm extends Component {
 
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
-        // axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
+        // axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
+        axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
         .then((response) => {
             this.setState({user: response.data});
         });
@@ -100,8 +100,8 @@ class ScheduleForm extends Component {
       };
       this.setState( {posts: this.state.posts.concat(newItem)})
       this.setState({title: "", newDate: new Date(), body: ""});
-      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      // return axios.post('http://localhost:8080/wall/newPost', newItem);
+      // return axios.post('http://javlet.social:8080/wall/newPost', newItem);
+      return axios.post('http://localhost:8080/wall/newPost', newItem);
     }
   }
 

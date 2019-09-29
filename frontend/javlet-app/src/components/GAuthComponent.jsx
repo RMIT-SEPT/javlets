@@ -15,10 +15,9 @@ const responseGoogle = (response) => {
     imageUrl: response.profileObj.imageUrl,
   };
 
-
   // Send to server to authenicate
-  axios.post('http://javlet.social:8080/auth/login', newItem)
-  // axios.post('http://localhost:8080/auth/login', newItem)
+  // axios.post('http://javlet.social:8080/auth/login', newItem)
+  axios.post('http://localhost:8080/auth/login', newItem)
   .then((response) => {
     if(response.data){
       // Valid login
@@ -47,8 +46,8 @@ class GAuthComponent extends Component{
 
   componentDidMount() {
     if(cookie.get('id')){
-      axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
-      // axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
+      // axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
+      axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
       .then((response) => {
         if(response.data != null){
           this.setState({user: response.data});
@@ -56,8 +55,8 @@ class GAuthComponent extends Component{
           this.logout();
         }
       });
-      axios.get('http://javlet.social:8080/auth/count')
-      // axios.get('http://localhost:8080/auth/count')
+      // axios.get('http://javlet.social:8080/auth/count')
+      axios.get('http://localhost:8080/auth/count')
       .then((response) => {
         console.log(response.data);
         this.setState({count: response.data});
