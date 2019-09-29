@@ -48,7 +48,7 @@ class GAuthComponent extends Component{
   componentDidMount() {
     if(cookie.get('id')){
       // axios.get('http://javlet.social:8080/auth/get?id=' + cookie.get('id'))
-      axios.get('http://localhost:8080/auth/get?=' + cookie.get('id'))
+      axios.get('http://localhost:8080/auth/get?id=' + cookie.get('id'))
       .then((response) => {
         if(response.data.id != null){
           this.setState({user: response.data});
