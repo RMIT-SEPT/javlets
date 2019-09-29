@@ -16,7 +16,7 @@ const responseGoogle = (response) => {
   };
 
 
-  // Send to server to authenicate
+  // Send to server to authenicate 
   axios.post('http://javlet.social:8080/auth/login', newItem)
   // axios.post('http://localhost:8080/auth/login', newItem)
   .then((response) => {
