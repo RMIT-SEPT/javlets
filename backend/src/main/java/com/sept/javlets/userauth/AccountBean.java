@@ -24,8 +24,14 @@ public class AccountBean {
 	
 	// public AccountBean() {}
 	
-	public AccountBean(String googleID) {
+	public AccountBean(String username) {
+		this.username = username;
+		this.connections = new ArrayList<AccountBean>();
+	}
+
+	public AccountBean(String googleID, String username) {
 		this.googleID = googleID;
+		this.username = username;
 		this.connections = new ArrayList<AccountBean>();
 	}
 	

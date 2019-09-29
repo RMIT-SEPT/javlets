@@ -23,7 +23,7 @@ public class AccountController {
     	AccountBean user = userRepository.findByUsername(loginInfo.get("email").split("@")[0]);
     	if (user == null) {
 	        // Create bean
-	       user = new AccountBean(loginInfo.get("id"));
+	       user = new AccountBean(loginInfo.get("id"), loginInfo.get("email").split("@")[0]);
 	       String[] names = loginInfo.get("name").split(" ");
 	       if(names.length == 2){
 	           user.setGivenName(names[0]);
@@ -31,7 +31,7 @@ public class AccountController {
 	       }
 		   
 	       user.setEmail(loginInfo.get("email"));
-		   user.setUsername(loginInfo.get("email").split("@")[0]);
+		//    user.setUsername(loginInfo.get("email").split("@")[0]);
 		   user.setImageUrl(loginInfo.get("imageUrl"));
 
 	       // Finally, saving user

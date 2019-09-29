@@ -57,7 +57,7 @@ class ScheduleForm extends Component {
 
           <div>
             {this.state.posts.reverse().map(item => (  
-              <div className="post" key={item.id}>
+              <div className="post" key={item.postId}>
                 <h5>{item.selectDate}</h5>
                 <h2>{item.title}</h2>
                 <p>{item.body}</p>
