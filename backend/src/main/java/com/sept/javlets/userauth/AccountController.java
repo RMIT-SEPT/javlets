@@ -10,15 +10,15 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-// @CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
 	
 	@Autowired 
 	private UserRepository userRepository;
 	
     // Add new user
-	@PostMapping
-	@ResponseStatus(code = HttpStatus.CREATED)
+	// @PostMapping
+	// @ResponseStatus(code = HttpStatus.CREATED)
     public AccountBean add(HashMap<String, String> loginInfo) {
     	AccountBean user = userRepository.findByUsername(loginInfo.get("email").split("@")[0]);
     	if (user == null) {
