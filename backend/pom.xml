@@ -61,13 +61,15 @@
 		<dependency>
 		  <groupId>de.flapdoodle.embed</groupId>
 		  <artifactId>de.flapdoodle.embed.mongo</artifactId>
-		  <scope>package</scope>
+		  <scope>compile</scope>
 		</dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-messaging</artifactId>
             <version>5.1.9.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-websocket</artifactId>
