@@ -24,7 +24,7 @@ class ChatComponent extends Component {
     console.log('Component did mount');
 
     this.client = Stomp.over(new WebSocket(
-	//"ws://javlet.social:8080/socket/websocket"
+	// "ws://javlet.social:8080/socket/websocket"));
 	"ws://localhost:8080/socket/websocket"));
 
     this.client.connect({ login: null, passcode: null }, () => {
@@ -66,7 +66,7 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.msg} datetime={message.dateTime} sender={message.sender.givenName}/>
+          <MessageComponent message={message.messageContent} datetime={message.dateTime} sender={message.sender.givenName}/>
         )}
                 </ul>
                     <div className="input-group clearfix">
