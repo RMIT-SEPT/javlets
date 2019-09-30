@@ -1,46 +1,47 @@
 import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
-import axios from "axios";
+import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
+import cookie from 'js-cookie';
+import API from "../../Constants.js"
 
 class ChatComponent extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
-      error: "",
 
-      messageContent: "",
-      sender: "",
-      recipient: "",
-      id: 0
+      msg: "",
+      sender: "John",
+      recipient: "Jill",
     };
-    this.handleBodyChange = this.handleBodyChange.bind(this);
+
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  
+  
+  componentDidMount() {
+    this.client = Stomp.over(new WebSocket(
+	"ws://" + API.slice(7) + "/socket/websocket"
+));
 
-  fetch() {
-    return axios
-      .get("http://localhost:8080/chat")
-      .then(result => {
-        console.log(result);
-        const messages = result.data.map(obj => ({
-          messageContent: obj.messageContent,
-          sender: obj.sender,
-          recipient: obj.recipient
-        }));
-        this.setState({ messages });
-      })
-      .catch(error => {
-        console.error("error: ", error);
-        this.setState({
-          error: `${error}`
-        });
-      });
+    this.client.connect({ login: null, passcode: null }, () => {
+      this.client.subscribe('/chat', response => {
+        this.setState(state => ({ messages: [JSON.parse(response.body), ...state.messages] }))
+    });
+  });
   }
 
-  componentDidMount() {
-    this.fetch();
+  scrollToBottom() {
+    const scrollHeight = this.messageList.scrollHeight;
+    const height = this.messageList.clientHeight;
+    const maxScrollTop = scrollHeight - height;
+    this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+  }
+  
+  componentDidUpdate() {
+    this.scrollToBottom();
   }
 
   render() {
@@ -53,40 +54,42 @@ class ChatComponent extends Component {
             <ConnectionListComponent type={0} />
             <h2>Add connections</h2>
             <ConnectionListComponent type={1} />
-            {this.handleSubmit}
           </div>
 
           <div className="innerChatChild">
-            <h2>Message</h2>
+            <h2>Javlets Conversation</h2>
             <div id="dialogue-page" className="chatArea">
               <div className="dialogue-container">
-                <ul id="messageList">
-                  {this.state.messages.map(item => (
-                    <MessageComponent message={item.messageContent} sender={item.sender.username}/>
-                  ))}
+                <ul id="messageList" ref={(div) => {this.messageList = div;}}>
+                {this.state.messages.slice(0).reverse().map((message, index) =>
+          <MessageComponent message={message.messageContent} datetime={message.dateTime} sender={message.sender.givenName}/>
+          )}
                 </ul>
-                <form
-                  id="dialogueForm"
-                  onSubmit={this.handleSubmit}
-                  name="dialogueForm"
-                  nameForm="dialogueForm"
-                >
                     <div className="input-group clearfix">
+                    <form
+                      action="."
+                      onSubmit={e => {
+                        e.preventDefault()
+                        this.setState({ message: e.target.value })
+                        this.handleSubmit(e)
+                        this.setState({ message: '' })
+                      }}
+                      >
                       <input
-                        className="w3-input form-control"
                         type="text"
                         id="chatMessage"
-                        placeholder="Enter a message...."
+                        placeholder={'Enter message...'}
+                        value={this.state.message}
+                        onChange={e => this.setState({ message: e.target.value })}
+                        className="w3-input form-control"
                         autoComplete="off"
-                        onChange={this.handleBodyChange}
                       />
-                      <input
-                        className="w3-btn w3-blue"
-                        type="submit"
-                        value="Send"
-                      />
+                      <input type="submit"
+                       className="w3-btn w3-blue" 
+                       value={'Send'} />
+                    </form>
+                      
                   </div>
-                </form>
               </div>
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
@@ -98,21 +101,19 @@ class ChatComponent extends Component {
     );
   }
 
-  handleBodyChange(event) {
-    this.setState({ body: event.target.value });
-  }
-
   handleSubmit(event) {
+    var msg = this.state.message;
+        if(msg !== ""){
+          
     const newItem = {
-      body: this.state.body,
-      from: this.state.from,
-      to: this.state.to,
-      id: Date.now()
+      messageContent: msg,
+      senderId: cookie.get('id'),
+      recipientId: this.state.recipient,
     };
-
-    console.log("handleSubmitted");
-
-    return axios.post("http://localhost:8080/chat/newMessage", newItem);
+    
+    this.client.send('/app/message', JSON.stringify(newItem));
+    }
   }
+
 }
 export default ChatComponent;

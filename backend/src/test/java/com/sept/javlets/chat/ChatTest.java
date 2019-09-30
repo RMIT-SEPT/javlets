@@ -1,127 +1,108 @@
 package com.sept.javlets.chat;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.util.HashMap;
-
+import com.sept.javlets.mongo.MessageRepository;
+import com.sept.javlets.mongo.UserRepository;
+import com.sept.javlets.userauth.AccountBean;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.sept.javlets.userauth.StudentAccountBean;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.HashMap;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 class ChatTest {
-	
-	/* Test backend code
-	 * 		Tests[1,2,3] will test whether backend handles its data correctly
-	 * 		Test 4 will test whether backend handles data sent by request from frontend correctly
-	 */
-	
-	private MessageController chatController;
-	private StudentAccountBean alice;
-	private StudentAccountBean bob;
-	private MessageBean chatTest;
-	private MessageBean chat1Test;
-	private MessageBean chat2Test;
-	private MessageList chatlist;
-	
-	@BeforeEach
-    void initialiseBeforeTests() {
-		chatController = new MessageController();
-		chatlist = new MessageList();
+
+    /* Test backend code
+     * 		Tests[1,2,3] will test whether backend handles its data correctly
+     * 		Test 4 will test whether backend handles data sent by request from frontend correctly
+     */
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @Autowired
+    private MessageController messageController;
+
+    //private MessageController chatController;
+
+    @BeforeEach
+    void setUp() {
+		AccountBean alice = new AccountBean("Alice");
+		AccountBean bob = new AccountBean("Bob");
+		userRepository.save(alice);
+		userRepository.save(bob);
     }
-	
-	@Test
-	@DisplayName("Add new chat into MessageList Test")
-	//test adding chat then return sender's name
-	void addNewChatTest() {
-		alice = new StudentAccountBean("Alice");
-		bob = new StudentAccountBean("Bob");
-		
-		MessageBean chat = new MessageBean("hello Bob",alice,bob);
-		
-		chatlist.addMessage(chat);
-		assertEquals("Alice",alice.getUsername());
-	}
-	
-	@Test
-	@DisplayName("MessageList size Test")
-	//test adding multiple chat and return correct size of message list
-	void messageListSizeTest() {
-		
-		chat1Test = new MessageBean(
-				"hello Bob",
-				new StudentAccountBean("Alice"),
-				new StudentAccountBean("Bob"));
-		
-		chat2Test = new MessageBean(
-				"hello Alice",
-				new StudentAccountBean("Bob"),
-				new StudentAccountBean("Alice"));
-		
-		chatlist.addMessage(chat1Test);
-		chatlist.addMessage(chat2Test);
-		
-		//hardcoded 4 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(4,chatlist.getAllMessages().size());
-	}
-	
-	@Test
-	@DisplayName("MessageList size Tests for adding two messages into message list")
-	//test adding multiple chat and return correct size of message list
-	void addMultipleMessagesSizeTest() {
-		chat1Test = new MessageBean(
-				"hello Bob",
-				new StudentAccountBean("Alice"),
-				new StudentAccountBean("Bob"));
-		
-		chatlist.addMessage(chat1Test);
-		
-		//hardcoded 3 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(3,chatlist.getAllMessages().size());
 
-		chat2Test = new MessageBean(
-				"hello Alice",
-				new StudentAccountBean("Bob"),
-				new StudentAccountBean("Alice"));
-		
-		chatlist.addMessage(chat2Test);		
-		assertEquals(4,chatlist.getAllMessages().size());
-	}
-	
-	@Test
-	@DisplayName("Added correct chat content Test")
-	//test adding a chat and return correct added message content to message list
-	void addBodyTest() {
-		
-		chatTest = new MessageBean(
-				"hello buddy, how are you?",
-				new StudentAccountBean("Alice"),
-				new StudentAccountBean("Bob"));
-		
-		chatlist.addMessage(chatTest);
-		
-		assertEquals("hello buddy, how are you?",chatTest.getMessageContent());
-	}
+    @AfterEach
+    void tearDown() {
+        messageRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
-	@Test
-	@DisplayName("Test Chat sent from frontend")
-	//testing adding request sent from frontend
-	// test adding content of chat components then size
-	void testChatFromFrontend() {
-		
-		HashMap<String, String> sampleChat = new HashMap<String, String>();
-		sampleChat.put("body", "Hello John!");
-		sampleChat.put("from", "Alice");
-		sampleChat.put("to", "Bob");
-		
-		chatController.newMessage(sampleChat);
-		
-		//hardcoded 3 expected for milestone 1
-		//two messages are already initially added
-		assertEquals(3, chatController.getAllMessages().size());
-	}
-	
+    @Test
+    @DisplayName("Create Chat Message")
+    void testChatMessage() {
+        MessageBean message = new MessageBean("Hello, Bob!",
+        		userRepository.findById("Alice").get(),
+        		userRepository.findById("Bob").get());
+        messageRepository.save(message);
+        assertEquals(1, messageRepository.count());
+
+        assertEquals("Hello, Bob!",
+                messageRepository.findBySender(userRepository.findById("Alice").get()).get(0).getMessageContent());
+    }
+
+    @Test
+    @DisplayName("Message Repository Size")
+    void testNumMessages() {
+        MessageBean message1 = new MessageBean("Hello, Bob!",
+        		userRepository.findById("Alice").get(),
+                userRepository.findById("Bob").get());
+
+        MessageBean message2 = new MessageBean("Hello, Alice!",
+        		userRepository.findById("Bob").get(),
+        		userRepository.findById("Alice").get());
+
+        messageRepository.save(message1);
+        messageRepository.save(message2);
+
+        assertEquals(2, messageRepository.count());
+    }
+
+    @Test
+    @DisplayName("Saving Message Details")
+    void testMessageDetails() {
+        MessageBean message = new MessageBean("Hello, Alice!",
+                userRepository.findById("Bob").get(),
+                userRepository.findById("Alice").get());
+        messageRepository.save(message);
+
+        assertEquals("Hello, Alice!", message.getMessageContent());
+    }
+
+    @Test
+    @DisplayName("Test Chat sent from frontend")
+        //testing adding request sent from frontend
+        // test adding content of chat components then size
+    void testMessageFromFrontend() {
+        HashMap<String, String> sampleMessage = new HashMap<String, String>();
+        sampleMessage.put("body", "Hello Bob!");
+        sampleMessage.put("from", "Alice");
+        sampleMessage.put("to", "Bob");
+
+//        messageController.add(sampleMessage);
+//
+//        assertEquals(1, messageController.getAllMessages().size());
+    }
+
 }

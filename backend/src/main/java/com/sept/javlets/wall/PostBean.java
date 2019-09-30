@@ -1,78 +1,115 @@
 package com.sept.javlets.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.userauth.AccountBean;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Document(collection = "posts")
 public class PostBean {
 
-	//TODO: Implement
-//	private PrivacySetting privacy;
-	
-	private String type;
-	private String title;
-	private String body;
-	private StudentAccountBean authorAccount;
-	private long id;
+    @Id
+    private String mongoId;
 
-	
-	public PostBean() {
-		
-	}
-	
-	public PostBean(String type, String title, String body, StudentAccountBean authorAccount, long id) {
-		this.type = type;
-		this.title = title;
-		this.body = body;
-		this.authorAccount = authorAccount;
-		this.id = id;
+    // DateTime information stored as a long
+    private long postId;
+
+    // Type of post (Student or Mentor)
+    private String type;
+
+    // Post title and body
+    private String title;
+    private String body;
+
+    // Account associated with the post -- **contains all user information**
+    private AccountBean author;
+    // This is temporary as above auther is null
+    private String msgAuthor;
+
+    // Post category - either wallpost or livestream
+    private String category;
+
+    //TODO: Implement
+//	private PrivacySetting privacy;
+
+    public PostBean() {
+    }
+
+    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String category) {
+        this.type = type;
+        this.title = title;
+        this.body = body;
+        this.author = author;
+        this.msgAuthor = msgAuthor;
+        this.postId = postId;
+        this.category = category;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
+    }
 
-	}
+    public String getType() {
+        return type;
+    }
 
-	
-	public String getType() {
-		return type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getBody() {
-		return body;
-	}
+    public AccountBean getAuthor() {
+        return author;
+    }
 
-	public void setBody(String body) {
-		this.body = body;
-	}
+    public void setAuthor(AccountBean authorAccount) {
+        this.author = authorAccount;
+    }
 
-	public StudentAccountBean getAuthorAccount() {
-		return authorAccount;
-	}
+    public String getMsgAuther() {
+        return msgAuthor;
+    }
 
-	public void setAuthor(StudentAccountBean authorAccount) {
-		this.authorAccount = authorAccount;
-	}
+    public void setMsgAuther(String author) {
+        this.msgAuthor = author;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-	//TODO: Implement
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public Long getId() {
+        return postId;
+    }
+
+    public void setId(Long id) {
+        this.postId = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, msgAuthor, title, body, type);
+    }
+
+    //TODO: Implement
 //	public PrivacySetting getPrivacy() {
 //		return privacy;
 //	}
@@ -80,7 +117,6 @@ public class PostBean {
 //	public void setPrivacy(PrivacySetting privacy) {
 //		this.privacy = privacy;
 //	}
-	
-	
-	
+
+
 }

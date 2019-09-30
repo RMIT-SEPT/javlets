@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostComponent SNAPSHOT 1`] = `
+<div>
+  <div>
+    <h2>
+      Filter Posts:
+    </h2>
+    <input
+      className="w3-radio"
+      name="formSelect"
+      onClick={[Function]}
+      type="radio"
+      value="Mentor"
+    />
+     Display Mentor Posts 
+    <br />
+    <input
+      className="w3-radio"
+      name="formSelect"
+      onClick={[Function]}
+      type="radio"
+      value="Student"
+    />
+     Display Student Posts
+    <br />
+    <input
+      className="w3-radio"
+      name="formSelect"
+      onClick={[Function]}
+      type="radio"
+      value="All"
+    />
+     Display All Posts
+    <br />
+    <br />
+  </div>
+  <div />
+</div>
+`;
