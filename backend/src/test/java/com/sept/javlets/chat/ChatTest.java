@@ -57,6 +57,7 @@ class ChatTest {
         		userRepository.findById("Bob").get());
         messageRepository.save(message);
         assertEquals(1, messageRepository.count());
+
         assertEquals("Hello, Bob!",
                 messageRepository.findBySender(userRepository.findById("Alice").get()).get(0).getMessageContent());
     }

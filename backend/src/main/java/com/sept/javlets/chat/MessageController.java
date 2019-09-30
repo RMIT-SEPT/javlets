@@ -14,18 +14,15 @@ import java.util.Random;
 public class MessageController {
 
     private final SimpMessagingTemplate template;
-
-    @Autowired
-    MessageController(SimpMessagingTemplate template){
-        this.template = template;
-    }
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    MessageController(SimpMessagingTemplate template) {
+        this.template = template;
+    }
 
     @MessageMapping("/message")
     public void message(MessageBean mBean) {
@@ -37,7 +34,7 @@ public class MessageController {
         messageRepository.save(mBean);
 
 
-        System.out.println("MESSAGE RECEIVED (" + LocalDateTime.now().toString() +"): " + mBean.getSender().getId() + " sent \"" + mBean.getMessageContent() + "\" to " + " GLOBAL");
+        System.out.println("MESSAGE RECEIVED (" + LocalDateTime.now().toString() + "): " + mBean.getSender().getId() + " sent \"" + mBean.getMessageContent() + "\" to " + " GLOBAL");
         this.template.convertAndSend("/chat", mBean);
     }
 }
