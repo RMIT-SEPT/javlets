@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import cookie from 'js-cookie';
+import API from '../../Constants.js'
 
 class WallPostInputForm extends Component {
     constructor(props) {
@@ -20,8 +21,7 @@ class WallPostInputForm extends Component {
     }
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
-        // axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
+        axios.get(API + '/auth/get/?id=' + cookie.get('id'))
         .then((response) => {
             this.setState({user: response.data});
         });
@@ -86,14 +86,13 @@ class WallPostInputForm extends Component {
         body: this.state.body,
         author: this.state.user.givenName + " " + this.state.user.familyName,
         postId: Date.now(),
-        userId: this.state.user.username,
+        userId: this.state.user.id,
         category: 'wallpost',
         selectDate: ''
       };
       this.setState({title: '', body: ''})
       this.setState( {posts: this.state.posts.concat(newItem)})
-      return axios.post('http://javlet.social:8080/wall/newPost', newItem);
-      // return axios.post('http://localhost:8080/wall/newPost', newItem);
+      return axios.post(API + '/wall/newPost', newItem);
     }
   }
   

@@ -3,10 +3,10 @@ import GoogleLogin from 'react-google-login';
 import axios from "axios";
 
 import cookie from 'js-cookie';
+import API from '../Constants.js'
 
 const responseGoogle = (response) => {
-  var id = response.profileObj.googleId;
-  var studentId = (response.profileObj.email.split('@'))[0];
+  var id = (response.profileObj.email.split('@'))[0];
 
   const newItem = {
     id: id,
@@ -17,13 +17,11 @@ const responseGoogle = (response) => {
 
 
   // Send to server to authenicate 
-  axios.post('http://javlet.social:8080/auth/login', newItem)
-  // axios.post('http://localhost:8080/auth/login', newItem)
+  axios.post(API + '/auth/login', newItem)
   .then((response) => {
     if(response.data){
       // Valid login
       cookie.set('id', id);
-	    cookie.set('studentId', studentId);
       window.location.reload();
     }else{
       // Invalid (Not rmit student email)
@@ -35,31 +33,28 @@ const responseGoogle = (response) => {
 class GAuthComponent extends Component{
  
   state = {
-    user: [],
+    user: 0,
     count: 0
   }
 
   logout() {
     cookie.remove('id');
-	  cookie.remove('studentId');
     window.location.reload();
   }
 
   componentDidMount() {
     if(cookie.get('id')){
-      axios.get('http://javlet.social:8080/auth/get/' + cookie.get('studentId'))
-      // axios.get('http://localhost:8080/auth/get/' + cookie.get('studentId'))
+      axios.get(API + '/auth/get/?id=' + cookie.get('id'))
       .then((response) => {
-        if(response.data != null){
+        if(response.data.id != null){
           this.setState({user: response.data});
         }else{
           this.logout();
         }
       });
-      axios.get('http://javlet.social:8080/auth/count')
-      // axios.get('http://localhost:8080/auth/count')
+
+      axios.get(API + '/auth/count')
       .then((response) => {
-        console.log(response.data);
         this.setState({count: response.data});
       });
     }
@@ -71,7 +66,7 @@ class GAuthComponent extends Component{
 
         <React.Fragment>
           <div className = "userLogout">
-          <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.username}</b>)</p>
+          <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.id}</b>)</p>
           <p><b>User count:</b> {this.state.count}</p>
           <button onClick={this.logout}>Logout</button>
           </div>

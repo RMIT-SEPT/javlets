@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 
+import API from '../../Constants.js'
+
 class ScheduledLiveStream extends Component{
   constructor(props) {
     super(props)
@@ -20,8 +22,7 @@ class ScheduledLiveStream extends Component{
   refreshWall() {
       return axios
       .get(
-        'http://javlet.social:8080/wall'
-        // 'http://localhost:8080/wall'
+        API +'/wall'
       )
       .then(result => {
           const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, 

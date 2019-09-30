@@ -9,35 +9,29 @@ import java.util.List;
 @Document(collection = "students")
 public class AccountBean {
 
-	@Id
-	private String mongoId;
-	
-	private String email;
-	private String givenName;
-	private String familyName;
-	private String googleID;
-	private String imageUrl;
-	private String username;
-	private boolean isMentor;
-	
-	private List<AccountBean> connections;
-	
-	public AccountBean() {}
-	
-	public AccountBean(String username) {
-		this.username = username;
-		this.connections = new ArrayList<AccountBean>();
-	}
+    @Id
+    private String id;
 
-	public AccountBean(String googleID, String username) {
-		this.googleID = googleID;
-		this.username = username;
-		this.connections = new ArrayList<AccountBean>();
-	}
-	
-	public String getEmail() {
-		return email;
-	}
+    private String email;
+    private String givenName;
+    private String familyName;
+    private String imageUrl;
+    private boolean isMentor;
+
+    private List<AccountBean> connections;
+
+    public AccountBean() {
+    }
+
+    public AccountBean(String id) {
+        this.id = id;
+        this.isMentor = false;
+        this.connections = new ArrayList<AccountBean>();
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -67,45 +61,37 @@ public class AccountBean {
         this.imageUrl = imageUrl;
     }
 
-	public List<AccountBean> getConnections() {
-		return connections;
-	}
-
-	public void addConnection(AccountBean connection) {
-		connections.add(connection);
-	}
-	
-	public boolean removeConnection(AccountBean connection) {
-		return connections.remove(connection);
-	}
-
-	public boolean isMentor() {
-		return isMentor;
-	}
-
-	public void setMentor(boolean isMentor) {
-		this.isMentor = isMentor;
-	}
-	
-	public String getGoogleID() {
-		return googleID;
-	}
-
-	public void setGoogleID(String googleID) {
-		this.googleID = googleID;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String toString() {
-        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
-        return String.format("UserName: %s, GoogleId: %s, familyName: %s, GivenName: %s, Email: %s%n", username, googleID, familyName, givenName, email);
+    public List<AccountBean> getConnections() {
+        return connections;
     }
-	
+
+    public void addConnection(AccountBean connection) {
+        connections.add(connection);
+    }
+
+    public boolean removeConnection(AccountBean connection) {
+        return connections.remove(connection);
+    }
+
+    public boolean isMentor() {
+        return isMentor;
+    }
+
+    public void setMentor(boolean isMentor) {
+        this.isMentor = isMentor;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("Student ID: %s, familyName: %s, GivenName: %s, Email: %s%n", id, familyName, givenName, email);
+    }
+
 }

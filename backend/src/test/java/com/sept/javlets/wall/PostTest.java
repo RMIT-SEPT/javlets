@@ -42,7 +42,7 @@ class PostTest {
     void testPost() {
         postRepository.save(new PostBean(
         		"Student", "A Tragedy", "Did you ever hear the story of Darth Plagueis the Wise?",
-                                userRepository.findByUsername("Test User"), "testAuther", 123, "wallpost"));
+                                userRepository.findById("Test User").get(), "testAuther", 123, "wallpost"));
 
         assertEquals(1, postRepository.count());
     }
@@ -51,7 +51,7 @@ class PostTest {
     @DisplayName("Making a Livestream Post")
     void testLivestreamPost() {
     	postRepository.save(new LivestreamPostBean(
-    			"Mentor", "Monday Lecture", "Please watch this livestream at the date posted", userRepository.findByUsername("Test User"), "testAuther",
+    			"Mentor", "Monday Lecture", "Please watch this livestream at the date posted", userRepository.findById("Test User").get(), "testAuther",
     				124, "livestream", "1 January 2020"));
     }
 
