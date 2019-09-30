@@ -25,7 +25,7 @@ class ChatComponent extends Component {
     console.log('Component did mount');
 
     this.client = Stomp.over(new WebSocket(
-	"ws://" + API + "/socket/websocket"
+	"ws://" + API.slice(7) + "/socket/websocket"
 ));
 
     this.client.connect({ login: null, passcode: null }, () => {
@@ -67,8 +67,8 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.msg} datetime={message.dateTime} sender={message.sender.givenName}/>
-        )}
+          <MessageComponent message={message.messageContent} datetime={message.dateTime} sender={message.sender.givenName}/>
+          )}
                 </ul>
                     <div className="input-group clearfix">
                     <form
@@ -111,7 +111,7 @@ class ChatComponent extends Component {
         if(msg !== ""){
           
     const newItem = {
-      msg: msg,
+      messageContent: msg,
       senderId: cookie.get('id'),
       recipientId: this.state.recipient,
     };

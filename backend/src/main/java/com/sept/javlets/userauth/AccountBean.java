@@ -10,31 +10,24 @@ import java.util.List;
 public class AccountBean {
 
 	@Id
-	private String mongoId;
+	private String id;
 	
 	private String email;
 	private String givenName;
 	private String familyName;
-	private String googleID;
 	private String imageUrl;
-	private String username;
 	private boolean isMentor;
 	
 	private List<AccountBean> connections;
 	
 	public AccountBean() {}
 	
-	public AccountBean(String username) {
-		this.username = username;
+	public AccountBean(String id) {
+		this.id = id;
+		this.isMentor = false;
 		this.connections = new ArrayList<AccountBean>();
 	}
 
-	public AccountBean(String googleID, String username) {
-		this.googleID = googleID;
-		this.username = username;
-		this.connections = new ArrayList<AccountBean>();
-	}
-	
 	public String getEmail() {
 		return email;
 	}
@@ -86,26 +79,18 @@ public class AccountBean {
 	public void setMentor(boolean isMentor) {
 		this.isMentor = isMentor;
 	}
-	
-	public String getGoogleID() {
-		return googleID;
+
+	public String getId() {
+		return id;
 	}
 
-	public void setGoogleID(String googleID) {
-		this.googleID = googleID;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String toString() {
         // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
-        return String.format("UserName: %s, GoogleId: %s, familyName: %s, GivenName: %s, Email: %s%n", username, googleID, familyName, givenName, email);
+        return String.format("Student ID: %s, familyName: %s, GivenName: %s, Email: %s%n", id, familyName, givenName, email);
     }
 	
 }

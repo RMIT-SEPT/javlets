@@ -7,5 +7,4 @@ import com.sept.javlets.userauth.AccountBean;
 
 @Repository
 public interface UserRepository extends MongoRepository<AccountBean, String> {
-	AccountBean findByUsername(String username);
 }

@@ -20,6 +20,7 @@ const responseGoogle = (response) => {
   axios.post(API + '/auth/login', newItem)
   .then((response) => {
     if(response.data){
+      console.log(response)
       // Valid login
       cookie.set('id', id);
       window.location.reload();

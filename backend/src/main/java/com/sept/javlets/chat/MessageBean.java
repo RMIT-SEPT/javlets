@@ -15,22 +15,16 @@ public class MessageBean {
 	
 	private String messageContent;
 	private AccountBean sender;
+	private String senderId;
 	private AccountBean recipient;
+	private String recipientId;
 	private LocalDateTime date;
-    
-	public MessageBean() {}
 	
 	public MessageBean(String messageContent, AccountBean author, AccountBean recipient) {
 		this.date = LocalDateTime.now();
 		this.messageContent = messageContent;
 		this.sender = author;
 		this.recipient = recipient;
-	}
-	
-	public MessageBean(String messageContent, AccountBean sender) {
-		this.date = LocalDateTime.now();
-		this.messageContent = messageContent;
-		this.sender = sender;
 	}
 
 	public String getMessageContent() {
@@ -65,4 +59,27 @@ public class MessageBean {
 		this.date = date;
 	}
 
+	public String getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(String senderId) {
+		this.senderId = senderId;
+	}
+
+	public String getRecipientId() {
+		return recipientId;
+	}
+
+	public void setRecipientId(String recipientId) {
+		this.recipientId = recipientId;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }

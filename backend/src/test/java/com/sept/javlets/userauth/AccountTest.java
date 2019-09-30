@@ -34,7 +34,7 @@ class AccountTest {
 		AccountBean alice = new AccountBean("Alice");
 		userRepository.save(alice);
 		
-		assertEquals("Alice", alice.getUsername());
+		assertEquals("Alice", alice.getId());
 		assertEquals(0, alice.getConnections().size());
 	}
 	

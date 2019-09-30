@@ -53,24 +53,24 @@ class ChatTest {
     @DisplayName("Create Chat Message")
     void testChatMessage() {
         MessageBean message = new MessageBean("Hello, Bob!",
-        		userRepository.findByUsername("Alice"),
-        		userRepository.findByUsername("Bob"));
+        		userRepository.findById("Alice").get(),
+        		userRepository.findById("Bob").get());
         messageRepository.save(message);
         assertEquals(1, messageRepository.count());
         assertEquals("Hello, Bob!",
-                messageRepository.findBySender(userRepository.findByUsername("Alice")).get(0).getMessageContent());
+                messageRepository.findBySender(userRepository.findById("Alice").get()).get(0).getMessageContent());
     }
 
     @Test
     @DisplayName("Message Repository Size")
     void testNumMessages() {
         MessageBean message1 = new MessageBean("Hello, Bob!",
-        		userRepository.findByUsername("Alice"),
-                userRepository.findByUsername("Bob"));
+        		userRepository.findById("Alice").get(),
+                userRepository.findById("Bob").get());
 
         MessageBean message2 = new MessageBean("Hello, Alice!",
-        		userRepository.findByUsername("Bob"),
-        		userRepository.findByUsername("Alice"));
+        		userRepository.findById("Bob").get(),
+        		userRepository.findById("Alice").get());
 
         messageRepository.save(message1);
         messageRepository.save(message2);
@@ -82,8 +82,8 @@ class ChatTest {
     @DisplayName("Saving Message Details")
     void testMessageDetails() {
         MessageBean message = new MessageBean("Hello, Alice!",
-                userRepository.findByUsername("Bob"),
-                userRepository.findByUsername("Alice"));
+                userRepository.findById("Bob").get(),
+                userRepository.findById("Alice").get());
         messageRepository.save(message);
 
         assertEquals("Hello, Alice!", message.getMessageContent());

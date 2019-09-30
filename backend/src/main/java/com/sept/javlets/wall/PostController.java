@@ -41,7 +41,7 @@ public class PostController {
 					postInfo.get("postType"),
 					postInfo.get("title"),
 					postInfo.get("body"),
-					userRepository.findByUsername(postInfo.get("userId")),
+					userRepository.findById(postInfo.get("userId")).get(),
 					postInfo.get("author"),
 					Long.parseLong(postInfo.get("postId")),
 					postInfo.get("category"),
@@ -55,7 +55,7 @@ public class PostController {
 					postInfo.get("postType"),
 					postInfo.get("title"),
 					postInfo.get("body"),
-					userRepository.findByUsername(postInfo.get("userId")),
+					userRepository.findById(postInfo.get("userId")).get(),
 					postInfo.get("author"),
 					Long.parseLong(postInfo.get("postId")),
 					postInfo.get("category"));

@@ -15,16 +15,15 @@ public class AccountController {
 	
 	@Autowired 
 	private UserRepository userRepository;
-	
-    // Add new user
-	// @PostMapping
-	// @ResponseStatus(code = HttpStatus.CREATED)
+
+	// Add user
     public AccountBean add(HashMap<String, String> loginInfo) {
-    	AccountBean user = userRepository.findByUsername(loginInfo.get("email").split("@")[0]);
-    	if (user == null) {
-	        // Create bean
-	       user = new AccountBean(loginInfo.get("id"), loginInfo.get("email").split("@")[0]);
-	       String[] names = loginInfo.get("name").split(" ");
+    	String id =  loginInfo.get("email").split("@")[0];
+
+    	AccountBean user = new AccountBean(id);
+
+
+		   String[] names = loginInfo.get("name").split(" ");
 	       if(names.length == 2){
 	           user.setGivenName(names[0]);
 	           user.setFamilyName(names[1]);
@@ -36,7 +35,6 @@ public class AccountController {
 
 	       // Finally, saving user
 	        userRepository.save(user);
-    	}
         return user;
    }
 	
@@ -47,9 +45,10 @@ public class AccountController {
 	
 	@GetMapping(path="/get/{id}")
 	public AccountBean getUser(@PathVariable String id) {
-		System.out.println("ID: " + id);
-		System.out.println(userRepository.findByUsername(id));
-		return userRepository.findByUsername(id);
+		if(userRepository.findById(id).isPresent()){
+			return userRepository.findById(id).get();
+		}
+		return null;
 	}
 	
 	@DeleteMapping
@@ -57,9 +56,11 @@ public class AccountController {
 		userRepository.deleteAll();
 	}
 	
-	@DeleteMapping(path="/{username}")
-	public void removeUser(@PathVariable String username) {
-		userRepository.delete(userRepository.findByUsername(username));
+	@DeleteMapping(path="/{id}")
+	public void removeUser(@PathVariable String id) {
+		if(userRepository.findById(id).isPresent()){
+			userRepository.delete(userRepository.findById(id).get());
+		}
 	}
 
     @PostMapping(path="/login")
@@ -68,16 +69,18 @@ public class AccountController {
 
         if (validateId(arrOfStr[0])) {
         	AccountBean acc = null;
-            if(userRepository.findByUsername(arrOfStr[0])==null){
+            if(!userRepository.findById(arrOfStr[0]).isPresent()){
                 acc = add(loginInfo);
                 System.out.println("New user registered");
                 System.out.println(acc.toString());
 			}
 			else{
-				acc = userRepository.findByUsername(arrOfStr[0]);
+				acc = userRepository.findById(arrOfStr[0]).get();
 			}
+
+
+			// Logged in
 			System.out.printf("Log in: %s\n", arrOfStr[0]);
-			System.out.println(userRepository.findByUsername(arrOfStr[0]).toString());
             return acc;
         } else {
             System.out.println("Login attempt: Not valid student email");
@@ -91,8 +94,8 @@ public class AccountController {
          return userRepository.count();
     }
     
-    private boolean validateId(String Id) {
-        return Id.matches("(s|e)\\d{7}");
+    private boolean validateId(String id) {
+        return id.matches("(s|e)\\d{7}");
     }
 
 }
