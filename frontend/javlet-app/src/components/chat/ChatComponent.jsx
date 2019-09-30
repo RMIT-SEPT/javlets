@@ -22,17 +22,12 @@ class ChatComponent extends Component {
   
   
   componentDidMount() {
-    console.log('Component did mount');
-
     this.client = Stomp.over(new WebSocket(
 	"ws://" + API.slice(7) + "/socket/websocket"
 ));
 
     this.client.connect({ login: null, passcode: null }, () => {
-      console.log("Connected");
-
       this.client.subscribe('/chat', response => {
-        console.log(response);
         this.setState(state => ({ messages: [JSON.parse(response.body), ...state.messages] }))
     });
   });
@@ -115,9 +110,7 @@ class ChatComponent extends Component {
       senderId: cookie.get('id'),
       recipientId: this.state.recipient,
     };
-
-    console.log(JSON.stringify(newItem));
-
+    
     this.client.send('/app/message', JSON.stringify(newItem));
     }
   }

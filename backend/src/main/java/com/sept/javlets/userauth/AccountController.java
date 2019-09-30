@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:3000")
 public class AccountController {
 	
 	@Autowired 
@@ -43,24 +43,16 @@ public class AccountController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping(path="/get/{id}")
-	public AccountBean getUser(@PathVariable String id) {
-		if(userRepository.findById(id).isPresent()){
-			return userRepository.findById(id).get();
-		}
-		return null;
-	}
-	
 	@DeleteMapping
 	public void removeAllUsers() {
 		userRepository.deleteAll();
 	}
-	
-	@DeleteMapping(path="/{id}")
-	public void removeUser(@PathVariable String id) {
-		if(userRepository.findById(id).isPresent()){
-			userRepository.delete(userRepository.findById(id).get());
-		}
+
+	@GetMapping("/get")
+	@ResponseBody
+	public AccountBean getInfo(@RequestParam String id) {
+		Optional<AccountBean> user = userRepository.findById(id);
+		return user.orElse(null);
 	}
 
     @PostMapping(path="/login")

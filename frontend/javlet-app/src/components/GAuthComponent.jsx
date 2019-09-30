@@ -20,7 +20,6 @@ const responseGoogle = (response) => {
   axios.post(API + '/auth/login', newItem)
   .then((response) => {
     if(response.data){
-      console.log(response)
       // Valid login
       cookie.set('id', id);
       window.location.reload();
@@ -34,7 +33,7 @@ const responseGoogle = (response) => {
 class GAuthComponent extends Component{
  
   state = {
-    user: [],
+    user: 0,
     count: 0
   }
 
@@ -45,17 +44,17 @@ class GAuthComponent extends Component{
 
   componentDidMount() {
     if(cookie.get('id')){
-      axios.get(API + '/auth/get/' + cookie.get('id'))
+      axios.get(API + '/auth/get/?id=' + cookie.get('id'))
       .then((response) => {
-        if(response.data != null){
+        if(response.data.id != null){
           this.setState({user: response.data});
         }else{
           this.logout();
         }
       });
+
       axios.get(API + '/auth/count')
       .then((response) => {
-        console.log(response.data);
         this.setState({count: response.data});
       });
     }
@@ -67,7 +66,7 @@ class GAuthComponent extends Component{
 
         <React.Fragment>
           <div className = "userLogout">
-          <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.username}</b>)</p>
+          <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.id}</b>)</p>
           <p><b>User count:</b> {this.state.count}</p>
           <button onClick={this.logout}>Logout</button>
           </div>

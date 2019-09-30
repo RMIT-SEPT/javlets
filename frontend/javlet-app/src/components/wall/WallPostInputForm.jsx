@@ -21,7 +21,7 @@ class WallPostInputForm extends Component {
     }
     componentDidMount() {
       if(cookie.get('id')){
-        axios.get(API + '/auth/get/' + cookie.get('id'))
+        axios.get(API + '/auth/get/?id=' + cookie.get('id'))
         .then((response) => {
             this.setState({user: response.data});
         });
@@ -86,7 +86,7 @@ class WallPostInputForm extends Component {
         body: this.state.body,
         author: this.state.user.givenName + " " + this.state.user.familyName,
         postId: Date.now(),
-        userId: this.state.user.username,
+        userId: this.state.user.id,
         category: 'wallpost',
         selectDate: ''
       };
