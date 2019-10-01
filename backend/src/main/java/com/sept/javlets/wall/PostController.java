@@ -1,64 +1,78 @@
 package com.sept.javlets.wall;
 
 
+import com.sept.javlets.mongo.PostRepository;
+import com.sept.javlets.mongo.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.sept.javlets.userauth.AccountController;
-import com.sept.javlets.userauth.StudentAccountBean;
-
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
+@RequestMapping("/wall")
 public class PostController {
-	
-	private final PostList postsList;
-	private final AccountController accountController;
 
-	public PostController() {
-		this.postsList = new PostList();
-		this.accountController = new AccountController();
-	}
-	
-	public PostController(AccountController accountController) {
-		this.postsList = new PostList();
-		this.accountController = accountController;
-	}
-	
+    @Autowired
+    private PostRepository postRepository;
 
-	@PostMapping(path="/wall/newPost")
-	public void newPost(@RequestBody HashMap<String, String> postInfo) {
-		StudentAccountBean author = accountController.registerUser(postInfo.get("author"));
-		System.out.println("Received request");
-		
-		PostBean post = new PostBean(
-				postInfo.get("postType"),
-				postInfo.get("title"),
-				postInfo.get("body"),
-				author,
-				Long.parseLong(postInfo.get("id"))
-				);
-		postsList.addPost(post);
-	}
-	
-	@GetMapping(path="/wall/title")
-	public String getPostTitle() {
-		System.out.println("\nsending to front end:\n" + postsList.getAllPosts().get(1).getTitle());
-		return postsList.getAllPosts().get(0).getTitle();
-	}
-	
-	@GetMapping(path="/wall")
-	public List<PostBean> getAllPosts() {
-		return postsList.getAllPosts();
-	}
-	
-	public void removeAllPosts() {
-		postsList.removeAll();
-	}
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping(path = "/newPost")
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public void add(@RequestBody HashMap<String, String> postInfo) {
+        System.out.println("Received request");
+        System.out.println("Author: " + postInfo.get("author"));
+        PostBean post;
+        if (postInfo.get("category").equals("livestream")) {
+            post = new LivestreamPostBean(
+                    postInfo.get("postType"),
+                    postInfo.get("title"),
+                    postInfo.get("body"),
+                    userRepository.findById(postInfo.get("userId")).get(),
+                    postInfo.get("author"),
+                    Long.parseLong(postInfo.get("postId")),
+                    postInfo.get("category"),
+                    postInfo.get("selectDate"));
+            postRepository.save(post);
+            System.out.println("Live post saved");
+
+        } else if (postInfo.get("category").equals("wallpost")) {
+
+            post = new PostBean(
+                    postInfo.get("postType"),
+                    postInfo.get("title"),
+                    postInfo.get("body"),
+                    userRepository.findById(postInfo.get("userId")).get(),
+                    postInfo.get("author"),
+                    Long.parseLong(postInfo.get("postId")),
+                    postInfo.get("category"));
+            postRepository.save(post);
+            System.out.println("Wall post saved");
+
+        } else {
+            System.err.println("Error: Invalid post category");
+        }
+
+    }
+
+    @GetMapping
+    public List<PostBean> getAllPosts() {
+        List<PostBean> posts = postRepository.findAll();
+        System.out.println("Posts being returned:");
+        for (PostBean p : posts) {
+            System.out.println(p.toString());
+        }
+        System.out.println(" ");
+
+        return posts;
+    }
+
+    @DeleteMapping
+    public void removeAllPosts() {
+        postRepository.deleteAll();
+    }
 
 }

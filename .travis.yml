@@ -1,0 +1,65 @@
+matrix:
+  include:
+  
+#Backend
+  - language: java
+  
+    services:
+    - docker
+  
+    sudo: true
+    
+    before_install:
+    - echo $TRAVIS_BRANCH
+    - cd backend
+    
+    script: 
+    - mvn test -B
+    - mvn clean package
+    
+    before_deploy:
+    - docker build -t dimmerworld/javlet-back .
+    
+    deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash docker_push
+        on:
+            all_branches: true
+            condition: "($TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$) && ($TRAVIS_BRANCH =~ ^(master|release|development)$)"
+
+#Frontend 
+  - language: node_js
+
+    services:
+    - docker
+
+    before_install:
+    - cd frontend/javlet-app
+    
+    node_js:
+    - '8'
+    
+    cache:
+      directories:
+      - node_modules
+      
+    before_script:
+    - npm update
+    
+    install:
+    - npm install
+    
+    script:
+    - npm test
+    
+    before_deploy:
+        - docker build -t dimmerworld/javlet-front .
+    
+    deploy:
+        provider: script
+        skip_cleanup: true
+        script: bash docker_push
+        on:
+            all_branches: true
+            condition: "($TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(front| | (.*?))?( (.*?))?$) && ($TRAVIS_BRANCH =~ ^(master|release|development)$)"

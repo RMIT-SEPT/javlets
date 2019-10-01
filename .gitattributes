@@ -1,0 +1,12 @@
+.git*             export-ignore
+Dockerfile        export-ignore
+docker_push       export-ignore
+.dockerignore     export-ignore
+.mvn              export-ignore
+.travis*          export-ignore
+*.md		  export-ignore
+*.enc		  export-ignore
+package-lock.json export-ignore
+mvnw.cmd          export-ignore
+mvnw              export-ignore
+*.yaml	          export-ignore

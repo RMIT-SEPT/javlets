@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageComponent SNAPSHOTt 1`] = `
+<div
+  className="chat container darker"
+>
+  <img
+    alt=""
+    className="right"
+    src="https://img.icons8.com/cotton/64/000000/name--v2.png"
+  />
+  <span
+    className="name"
+  >
+    User
+  </span>
+  <p
+    className="w3-blue w3-round-large"
+  >
+    Test message
+     
+  </p>
+  <span
+    className="w3-tiny"
+  >
+    28/09/2019 14:57:20
+  </span>
+</div>
+`;
