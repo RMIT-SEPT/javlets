@@ -15,7 +15,7 @@ render(){
 
    return(
     <div className="connection">
-        <h5>John Doe</h5>
+        <h4>{this.props.name}</h4>
         <img className='bg' alt="" src={'https://loremflickr.com/100/100/person'} />
         {button}
     </div>
