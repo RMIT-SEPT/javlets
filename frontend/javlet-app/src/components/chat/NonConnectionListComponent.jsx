@@ -4,7 +4,7 @@ import axios from "axios";
 import API from '../../Constants.js'
 import cookie from 'js-cookie';
 
-class ConnectionListComponent extends Component{
+class NonConnectionListComponent extends Component{
     state = { 
       connections: [],
       user: []
@@ -24,7 +24,7 @@ class ConnectionListComponent extends Component{
   
     refreshConnections() {
         if(cookie.get('id')){
-          axios.get(API + '/connection/connecion/?id=' + cookie.get('id'))
+          axios.get(API + '/connection/nonconnection/?id=' + cookie.get('id'))
           .then((response) => {
             Object.entries(response.data).forEach(
               ([key, value]) => {
@@ -36,22 +36,23 @@ class ConnectionListComponent extends Component{
     }
 
     printList(){
-        if(this.state.connections.length > 0){
-            let buffer = [];
-
-            this.state.connections.slice(0).reverse().forEach((obj, index) => {
-                buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} type={0}/>);
-            });
-              return buffer;
-        }else{
-            return <h3>You have no connections</h3>
-        }
+      if(this.state.connections.length > 0){
+        let buffer = [];
+        
+        this.state.connections.slice(0).reverse().forEach((obj, index) => {
+            buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} type={0}/>);
+        });
+        
+          return buffer;
+    }else{
+        return <h3>You have no connections</h3>
     }
+  }
 
 render(){
    return(
     <div className="connectList">
-      <ul id="" ref={(div) => {this.connections = div;}}>
+      <ul id="">
           {this.printList()}
         </ul>
 
@@ -60,4 +61,4 @@ render(){
    );
 }
 }
-export default ConnectionListComponent;
+export default NonConnectionListComponent;

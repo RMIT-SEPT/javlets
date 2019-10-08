@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
+import NonConnectionListComponent from "./NonConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 import cookie from 'js-cookie';
@@ -51,9 +52,9 @@ class ChatComponent extends Component {
         <div className="innerChat">
           <div className="innerChatChild">
             <h2>Your connections</h2>
-            {/* <ConnectionListComponent type={0} /> */}
+            <ConnectionListComponent type={0} />
             <h2>Add connections</h2>
-            <ConnectionListComponent type={1} />
+            <NonConnectionListComponent type={1} />
           </div>
 
           <div className="innerChatChild">
