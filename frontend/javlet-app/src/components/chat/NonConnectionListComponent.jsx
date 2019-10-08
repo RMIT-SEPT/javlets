@@ -40,9 +40,9 @@ class NonConnectionListComponent extends Component{
         let buffer = [];
         
         this.state.connections.slice(0).reverse().forEach((obj, index) => {
-            buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} type={0}/>);
+            buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} type={1}/>);
         });
-        
+
           return buffer;
     }else{
         return <h3>You have no connections</h3>
