@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import API from  '../../Constants.js'
 
 class PostComponent extends Component{
   constructor(props) {
@@ -21,12 +22,10 @@ class PostComponent extends Component{
 
   refreshWall() {
       return axios
-      .get(
-        'http://javlet.social:8080/wall'
-        // 'http://javlet.social:8080/wall'
-      )
+      .get(API + '/wall')
       .then(result => {
-          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, body: obj.body, author: obj.authorAccount.username, id: obj.id}));
+          const allPosts = result.data.reverse().map(obj => ({type: obj.type, title: obj.title, 
+                                                                body: obj.body, msgAuthor: obj.msgAuther, id: obj.id, selectDate: obj.selectDate}));
           const mentorPosts = allPosts.filter(function(type){
             return type.type === "Mentor";
           })
@@ -63,10 +62,11 @@ class PostComponent extends Component{
         </div>
         <div>
           {displayPosts.map(item => (  
-            <div className="post" key={item.id}>
-                <h2>{item.title}</h2>
-                <p>{item.body}</p>
-                <h4> By {item.author} ({item.type})</h4>
+            <div className="post" key={item.postId}>
+              <h6>{item.selectDate}</h6>
+              <h2>{item.title}</h2>
+              <p>{item.body}</p>
+              <h4> By {item.msgAuthor} ({item.type})</h4>
             </div>
           ))}
         </div>
@@ -76,7 +76,6 @@ class PostComponent extends Component{
 
   handlePostTypeChange(event) {
     this.setState({ postType: event.target.value });
-    // console.log(this.state.mentorPosts)
   }
 }
 

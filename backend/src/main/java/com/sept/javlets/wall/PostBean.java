@@ -1,7 +1,7 @@
 package com.sept.javlets.wall;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.userauth.AccountBean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,30 +9,44 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "posts")
 public class PostBean {
 
+    @Id
+    private String mongoId;
+
+    // DateTime information stored as a long
+    private long postId;
+
+    // Type of post (Student or Mentor)
+    private String type;
+
+    // Post title and body
+    private String title;
+    private String body;
+
+    // Account associated with the post -- **contains all user information**
+    private AccountBean author;
+    // This is temporary as above auther is null
+    private String msgAuthor;
+
+    // Post category - either wallpost or livestream
+    private String category;
+
     //TODO: Implement
 //	private PrivacySetting privacy;
 
-    @Id
-    private String id;
-
-    private String type;
-    private String title;
-    private String body;
-    private StudentAccountBean authorAccount;
-
     public PostBean() {
-
     }
 
-    public PostBean(String type, String title, String body, StudentAccountBean authorAccount) {
+    public PostBean(String type, String title, String body, AccountBean author, String msgAuthor, long postId, String category) {
         this.type = type;
         this.title = title;
         this.body = body;
-        this.authorAccount = authorAccount;
+        this.author = author;
+        this.msgAuthor = msgAuthor;
+        this.postId = postId;
+        this.category = category;
 
 //		this.privacy = PrivacySetting.PUBLIC; // Default privacy setting?
     }
-
 
     public String getType() {
         return type;
@@ -40,6 +54,22 @@ public class PostBean {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public AccountBean getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(AccountBean authorAccount) {
+        this.author = authorAccount;
+    }
+
+    public String getMsgAuther() {
+        return msgAuthor;
+    }
+
+    public void setMsgAuther(String author) {
+        this.msgAuthor = author;
     }
 
     public String getTitle() {
@@ -58,24 +88,25 @@ public class PostBean {
         this.body = body;
     }
 
-    public StudentAccountBean getAuthorAccount() {
-        return authorAccount;
+    public Long getId() {
+        return postId;
     }
 
-    public void setAuthor(StudentAccountBean authorAccount) {
-        this.authorAccount = authorAccount;
+    public void setId(Long id) {
+        this.postId = id;
     }
 
-    public String getId() {
-        return id;
+    public String getCategory() {
+        return category;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String toString() {
-        return String.format("ID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", id, authorAccount.getUsername(), title, body, type);
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, msgAuthor, title, body, type);
     }
 
     //TODO: Implement

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "students")
-public class StudentAccountBean {
+public class AccountBean {
 
     @Id
     private String id;
@@ -16,16 +16,17 @@ public class StudentAccountBean {
     private String givenName;
     private String familyName;
     private String imageUrl;
-    private String username;
-    private List<StudentAccountBean> connections;
+    private boolean isMentor;
 
-    public StudentAccountBean() {
-        //initialise student account
+    private List<AccountBean> connections;
+
+    public AccountBean() {
     }
 
-    public StudentAccountBean(String id) {
+    public AccountBean(String id) {
         this.id = id;
-        this.connections = new ArrayList<StudentAccountBean>();
+        this.isMentor = false;
+        this.connections = new ArrayList<AccountBean>();
     }
 
     public String getEmail() {
@@ -60,6 +61,26 @@ public class StudentAccountBean {
         this.imageUrl = imageUrl;
     }
 
+    public List<AccountBean> getConnections() {
+        return connections;
+    }
+
+    public void addConnection(AccountBean connection) {
+        connections.add(connection);
+    }
+
+    public boolean removeConnection(AccountBean connection) {
+        return connections.remove(connection);
+    }
+
+    public boolean isMentor() {
+        return isMentor;
+    }
+
+    public void setMentor(boolean isMentor) {
+        this.isMentor = isMentor;
+    }
+
     public String getId() {
         return id;
     }
@@ -68,25 +89,9 @@ public class StudentAccountBean {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String toString() {
+        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
+        return String.format("Student ID: %s, familyName: %s, GivenName: %s, Email: %s%n", id, familyName, givenName, email);
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public List<StudentAccountBean> getConnections() {
-        return connections;
-    }
-
-    public void addConnection(StudentAccountBean connection) {
-        connections.add(connection);
-    }
-
-    public boolean removeConnection(StudentAccountBean connection) {
-        return connections.remove(connection);
-    }
-
 
 }

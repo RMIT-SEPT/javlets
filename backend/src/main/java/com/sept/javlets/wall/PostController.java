@@ -3,7 +3,6 @@ package com.sept.javlets.wall;
 
 import com.sept.javlets.mongo.PostRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.StudentAccountBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,26 +25,37 @@ public class PostController {
     public void add(@RequestBody HashMap<String, String> postInfo) {
         System.out.println("Received request");
         System.out.println("Author: " + postInfo.get("author"));
+        PostBean post;
+        if (postInfo.get("category").equals("livestream")) {
+            post = new LivestreamPostBean(
+                    postInfo.get("postType"),
+                    postInfo.get("title"),
+                    postInfo.get("body"),
+                    userRepository.findById(postInfo.get("userId")).get(),
+                    postInfo.get("author"),
+                    Long.parseLong(postInfo.get("postId")),
+                    postInfo.get("category"),
+                    postInfo.get("selectDate"));
+            postRepository.save(post);
+            System.out.println("Live post saved");
 
+        } else if (postInfo.get("category").equals("wallpost")) {
 
+            post = new PostBean(
+                    postInfo.get("postType"),
+                    postInfo.get("title"),
+                    postInfo.get("body"),
+                    userRepository.findById(postInfo.get("userId")).get(),
+                    postInfo.get("author"),
+                    Long.parseLong(postInfo.get("postId")),
+                    postInfo.get("category"));
+            postRepository.save(post);
+            System.out.println("Wall post saved");
 
-//        StudentAccountBean author = userRepository.findByUsername(postInfo.get("author"));
-//        if (author == null) {
-//            author = new StudentAccountBean(postInfo.get("author"));
-//            System.out.println("Before inserting");
-//            userRepository.insert(author);
-//        }
+        } else {
+            System.err.println("Error: Invalid post category");
+        }
 
-        // Use new GAuth pls TODO
-
-        PostBean post = new PostBean(
-                postInfo.get("postType"),
-                postInfo.get("title"),
-                postInfo.get("body"),
-                new StudentAccountBean(postInfo.get("author"))
-        );
-
-        postRepository.save(post);
     }
 
     @GetMapping
@@ -64,6 +74,5 @@ public class PostController {
     public void removeAllPosts() {
         postRepository.deleteAll();
     }
-
 
 }

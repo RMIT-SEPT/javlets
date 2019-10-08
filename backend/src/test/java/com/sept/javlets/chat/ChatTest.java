@@ -2,7 +2,7 @@ package com.sept.javlets.chat;
 
 import com.sept.javlets.mongo.MessageRepository;
 import com.sept.javlets.mongo.UserRepository;
-import com.sept.javlets.userauth.StudentAccountBean;
+import com.sept.javlets.userauth.AccountBean;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.HashMap;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,10 +37,10 @@ class ChatTest {
 
     @BeforeEach
     void setUp() {
-        StudentAccountBean alice = new StudentAccountBean("Alice");
-        StudentAccountBean bob = new StudentAccountBean("Bob");
-        userRepository.save(alice);
-        userRepository.save(bob);
+		AccountBean alice = new AccountBean("Alice");
+		AccountBean bob = new AccountBean("Bob");
+		userRepository.save(alice);
+		userRepository.save(bob);
     }
 
     @AfterEach
@@ -52,31 +52,26 @@ class ChatTest {
     @Test
     @DisplayName("Create Chat Message")
     void testChatMessage() {
-
-        StudentAccountBean alice = new StudentAccountBean("aliceid");
-        alice.setGivenName("Alice");
-
-        StudentAccountBean bob = new StudentAccountBean("bobid");
-
         MessageBean message = new MessageBean("Hello, Bob!",
-                "aliceid",
-                "bobid");
+        		userRepository.findById("Alice").get(),
+        		userRepository.findById("Bob").get());
         messageRepository.save(message);
         assertEquals(1, messageRepository.count());
+
         assertEquals("Hello, Bob!",
-                messageRepository.findBySenderId("aliceid").get(0).getMsg());
+                messageRepository.findBySender(userRepository.findById("Alice").get()).get(0).getMessageContent());
     }
 
     @Test
     @DisplayName("Message Repository Size")
     void testNumMessages() {
         MessageBean message1 = new MessageBean("Hello, Bob!",
-                "Alice",
-                "Bob");
+        		userRepository.findById("Alice").get(),
+                userRepository.findById("Bob").get());
 
         MessageBean message2 = new MessageBean("Hello, Alice!",
-                "Bob",
-                "Alice");
+        		userRepository.findById("Bob").get(),
+        		userRepository.findById("Alice").get());
 
         messageRepository.save(message1);
         messageRepository.save(message2);
@@ -88,11 +83,11 @@ class ChatTest {
     @DisplayName("Saving Message Details")
     void testMessageDetails() {
         MessageBean message = new MessageBean("Hello, Alice!",
-                "Bob",
-                "Alice");
+                userRepository.findById("Bob").get(),
+                userRepository.findById("Alice").get());
         messageRepository.save(message);
 
-        assertEquals("Hello, Alice!", message.getMsg());
+        assertEquals("Hello, Alice!", message.getMessageContent());
     }
 
     @Test

@@ -10,6 +10,7 @@ matrix:
     sudo: true
     
     before_install:
+    - echo $TRAVIS_BRANCH
     - cd backend
     
     script: 
@@ -24,11 +25,8 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            branch:
-                only:
-                - master
-                - development
-            condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$
+            all_branches: true
+            condition: "($TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(back| | (.*?))?( (.*?))?$) && ($TRAVIS_BRANCH =~ ^(master|release|development)$)"
 
 #Frontend 
   - language: node_js
@@ -63,8 +61,5 @@ matrix:
         skip_cleanup: true
         script: bash docker_push
         on:
-            branch:
-                only:
-                - master
-                - development
-            condition: $TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(front| | (.*?))?( (.*?))?$
+            all_branches: true
+            condition: "($TRAVIS_COMMIT_MESSAGE =~ ^(.*?)#deploy(front| | (.*?))?( (.*?))?$) && ($TRAVIS_BRANCH =~ ^(master|release|development)$)"

@@ -20,7 +20,7 @@ html, body { margin: 0; padding: 0 }
 .body-item{
   flex: 1;
   padding: 10px;
-  height: 100vh;
+  /* height: 100vh; */
 
 }
 
@@ -97,6 +97,12 @@ input, button {
 	transition: all 0.2s ease-in-out;
 	cursor: pointer;
 	min-height: 38px;
+}
+
+.input-group{
+  float: none;
+  display: inline-block;
+  vertical-align: middle;  
 }
 
 label input{

@@ -3,6 +3,7 @@ import ConnectionListComponent from "./ConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 import cookie from 'js-cookie';
+import API from "../../Constants.js"
 
 class ChatComponent extends Component {
 
@@ -21,15 +22,12 @@ class ChatComponent extends Component {
   
   
   componentDidMount() {
-    console.log('Component did mount');
-
-    this.client = Stomp.over(new WebSocket("ws://javlet.social:8080/socket/websocket"));
+    this.client = Stomp.over(new WebSocket(
+	"ws://" + API.slice(7) + "/socket/websocket"
+));
 
     this.client.connect({ login: null, passcode: null }, () => {
-      console.log("Connected");
-
       this.client.subscribe('/chat', response => {
-        console.log(response);
         this.setState(state => ({ messages: [JSON.parse(response.body), ...state.messages] }))
     });
   });
@@ -64,8 +62,8 @@ class ChatComponent extends Component {
               <div className="dialogue-container">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.msg} datetime={message.dateTime} sender={message.sender.givenName}/>
-        )}
+          <MessageComponent message={message.messageContent} datetime={message.dateTime} sender={message.sender.givenName}/>
+          )}
                 </ul>
                     <div className="input-group clearfix">
                     <form
@@ -84,6 +82,7 @@ class ChatComponent extends Component {
                         value={this.state.message}
                         onChange={e => this.setState({ message: e.target.value })}
                         className="w3-input form-control"
+                        autoComplete="off"
                       />
                       <input type="submit"
                        className="w3-btn w3-blue" 
@@ -107,13 +106,11 @@ class ChatComponent extends Component {
         if(msg !== ""){
           
     const newItem = {
-      msg: msg,
+      messageContent: msg,
       senderId: cookie.get('id'),
       recipientId: this.state.recipient,
     };
-
-    console.log(JSON.stringify(newItem));
-
+    
     this.client.send('/app/message', JSON.stringify(newItem));
     }
   }

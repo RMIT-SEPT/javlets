@@ -4,7 +4,9 @@ package com.sept.javlets.userauth;
 import com.sept.javlets.mongo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -14,65 +16,77 @@ public class AccountController {
     @Autowired
     private UserRepository userRepository;
 
-    // Add new user, (Not in database)
-     void add(HashMap<String, String> loginInfo) {
+    // Add user
+    public AccountBean add(HashMap<String, String> loginInfo) {
+        String id = loginInfo.get("email").split("@")[0];
 
-         // Create bean
-        StudentAccountBean user = new StudentAccountBean(loginInfo.get("id"));
+        AccountBean user = new AccountBean(id);
+
+
         String[] names = loginInfo.get("name").split(" ");
-        if(names.length == 2){
+        if (names.length == 2) {
             user.setGivenName(names[0]);
             user.setFamilyName(names[1]);
         }
 
-        // Username is gotten from email
-        String email = loginInfo.get("email");
-
-        user.setEmail(email);
-        user.setUsername(loginInfo.get("email").split("@")[0]);
+        user.setEmail(loginInfo.get("email"));
+        //    user.setUsername(loginInfo.get("email").split("@")[0]);
+        user.setImageUrl(loginInfo.get("imageUrl"));
 
         // Finally, saving user
-         userRepository.save(user);
+        userRepository.save(user);
+        return user;
     }
 
-
-
-    private boolean validateId(String Id) {
-        return Id.matches("(s|e)\\d{7}");
+    @GetMapping("/userdb")
+    public List<AccountBean> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/login")
-    public boolean login(@RequestBody HashMap<String, String> loginInfo) {
-        String[] arrOfStr = loginInfo.get("email").split("@");
-
-        if (validateId(arrOfStr[0])) {
-            if(!userRepository.findById(loginInfo.get("id")).isPresent()){
-                add(loginInfo);
-                System.out.println("New user registered");
-            }
-
-            System.out.printf("Log in: %s\n", arrOfStr[0]);
-                return true;
-        } else {
-            System.out.println("Login attempt: Not valid student email");
-            return false;
-        }
-}
+    @DeleteMapping
+    public void removeAllUsers() {
+        userRepository.deleteAll();
+    }
 
     @GetMapping("/get")
     @ResponseBody
-    public StudentAccountBean getInfo(@RequestParam String id) {
-        Optional<StudentAccountBean> user = userRepository.findById(id);
+    public AccountBean getInfo(@RequestParam String id) {
+        Optional<AccountBean> user = userRepository.findById(id);
         return user.orElse(null);
     }
 
+    @PostMapping(path = "/login")
+    public AccountBean login(@RequestBody HashMap<String, String> loginInfo) {
+        String[] arrOfStr = loginInfo.get("email").split("@");
+
+        if (validateId(arrOfStr[0])) {
+            AccountBean acc = null;
+            if (!userRepository.findById(arrOfStr[0]).isPresent()) {
+                acc = add(loginInfo);
+                System.out.println("New user registered");
+                System.out.println(acc.toString());
+            } else {
+                acc = userRepository.findById(arrOfStr[0]).get();
+            }
+
+
+            // Logged in
+            System.out.printf("Log in: %s\n", arrOfStr[0]);
+            return acc;
+        } else {
+            System.out.println("Login attempt: Not valid student email");
+            return null;
+        }
+    }
 
     // Registered user count
     @GetMapping("/count")
     public long getUserCount() {
-         return userRepository.count();
+        return userRepository.count();
     }
 
-
+    private boolean validateId(String id) {
+        return id.matches("(s|e)\\d{7}");
+    }
 
 }
