@@ -17,7 +17,9 @@
     "react-stomp": "^4.2.0",
     "react-webcam": "^3.1.0",
     "typescript": "^3.6.3",
-    "webstomp-client": "^1.2.6"
+    "webstomp-client": "^1.2.6",
+    "express": "^4.16.3",
+    "ws": "^6.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
