@@ -29,9 +29,9 @@ class ChatTest {
 
     @Autowired
     private MessageRepository messageRepository;
-
-    @Autowired
-    private MessageController messageController;
+//
+//    @Autowired
+//    private MessageController messageController;
 
     //private MessageController chatController;
 
