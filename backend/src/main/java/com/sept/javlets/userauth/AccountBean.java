@@ -77,8 +77,12 @@ public class AccountBean {
         return isMentor;
     }
 
-    public void setMentor(boolean isMentor) {
-        this.isMentor = isMentor;
+    public void promote() {
+    	this.isMentor = true;
+    }
+    
+    public void demote() {
+    	this.isMentor = false;
     }
 
     public String getId() {

@@ -55,7 +55,7 @@ public class AccountController {
         return user.orElse(null);
     }
 
-    @PostMapping(path = "/login")
+    @PostMapping("/login")
     public AccountBean login(@RequestBody HashMap<String, String> loginInfo) {
         String[] arrOfStr = loginInfo.get("email").split("@");
 
@@ -85,6 +85,18 @@ public class AccountController {
         return userRepository.count();
     }
 
+    @PostMapping("/{id}/promote")
+    public void promoteUser(@PathVariable String id) {
+    	AccountBean acc = userRepository.findById(id).get();
+    	acc.promote();
+    }
+
+    @PostMapping("/{id}/demote")
+    public void demoteUser(@PathVariable String id) {
+    	AccountBean acc = userRepository.findById(id).get();
+    	acc.demote();
+    }
+    
     private boolean validateId(String id) {
         return id.matches("(s|e)\\d{7}");
     }
