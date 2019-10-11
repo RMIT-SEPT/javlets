@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import Webcam from "react-webcam";
+import React, { Component } from 'react';
+import Webcam from 'react-webcam';
+import Iframe from 'react-iframe';
 import LiveChatCommenting from './LiveChatCommenting';
-import ScheduleForm from './ScheduleForm'
-import ScheduledLiveStream from './ScheduledLiveStream'
+import ScheduleForm from './ScheduleForm';
+import ScheduledLiveStream from './ScheduledLiveStream';
 
 
 class WebCamCapture extends Component {
@@ -54,6 +55,8 @@ class WebCamCapture extends Component {
             <ScheduledLiveStream/>
             </>
           )}
+		  // Show current stream
+		  <Iframe src="./webcam-base64-streaming/client.html" width="426px" height="240px"/>
           </>
         )}
 
