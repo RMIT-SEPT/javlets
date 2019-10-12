@@ -6,11 +6,9 @@ class LiveChatCommenting extends Component {
       this.state = {
           posts: [],
           newPost: '',
-          title: '', 
           body: '',
           id: 0
-      };  
-      this.handleTitleChange = this.handleTitleChange.bind(this);
+      }; 
       this.handleBodyChange = this.handleBodyChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -19,21 +17,16 @@ class LiveChatCommenting extends Component {
       return (
         <div>
           <div>        
-            <form id="form" onSubmit={this.handleSubmit} >            
-              <label> Title </label> <br />
-              <input onChange={this.handleTitleChange} value={this.state.title}/>
-              <br />
-              
+            <form id="form" onSubmit={this.handleSubmit} >              
               <label> Comment </label>
               <br />
               <input onChange={this.handleBodyChange} value={this.state.body} />
-              <br />
               <input className="w3-btn w3-blue" type="submit" value="Submit" />
             </form>
           </div>
 
           <div>
-            {this.state.posts.reverse().map(item => (  
+            {this.state.posts.map(item => (  
               <div className="post" key={item.id}>
                 <h2>{item.title}</h2>
                 <p>{item.body}</p>
@@ -54,11 +47,10 @@ class LiveChatCommenting extends Component {
   
     handleSubmit(event) {
       event.preventDefault();
-      if (!this.state.title.length) {
+      if (!this.state.body.length) {
         return;
       }
       const newItem = {
-        title: this.state.title,
         body: this.state.body,
         id: Date.now()
       };
