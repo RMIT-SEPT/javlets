@@ -85,15 +85,15 @@ public class AccountController {
         return userRepository.count();
     }
 
-    @PostMapping("/{id}/promote")
-    public void promoteUser(@PathVariable String id) {
-    	AccountBean acc = userRepository.findById(id).get();
+    @PostMapping("/promote")
+    public void promoteUser(@RequestBody HashMap<String, String> id) {
+    	AccountBean acc = userRepository.findById(id.get("username")).get();
     	acc.promote();
     }
 
-    @PostMapping("/{id}/demote")
-    public void demoteUser(@PathVariable String id) {
-    	AccountBean acc = userRepository.findById(id).get();
+    @PostMapping("/demote")
+    public void demoteUser(@RequestBody HashMap<String, String> id) {
+    	AccountBean acc = userRepository.findById(id.get("username")).get();
     	acc.demote();
     }
     
