@@ -5,6 +5,7 @@ import Iframe from 'react-iframe';
 import LiveChatCommenting from './LiveChatCommenting';
 import ScheduleForm from './ScheduleForm';
 import ScheduledLiveStream from './ScheduledLiveStream';
+import LivestreamWebSocket from './LivestreamWebSocket';
 
 class WebCamCapture extends Component {
 
@@ -53,7 +54,8 @@ class WebCamCapture extends Component {
             ):(
             <>
             {/* Show current stream */}
-		        <Iframe src="http://localhost:3001/client" width="426px" height="240px"/>
+            <LivestreamWebSocket />
+            <Iframe src="http://localhost:3001/client" width="426px" height="240px"/>
             <LiveChatCommenting />
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
             <h2>Upcoming Streams</h2>

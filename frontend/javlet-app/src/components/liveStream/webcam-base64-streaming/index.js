@@ -8,7 +8,6 @@ const httpServer = http.createServer(app);
 // const PORT = process.env.PORT || 3000;
 const PORT = 3001;
 
-
 const wsServer = new WebSocket.Server({ server: httpServer }, () => console.log(`WS server is listening at ws://localhost:${WS_PORT}`));
 
 // array of connected websocket clients
