@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactCam from './ReactCam';
+import { API_WS } from '../../Constants.js';
 
 const path = require('path');
 const express = require('express');

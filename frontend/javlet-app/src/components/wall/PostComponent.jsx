@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import API from  '../../Constants.js'
+import { API } from  '../../Constants.js'
 
 class PostComponent extends Component{
   constructor(props) {

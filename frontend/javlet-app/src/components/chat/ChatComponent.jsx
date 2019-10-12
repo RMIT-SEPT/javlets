@@ -3,7 +3,7 @@ import ConnectionListComponent from "./ConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 import cookie from 'js-cookie';
-import API from "../../Constants.js"
+import { API } from "../../Constants.js"
 
 class ChatComponent extends Component {
 
