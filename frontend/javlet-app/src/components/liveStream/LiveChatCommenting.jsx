@@ -21,7 +21,6 @@ class LiveChatCommenting extends Component {
               <label> Comment </label>
               <br />
               <input onChange={this.handleBodyChange} value={this.state.body} />
-              <br />
               <input className="w3-btn w3-blue" type="submit" value="Submit" />
             </form>
           </div>

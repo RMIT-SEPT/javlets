@@ -35,7 +35,7 @@ class WebCamCapture extends Component {
            <br />
            {/* <Webcam videoConstraints={videoConstraints} /> */}
            {/* Make current stream */}
-          <Iframe src="./webcam-base64-streaming/streamer.html" width="426px" height="240px"/>
+          <Iframe src="http://localhost:3001/streamer" width="426px" height="240px"/>
           
           <LiveChatCommenting />
           </>
@@ -53,7 +53,7 @@ class WebCamCapture extends Component {
             ):(
             <>
             {/* Show current stream */}
-		        <Iframe src="./webcam-base64-streaming/client.html" width="426px" height="240px"/>
+		        <Iframe src="http://localhost:3001/client" width="426px" height="240px"/>
             <LiveChatCommenting />
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
             <h2>Upcoming Streams</h2>
