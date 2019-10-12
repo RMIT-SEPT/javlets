@@ -3,7 +3,7 @@ import GoogleLogin from 'react-google-login';
 import axios from "axios";
 
 import cookie from 'js-cookie';
-import API from '../Constants.js'
+import { API } from '../Constants.js'
 
 const responseGoogle = (response) => {
   var id = (response.profileObj.email.split('@'))[0];

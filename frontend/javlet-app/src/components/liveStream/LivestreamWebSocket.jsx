@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactCam from './ReactCam';
+import { API_WS } from '../../Constants.js';
 
 class LivestreamWebSocket extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class LivestreamWebSocket extends Component {
      * This function establishes the connect with the websocket and also ensures constant reconnection if connection closes
      */
     connect = () => {
-        var ws = new WebSocket("ws://localhost:3001/ws");
+        var ws = new WebSocket(API_WS + ":3001/ws");
         let that = this; // cache the this
         var connectInterval;
 
