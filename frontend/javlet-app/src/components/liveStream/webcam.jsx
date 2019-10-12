@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+
 // import Webcam from 'react-webcam';
 import Iframe from 'react-iframe';
 import LiveChatCommenting from './LiveChatCommenting';
 import ScheduleForm from './ScheduleForm';
 import ScheduledLiveStream from './ScheduledLiveStream';
-
 
 class WebCamCapture extends Component {
 
@@ -36,8 +36,7 @@ class WebCamCapture extends Component {
            {/* <Webcam videoConstraints={videoConstraints} /> */}
            {/* Make current stream */}
           <Iframe src="./webcam-base64-streaming/streamer.html" width="426px" height="240px"/>
-
-          <h2>Comments </h2>
+          
           <LiveChatCommenting />
           </>
         ):(
@@ -55,7 +54,6 @@ class WebCamCapture extends Component {
             <>
             {/* Show current stream */}
 		        <Iframe src="./webcam-base64-streaming/client.html" width="426px" height="240px"/>
-            <h2>Comments </h2>
             <LiveChatCommenting />
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
             <h2>Upcoming Streams</h2>
