@@ -50,13 +50,13 @@ class WebCamCapture extends Component {
             </>
             ):(
             <>
+            {/* // Show current stream */}
+		        <Iframe src="./webcam-base64-streaming/client.html" width="426px" height="240px"/>
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
             <h2>Upcoming Streams</h2>
             <ScheduledLiveStream/>
             </>
           )}
-		  // Show current stream
-		  <Iframe src="./webcam-base64-streaming/client.html" width="426px" height="240px"/>
           </>
         )}
 
