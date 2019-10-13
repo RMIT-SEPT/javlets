@@ -24,7 +24,7 @@ class ConnectionListComponent extends Component{
   
     refreshConnections() {
         if(cookie.get('id')){
-          axios.get(API + '/connection/connecion/?id=' + cookie.get('id'))
+          axios.get(API + '/connection/connections/?id=' + cookie.get('id'))
           .then((response) => {
             Object.entries(response.data).forEach(
               ([key, value]) => {
@@ -40,7 +40,7 @@ class ConnectionListComponent extends Component{
             let buffer = [];
 
             this.state.connections.slice(0).reverse().forEach((obj, index) => {
-                buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} type={0}/>);
+                buffer.push(<ConnectComponent key={Math.random()} name={obj.givenName + " " +  obj.familyName} conID={obj.id} type={0}/>);
             });
               return buffer;
         }else{

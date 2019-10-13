@@ -49,9 +49,12 @@ html, body {
 .connection{
   border: 0.3vh solid rgb(32, 32, 32);
  margin: 0.1em;
+ padding: 0.5vh;
+ width: 15vh;
 display: flex;
 flex-flow: column;
 text-align: center;
+word-wrap: break-word;
 
  float: left;
 }

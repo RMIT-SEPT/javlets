@@ -30,7 +30,6 @@ public class AccountController {
         }
 
         user.setEmail(loginInfo.get("email"));
-        //    user.setUsername(loginInfo.get("email").split("@")[0]);
         user.setImageUrl(loginInfo.get("imageUrl"));
 
         // Finally, saving user
