@@ -51,11 +51,7 @@ class ConnectionListComponent extends Component{
 render(){
    return(
     <div className="connectList">
-      <ul id="" ref={(div) => {this.connections = div;}}>
           {this.printList()}
-        </ul>
-
-
     </div>
    );
 }

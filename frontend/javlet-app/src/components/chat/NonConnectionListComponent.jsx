@@ -52,9 +52,7 @@ class NonConnectionListComponent extends Component{
 render(){
    return(
     <div className="connectList">
-      <ul id="">
           {this.printList()}
-        </ul>
 
 
     </div>
