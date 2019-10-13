@@ -14,9 +14,6 @@ class WallComponent extends Component{
   disableLiveStream = () => this.setState({liveStream: false});
   makeAPost = () => this.setState({makePost: true});
   hideForm = () => this.setState({makePost: false});
-  // makeMentor = () => axios.post(API + '/auth/promote', cookie.get('id'));
-  // makeMentor = () => alert(cookie.get('id'))
-
 
   constructor(props) {
     super(props);
@@ -46,6 +43,11 @@ class WallComponent extends Component{
           <div>
             <h1>Live Stream</h1>
             <button type="disable" onClick={this.disableLiveStream}> Show Wall </button>
+            {this.state.user.mentor ?( 
+              <button type="disablePost" onClick={this.makeStudent}> Show Student View </button>
+            ):(
+              <button type="enablePost" onClick={this.makeMentor}> Show Mentor View </button>
+            )}
             <WebCamCapture />
           </div>
           ):(

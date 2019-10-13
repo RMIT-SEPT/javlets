@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import cookie from 'js-cookie';
+import { API } from '../../Constants.js'
 
 import Iframe from 'react-iframe';
 import LiveChatCommenting from './LiveChatCommenting';
 import ScheduleForm from './ScheduleForm';
 import ScheduledLiveStream from './ScheduledLiveStream';
-// import Websocket from './Websocket'
+
 
 class WebCamCapture extends Component {
 
@@ -16,15 +19,23 @@ class WebCamCapture extends Component {
   constructor(props) {
     super(props);
     this.state = { 
+      user: [],
       webcamEnabled: false,
       scheduleStream: false
     };
   }
 
+  componentDidMount() {
+    axios.get(API + '/auth/get/?id=' + cookie.get('id'))
+      .then((response) => {
+        this.setState({user: response.data});
+    });
+  }
+
   render() {
     return (
       <div>
-        {this.state.webcamEnabled ? (
+        {this.state.webcamEnabled  ? (
           <>
           <button type="disable" onClick={this.disableWebCam}>
             Disable webcam
@@ -37,9 +48,11 @@ class WebCamCapture extends Component {
           </>
         ):(
           <>
+          {this.state.user.mentor ? (
           <button type="create" onClick={this.enableWebcam}>
             Start Live Stream
-          </button>
+          </button>):('')}
+          
           
           {this.state.scheduleStream ? (
             <>
@@ -52,7 +65,9 @@ class WebCamCapture extends Component {
             {/* <Websocket/> */}
             <Iframe src="http://localhost:3001/client" width="426px" height="240px" />
             <LiveChatCommenting />
+            {this.state.user.mentor ? (
             <button type="create" onClick={this.schedule}> Schedule a Live Stream </button>
+            ):('')}
             <h2>Upcoming Streams</h2>
             <ScheduledLiveStream/>
             </>
