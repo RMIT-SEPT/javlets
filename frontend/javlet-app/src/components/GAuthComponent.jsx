@@ -28,7 +28,7 @@ const responseGoogle = (response) => {
       alert ("Please sign in using RMIT student email");
     }
   }).catch(error => {
-    alert("Unable to connect to server.");
+    alert(error + "\nUnable to connect to server.");
   })
 }
 
@@ -62,7 +62,6 @@ class GAuthComponent extends Component{
       }).catch(error => {
         this.logout();
     });
-
 
     }
   }
