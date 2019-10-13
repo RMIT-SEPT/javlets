@@ -31,10 +31,14 @@ const responseGoogle = (response) => {
 }
 
 class GAuthComponent extends Component{
- 
-  state = {
-    user: 0,
-    count: 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: 0,
+      count: 0
+    }
+    this.makeMentor = this.makeMentor.bind(this);
+    this.makeStudent = this.makeStudent.bind(this);
   }
 
   logout() {
@@ -69,6 +73,11 @@ class GAuthComponent extends Component{
           <div className = "userLogout">
           <p>Logged in as: {this.state.user.givenName + " " + this.state.user.familyName} (<b>{this.state.user.id}</b>)</p>
           <p><b>User count:</b> {this.state.count}</p>
+          {this.state.user.mentor ?( 
+              <button type="disablePost" onClick={this.makeStudent}> Show Student View </button>
+            ):(
+              <button type="enablePost" onClick={this.makeMentor}> Show Mentor View </button>
+            )}
           <button onClick={this.logout}>Logout</button>
           </div>
         </React.Fragment>
@@ -88,6 +97,23 @@ class GAuthComponent extends Component{
       )
 
     }
+  }
+  makeMentor(){
+    console.log(this.state.user)
+    const promoted = {
+      id:this.state.user.id
+    }
+    console.log(promoted)
+    axios.post(API + '/auth/promote', promoted);
+    window.location.reload();
+  }
+
+  makeStudent(){
+    const demoted = {
+      id:this.state.user.id
+    }
+    axios.post(API + '/auth/demote', demoted);
+    window.location.reload();
   }
 }
 export default GAuthComponent;
