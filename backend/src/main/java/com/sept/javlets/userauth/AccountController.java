@@ -88,13 +88,17 @@ public class AccountController {
     @PostMapping("/promote")
     public void promoteUser(@RequestBody HashMap<String, String> id) {
         AccountBean acc = userRepository.findById(id.get("id")).get();
+        userRepository.delete(acc);
         acc.promote();
+        userRepository.save(acc);
     }
 
     @PostMapping("/demote")
     public void demoteUser(@RequestBody HashMap<String, String> id) {
         AccountBean acc = userRepository.findById(id.get("id")).get();
+        userRepository.delete(acc);
         acc.demote();
+        userRepository.save(acc);
     }
     
     private boolean validateId(String id) {
