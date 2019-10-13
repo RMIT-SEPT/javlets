@@ -61,6 +61,7 @@ class GAuthComponent extends Component{
   }
 
   render(){
+    // console.log(this.state.user)
     if(cookie.get('id')){
       return(
 
