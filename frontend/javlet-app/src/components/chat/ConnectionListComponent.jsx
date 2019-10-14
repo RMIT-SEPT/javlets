@@ -20,17 +20,21 @@ class ConnectionListComponent extends Component{
             this.setState({user: response.data});
         });
       }
+
+      this.intervalID = setInterval(this.refreshConnections.bind(this), 1500);
     }
   
     refreshConnections() {
         if(cookie.get('id')){
           axios.get(API + '/connection/connections/?id=' + cookie.get('id'))
           .then((response) => {
+            let locConnect = [];
             Object.entries(response.data).forEach(
               ([key, value]) => {
-                this.setState(state => ({ connections: [value, ...state.connections] }));
+                locConnect = [value, ...locConnect];
               } 
           );
+          this.setState(state => ({ connections: locConnect}));
           });
         }
     }

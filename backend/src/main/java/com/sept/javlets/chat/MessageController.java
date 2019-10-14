@@ -34,7 +34,7 @@ public class MessageController {
         messageRepository.save(mBean);
 
 
-        System.out.println("MESSAGE RECEIVED (" + LocalDateTime.now().toString() + "): " + mBean.getSender().getId() + " sent \"" + mBean.getMessageContent() + "\" to " + " GLOBAL");
+        System.out.println("MESSAGE RECEIVED (" + LocalDateTime.now().toString() + "): " + mBean.getSender().getId() + " sent \"" + mBean.getMessageContent() + "\" to " + mBean.getRecipientId());
         this.template.convertAndSend("/chat", mBean);
     }
 }

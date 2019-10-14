@@ -11,7 +11,7 @@ exports[`Chat SNAPSHOT 1`] = `
     className="innerChat"
   >
     <div
-      className="innerChatChild"
+      className="innerChatChild connectionArea"
     >
       <h2>
         Your connections
@@ -32,40 +32,11 @@ exports[`Chat SNAPSHOT 1`] = `
       <h2>
         Javlets Conversation
       </h2>
-      <div
-        className="chatArea"
-        id="dialogue-page"
+      <h3
+        className="w3-label w3-red"
       >
-        <div
-          className="dialogue-container"
-        >
-          <ul
-            id="messageList"
-          />
-          <div
-            className="input-group clearfix"
-          >
-            <form
-              action="."
-              onSubmit={[Function]}
-            >
-              <input
-                autoComplete="off"
-                className="w3-input form-control"
-                id="chatMessage"
-                onChange={[Function]}
-                placeholder="Enter message..."
-                type="text"
-              />
-              <input
-                className="w3-btn w3-blue"
-                type="submit"
-                value="Send"
-              />
-            </form>
-          </div>
-        </div>
-      </div>
+        No chat active
+      </h3>
       <script
         src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"
       />

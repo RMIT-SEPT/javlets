@@ -49,18 +49,12 @@ handleRequest(event) {
       senderId: cookie.get('id'),
       recipientId: this.props.conID,
     };
-    
-    window.location.reload();
+
     return axios.post(API + '/connection/add', newItem);
     }
 
     handleMessage(event) {
-        const newItem = {
-          senderId: cookie.get('id'),
-          recipientId: this.props.conID,
-        };
-        
-        return axios.post(API + '/connection/add', newItem);
+        cookie.set("rID", this.props.conID);
         }
 }
 export default ConnectComponent;

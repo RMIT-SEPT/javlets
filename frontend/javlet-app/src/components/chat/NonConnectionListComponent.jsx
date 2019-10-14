@@ -22,29 +22,33 @@ class NonConnectionListComponent extends Component{
             this.setState({user: response.data});
         });
       }
+
+      this.intervalID = setInterval(this.refreshConnections.bind(this), 1500);
     }
   
     refreshConnections() {
         if(cookie.get('id')){
-
           // Get connections which user haven't added/connected with
           axios.get(API + '/connection/nonconnection/?id=' + cookie.get('id'))
           .then((response) => {
+            let locConnect = [];
             Object.entries(response.data).forEach(
               ([key, value]) => {
-                this.setState(state => ({ connections: [value, ...state.connections] }));
+                locConnect = [value, ...locConnect];
               } 
           );
+          this.setState(state => ({ connections: locConnect }));
           });
 
           // Get connections which user has sent
           axios.get(API + '/connection/connectRequest/?id=' + cookie.get('id'))
           .then((response) => {
+            let locRequest = [];
             Object.entries(response.data).forEach(
               ([key, value]) => {
-                this.setState(state => ({ connectRequest: [value, ...state.connectRequest] }));
-              } 
+                locRequest = [value, ...locRequest];              } 
           );
+          this.setState(state => ({ connectRequest: locRequest }));
           });
 
 
@@ -52,13 +56,14 @@ class NonConnectionListComponent extends Component{
           // Get connection requests
           axios.get(API + '/connection/connectSent/?id=' + cookie.get('id'))
           .then((response) => {
+            let locSent = [];
             Object.entries(response.data).forEach(
               ([key, value]) => {
-                this.setState(state => ({ connectSent: [value, ...state.connectSent] }));
+                locSent = [value, ...locSent];      
               } 
           );
+          this.setState(state => ({ connectSent: locSent }));
           });
-
         }
 
     }
