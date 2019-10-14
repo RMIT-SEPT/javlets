@@ -20,24 +20,24 @@ class ChatComponent extends Component {
   }
 
   componentDidMount() {
-    this.setState({ message: [] });
     this.client = Stomp.over(
       new WebSocket("ws://" + API.slice(7) + "/socket/websocket")
     );
 
     this.client.connect({ login: null, passcode: null }, () => {
       this.client.subscribe("/chat", response => {
-        this.scrollToBottom();
-
         let message = JSON.parse(response.body);
 
         console.log(message);
 
-        if(message.recipient.id === cookie.get("id") || message.sender.id === cookie.get("id")){
+        if((message.recipient.id === cookie.get("id") || message.sender.id === cookie.get("id"))){
         this.setState(state => ({
           messages: [message, ...state.messages]
         }));
 
+        if(cookie.get("rID")){
+          this.scrollToBottom();
+        }
       }
       });
     });
@@ -102,7 +102,7 @@ class ChatComponent extends Component {
                   className="w3-input form-control"
                   autoComplete="off"
                 />
-                <button o onClick={() => { cookie.remove("rID"); }} type="button" className="w3-btn closeBtn w3-red">
+                <button o onClick={() => { cookie.remove("rID"); this.setState({ messages: [] });  }} type="button" className="w3-btn closeBtn w3-red">
                   Close
                 </button>
                 <input
