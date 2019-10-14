@@ -5,16 +5,16 @@ import Stomp from "webstomp-client";
 import MessageComponent from "./MessageComponent";
 import cookie from "js-cookie";
 import { API } from "../../Constants.js";
+import axios from "axios";
 
 class ChatComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
+      curID: null,
 
       msg: "",
-      sender: cookie.get("id"),
-      recipient: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,12 +28,23 @@ class ChatComponent extends Component {
 
     this.client.connect({ login: null, passcode: null }, () => {
       this.client.subscribe("/chat", response => {
+        let message = JSON.parse(response.body);
+
+        // Ensure we only get messages that we've sent. Not secure at all.
+        if(((message.recipient.id === cookie.get("id") && message.sender.id === cookie.get("rID"))) || message.sender.id === cookie.get('id')){
         this.setState(state => ({
-          messages: [JSON.parse(response.body), ...state.messages]
+          messages: [message, ...state.messages]
         }));
+
+        // If we have a user, scroll to bottom upon message sent
+        if(cookie.get("rID")){
+          this.scrollToBottom();
+        }
+      }
       });
     });
 
+    // Auto refresh
     this.interval = setInterval(
       () => this.setState({ time: Date.now() }),
       1000
@@ -47,21 +58,25 @@ class ChatComponent extends Component {
     this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
   }
 
-  componentDidUpdate() {
-    if (cookie.get("rID")) {
-      this.scrollToBottom();
-    }
-  }
-
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
   renderChat() {
+
+    // Checking if curID is equal to selected ID, if not, reset messages and pull messages
     if (cookie.get("rID")) {
-      if (this.state.recipient === null) {
-        this.setState(state => ({ recipient: cookie.get("rID") }));
+      if(this.state.curID !== cookie.get("rID")){
+        this.setState({ messages: [] });
+        this.setState({curID: cookie.get("rID")});
+
+        axios.get(API + '/log/?id=' + cookie.get('id') + " " + cookie.get('rID'))
+        .then((response) => {
+          this.setState({messages: response.data});
+      });
       }
+
+
       return (
         <div className="chatArea">
           <ul
@@ -91,16 +106,23 @@ class ChatComponent extends Component {
                 this.setState({ message: "" });
               }}
             >
-              <input
-                type="text"
-                id="chatMessage"
-                placeholder={"Enter message..."}
-                value={this.state.message}
-                onChange={e => this.setState({ message: e.target.value })}
-                className="w3-input form-control"
-                autoComplete="off"
-              />
-              <input type="submit" className="w3-btn w3-blue" value={"Send"} />
+                <input
+                  type="text"
+                  id="chatMessage"
+                  placeholder={"Enter message..."}
+                  value={this.state.message}
+                  onChange={e => this.setState({ message: e.target.value })}
+                  className="w3-input form-control"
+                  autoComplete="off"
+                />
+                <button onClick={() => { cookie.remove("rID"); this.setState({ messages: [] });}} type="button" className="w3-btn closeBtn w3-red">
+                  Close
+                </button>
+                <input
+                  type="submit"
+                  className="w3-btn chatBtn w3-blue"
+                  value={"Send"}
+                />
             </form>
           </div>
         </div>
@@ -141,7 +163,7 @@ class ChatComponent extends Component {
       const newItem = {
         messageContent: msg,
         senderId: cookie.get("id"),
-        recipientId: this.state.recipient
+        recipientId: cookie.get('rID'),
       };
 
       this.client.send("/app/message", JSON.stringify(newItem));

@@ -21,7 +21,7 @@ class NonConnectionListComponent extends Component {
       });
     }
 
-    this.intervalID = setInterval(this.refreshConnections.bind(this), 1500);
+    this.intervalID = setInterval(this.refreshConnections.bind(this), 3000);
   }
 
   refreshConnections() {
