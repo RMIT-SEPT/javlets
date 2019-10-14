@@ -28,6 +28,7 @@ class ChatComponent extends Component {
 
     this.client.connect({ login: null, passcode: null }, () => {
       this.client.subscribe("/chat", response => {
+        this.scrollToBottom();
         this.setState(state => ({
           messages: [JSON.parse(response.body), ...state.messages]
         }));
@@ -45,12 +46,6 @@ class ChatComponent extends Component {
     const height = this.messageList.clientHeight;
     const maxScrollTop = scrollHeight - height;
     this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  }
-
-  componentDidUpdate() {
-    if (cookie.get("rID")) {
-      this.scrollToBottom();
-    }
   }
 
   componentWillUnmount() {
