@@ -52,11 +52,12 @@ class ChatComponent extends Component {
   }
 
   scrollToBottom() {
+    if(this.messageList !== undefined && this.messageList.scrollHeight !== undefined){
     const scrollHeight = this.messageList.scrollHeight;
     const height = this.messageList.clientHeight;
     const maxScrollTop = scrollHeight - height;
     this.messageList.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
-  }
+  }}
 
   componentWillUnmount() {
     clearInterval(this.interval);
@@ -94,8 +95,10 @@ class ChatComponent extends Component {
                   datetime={message.date}
                   sender={message.sender.givenName}
                 />
+               
               ))}
           </ul>
+
           <div className="input-group clearfix">
             <form
               action="."
@@ -115,7 +118,7 @@ class ChatComponent extends Component {
                   className="w3-input form-control"
                   autoComplete="off"
                 />
-                <button onClick={() => { cookie.remove("rID"); this.setState({ messages: [] });}} type="button" className="w3-btn closeBtn w3-red">
+                <button onClick={() => { cookie.remove("rID"); this.setState({ curID: null }); this.setState({ messages: [] });}} type="button" className="w3-btn closeBtn w3-red">
                   Close
                 </button>
                 <input
