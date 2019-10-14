@@ -1,27 +1,22 @@
-html, body { margin: 0; padding: 0 }
-
-.App {
-  text-align: center;
-  background-color: #282c34;
-}
+html, body {
+   margin: 0;
+   padding: 0;
+   background-color:rgb(240, 240, 240);
+   }
 
 .App-header{
   color: rgb(0, 0, 0);
 }
 
 .App-body{
-  
-  /* min-height: 100vh; */
   display: flex;
-  flex-direction: row;
-  background-color:rgb(240, 240, 240);
+  flex-wrap: wrap;
 }
 
 .body-item{
-  flex: 1;
+  flex-grow: 1;
+  flex-basis: 0;
   padding: 10px;
-  /* height: 100vh; */
-
 }
 
 .postList
@@ -54,9 +49,12 @@ html, body { margin: 0; padding: 0 }
 .connection{
   border: 0.3vh solid rgb(32, 32, 32);
  margin: 0.1em;
+ padding: 0.5vh;
+ width: 15vh;
 display: flex;
 flex-flow: column;
 text-align: center;
+word-wrap: break-word;
 
  float: left;
 }
@@ -73,7 +71,7 @@ text-align: center;
 
 .connectList{
   display: flex;
-  flex-flow: row;
+  flex-wrap: nowrap;
   overflow-y: hidden;
   overflow-x: scroll;
 }
@@ -132,24 +130,33 @@ font-size: 1.3em;
   flex-direction: column;
   margin: 0; /* To remove default bottom margin */ 
   padding: 0; /* To remove default left padding */
-  width: 30vh;
   overflow-x: hidden;
   word-wrap: break-word;
+  height: 50vh;
 }
+
+.chatArea{
+  border: 0.3vh solid rgb(32, 32, 32);
+}
+
 
 .innerChat{
-  display: inline-flex;
-  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.dialogue-container{
-  border: 0.3vh solid rgb(32, 32, 32);
-
+.innerChatChild{
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 1vh;
 }
 
-.dialogue-container ul{
-height: 50vh;
-overflow-y: scroll;
+.innerChatChild h2{
+  text-align: center;
+}
+
+.connectionArea{
+padding-right: 5vh;
 }
 
 .warning{
@@ -165,5 +172,6 @@ overflow-y: scroll;
 }
 
 .date{
-  left:0;bottom:18px
+  left:0;
+  bottom:18px;
 }

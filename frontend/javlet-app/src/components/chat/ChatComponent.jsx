@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ConnectionListComponent from "./ConnectionListComponent";
+import NonConnectionListComponent from "./NonConnectionListComponent";
 import Stomp from 'webstomp-client';
 import MessageComponent from "./MessageComponent";
 import cookie from 'js-cookie';
@@ -31,6 +32,7 @@ class ChatComponent extends Component {
         this.setState(state => ({ messages: [JSON.parse(response.body), ...state.messages] }))
     });
   });
+
   }
 
   scrollToBottom() {
@@ -47,22 +49,26 @@ class ChatComponent extends Component {
   render() {
     return (
       <div className="body-item">
+
+
         <h1>Chat</h1>
         <div className="innerChat">
-          <div className="innerChatChild">
+
+          
+          <div className="innerChatChild connectionArea">
             <h2>Your connections</h2>
             <ConnectionListComponent type={0} />
             <h2>Add connections</h2>
-            <ConnectionListComponent type={1} />
+            <NonConnectionListComponent type={1} />
           </div>
+
 
           <div className="innerChatChild">
             <h2>Javlets Conversation</h2>
-            <div id="dialogue-page" className="chatArea">
-              <div className="dialogue-container">
+            <div className="chatArea">
                 <ul id="messageList" ref={(div) => {this.messageList = div;}}>
                 {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.messageContent} datetime={message.dateTime} sender={message.sender.givenName}/>
+          <MessageComponent message={message.messageContent} datetime={message.date} sender={message.sender.givenName}/>
           )}
                 </ul>
                     <div className="input-group clearfix">
@@ -90,7 +96,6 @@ class ChatComponent extends Component {
                     </form>
                       
                   </div>
-              </div>
             </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>

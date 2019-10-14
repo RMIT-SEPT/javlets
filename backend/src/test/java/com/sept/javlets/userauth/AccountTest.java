@@ -43,7 +43,7 @@ class AccountTest {
 	void testAddConnections() {
 		AccountBean alice = new AccountBean("Alice");
 		AccountBean bob = new AccountBean("Bob");
-		alice.addConnection(bob);
+		alice.addConnection(bob.getId());
 		assertEquals(1, alice.getConnections().size());
 	}
 

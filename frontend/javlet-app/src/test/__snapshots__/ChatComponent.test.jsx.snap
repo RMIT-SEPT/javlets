@@ -22,7 +22,7 @@ exports[`Chat SNAPSHOT 1`] = `
       <h2>
         Add connections
       </h2>
-      <ConnectionListComponent
+      <NonConnectionListComponent
         type={1}
       />
     </div>

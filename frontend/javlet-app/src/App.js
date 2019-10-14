@@ -26,12 +26,12 @@ function App() {
   // Main structure
   return (
     <div className="App">
-      <header className="App-header">
+      <div className="App-header">
         <HeaderComponent />
-      </header>
-      <body className="App-body">
+      </div>
+      <div className="App-body">
         <BodyContent isloggedin={cookie.get('id')}/>
-      </body>
+      </div>
     </div>
   );
 }

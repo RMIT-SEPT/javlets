@@ -18,7 +18,10 @@ public class AccountBean {
     private String imageUrl;
     private boolean isMentor;
 
-    private List<AccountBean> connections;
+    private List<String> connections;
+    private List<String> connectRequest;
+    private List<String> connectSent;
+
 
     public AccountBean() {
     }
@@ -26,7 +29,11 @@ public class AccountBean {
     public AccountBean(String id) {
         this.id = id;
         this.isMentor = false;
-        this.connections = new ArrayList<AccountBean>();
+
+        // Connection management
+        this.connections = new ArrayList<>();
+        this.connectSent = new ArrayList<>();
+        this.connectRequest = new ArrayList<>();
     }
 
     public String getEmail() {
@@ -61,14 +68,6 @@ public class AccountBean {
         this.imageUrl = imageUrl;
     }
 
-    public List<AccountBean> getConnections() {
-        return connections;
-    }
-
-    public void addConnection(AccountBean connection) {
-        connections.add(connection);
-    }
-
     public boolean removeConnection(AccountBean connection) {
         return connections.remove(connection);
     }
@@ -94,8 +93,43 @@ public class AccountBean {
     }
 
     public String toString() {
-        // return String.format("postID: %s, Author: %s, Title: %s, Body: %s, Type: %s%n", postId, author.getUsername(), title, body, type);
         return String.format("Student ID: %s, familyName: %s, GivenName: %s, Email: %s%n", id, familyName, givenName, email);
+    }
+
+    public List<String> getConnectRequest() {
+        return connectRequest;
+    }
+
+    public void addConnectRequest(String id) {
+        this.connectRequest.add(id);
+    }
+
+    public List<String> getConnectSent() {
+        return connectSent;
+    }
+
+    public void addConnectSent(String id) {
+        this.connectSent.add(id);
+    }
+
+    public void removeConnectRequest(String id) {
+        this.connectRequest.remove(id);
+    }
+
+    public void removeConnectSent(String id) {
+        this.connectSent.remove(id);
+    }
+
+    public List<String> getConnections() {
+        return connections;
+    }
+
+    public void addConnection(String id) {
+        this.connections.add(id);
+    }
+
+    public void removeConnection(String id) {
+        this.connections.remove(id);
     }
 
 }

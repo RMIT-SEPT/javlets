@@ -30,11 +30,21 @@ public class AccountController {
         }
 
         user.setEmail(loginInfo.get("email"));
-        //    user.setUsername(loginInfo.get("email").split("@")[0]);
         user.setImageUrl(loginInfo.get("imageUrl"));
 
         // Finally, saving user
         userRepository.save(user);
+
+        //TESTING
+        AccountBean user1 = new AccountBean("s343234");
+        user1.setGivenName("John");
+        user1.setFamilyName("Snith");
+        userRepository.save(user1);
+        AccountBean user2 = new AccountBean("s3284823");
+        user2.setGivenName("Jessica");
+        user2.setFamilyName("Jones");
+        userRepository.save(user2);
+
         return user;
     }
 

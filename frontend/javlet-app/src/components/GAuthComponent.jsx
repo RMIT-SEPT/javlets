@@ -27,6 +27,8 @@ const responseGoogle = (response) => {
       // Invalid (Not rmit student email)
       alert ("Please sign in using RMIT student email");
     }
+  }).catch(error => {
+    alert(error + "\nUnable to connect to server.");
   })
 }
 
@@ -47,20 +49,24 @@ class GAuthComponent extends Component{
   }
 
   componentDidMount() {
+
     if(cookie.get('id')){
       axios.get(API + '/auth/get/?id=' + cookie.get('id'))
       .then((response) => {
         if(response.data.id != null){
           this.setState({user: response.data});
+          // Only get user count if ID can be validated
+          axios.get(API + '/auth/count')
+          .then((response) => {
+            this.setState({count: response.data});
+          });
         }else{
           this.logout();
         }
-      });
+      }).catch(error => {
+        this.logout();
+    });
 
-      axios.get(API + '/auth/count')
-      .then((response) => {
-        this.setState({count: response.data});
-      });
     }
   }
 
