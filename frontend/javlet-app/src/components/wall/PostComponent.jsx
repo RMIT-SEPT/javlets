@@ -62,7 +62,7 @@ class PostComponent extends Component{
         </div>
         <div>
           {displayPosts.map(item => (  
-            <div className="post" key={item.title}>
+            <div className="post" key={item.id}>
               <h6>{item.selectDate}</h6>
               <h2>{item.title}</h2>
               <p>{item.body}</p>

@@ -118,7 +118,7 @@ class GAuthComponent extends Component{
     }
     console.log(promoted)
     axios.post(API + '/auth/promote', promoted);
-    window.location.reload();
+    // window.location.reload();
   }
 
   makeStudent(){
@@ -126,7 +126,7 @@ class GAuthComponent extends Component{
       id:this.state.user.id
     }
     axios.post(API + '/auth/demote', demoted);
-    window.location.reload();
+    // window.location.reload();
   }
 }
 export default GAuthComponent;
