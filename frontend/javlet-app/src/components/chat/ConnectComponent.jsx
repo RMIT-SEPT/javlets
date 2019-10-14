@@ -21,7 +21,6 @@ class ConnectComponent extends Component {
             className="w3-btn w3-blue btn-primary btn-lg btn-block"
             type="button"
             onClick={this.handleMessage}
-            value="Message"
           >
             Message
           </button>
@@ -33,7 +32,6 @@ class ConnectComponent extends Component {
             className="w3-btn w3-red btn-primary btn-lg btn-block"
             type="button"
             onClick={this.handleRequest}
-            value="Add"
           >
             Request
           </button>
@@ -50,12 +48,21 @@ class ConnectComponent extends Component {
             className="w3-btn w3-green btn-primary btn-lg btn-block"
             type="button"
             onClick={this.handleRequest}
-            value="Add"
           >
             Accept
           </button>
         );
         break;
+        case 4:
+            button = (
+              <button
+                className="w3-btn w3-orange btn-primary btn-lg btn-block"
+                disabled
+              >
+                Selected
+              </button>
+            );
+            break;
       default:
         break;
     }

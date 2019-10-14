@@ -47,6 +47,7 @@ class GAuthComponent extends Component {
 
   logout() {
     cookie.remove("id");
+    cookie.remove('rID');
     window.location.reload();
   }
 
@@ -75,7 +76,7 @@ class GAuthComponent extends Component {
     this.checkLogin();
 
     // Automatically log out
-    this.intervalID = setInterval(this.checkLogin.bind(this), 2000);
+    this.intervalID = setInterval(this.checkLogin.bind(this), 1000);
   }
 
   render() {

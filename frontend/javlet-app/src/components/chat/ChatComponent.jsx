@@ -5,12 +5,14 @@ import Stomp from "webstomp-client";
 import MessageComponent from "./MessageComponent";
 import cookie from "js-cookie";
 import { API } from "../../Constants.js";
+import axios from "axios";
 
 class ChatComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [],
+      curID: null,
 
       msg: "",
     };
@@ -28,13 +30,13 @@ class ChatComponent extends Component {
       this.client.subscribe("/chat", response => {
         let message = JSON.parse(response.body);
 
-        console.log(message);
-
-        if((message.recipient.id === cookie.get("id") || message.sender.id === cookie.get("id"))){
+        // Ensure we only get messages that we've sent. Not secure at all.
+        if(((message.recipient.id === cookie.get("id") && message.sender.id === cookie.get("rID"))) || message.sender.id === cookie.get('id')){
         this.setState(state => ({
           messages: [message, ...state.messages]
         }));
 
+        // If we have a user, scroll to bottom upon message sent
         if(cookie.get("rID")){
           this.scrollToBottom();
         }
@@ -42,6 +44,7 @@ class ChatComponent extends Component {
       });
     });
 
+    // Auto refresh
     this.interval = setInterval(
       () => this.setState({ time: Date.now() }),
       1000
@@ -60,10 +63,20 @@ class ChatComponent extends Component {
   }
 
   renderChat() {
+
+    // Checking if curID is equal to selected ID, if not, reset messages and pull messages
     if (cookie.get("rID")) {
-      if (this.state.recipient === null) {
-        this.setState(state => ({ recipient: cookie.get("rID") }));
+      if(this.state.curID !== cookie.get("rID")){
+        this.setState({ messages: [] });
+        this.setState({curID: cookie.get("rID")});
+
+        axios.get(API + '/log/?id=' + cookie.get('id') + " " + cookie.get('rID'))
+        .then((response) => {
+          this.setState({messages: response.data});
+      });
       }
+
+
       return (
         <div className="chatArea">
           <ul
@@ -102,7 +115,7 @@ class ChatComponent extends Component {
                   className="w3-input form-control"
                   autoComplete="off"
                 />
-                <button o onClick={() => { cookie.remove("rID"); this.setState({ messages: [] });  }} type="button" className="w3-btn closeBtn w3-red">
+                <button onClick={() => { cookie.remove("rID"); this.setState({ messages: [] });}} type="button" className="w3-btn closeBtn w3-red">
                   Close
                 </button>
                 <input

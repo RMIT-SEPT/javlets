@@ -19,7 +19,7 @@ class ConnectionListComponent extends Component {
       });
     }
 
-    this.intervalID = setInterval(this.refreshConnections.bind(this), 1500);
+    this.intervalID = setInterval(this.refreshConnections.bind(this), 3500);
   }
 
   refreshConnections() {
@@ -44,12 +44,18 @@ class ConnectionListComponent extends Component {
         .slice(0)
         .reverse()
         .forEach((obj, index) => {
+          let type = 0;
+
+          if(obj.id === cookie.get("rID")){
+            type = 4;
+          }
+
           buffer.push(
             <ConnectComponent
               key={Math.random()}
               name={obj.givenName + " " + obj.familyName}
               conID={obj.id}
-              type={0}
+              type={type}
             />
           );
         });
