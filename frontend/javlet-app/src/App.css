@@ -143,6 +143,7 @@ font-size: 1.3em;
 .innerChat{
   display: flex;
   flex-wrap: wrap;
+  width: 100vh;
 }
 
 .innerChatChild{
