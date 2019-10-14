@@ -44,8 +44,7 @@ class GAuthComponent extends Component{
     window.location.reload();
   }
 
-  componentDidMount() {
-
+  checkLogin() {
     if(cookie.get('id')){
       axios.get(API + '/auth/get/?id=' + cookie.get('id'))
       .then((response) => {
@@ -64,6 +63,14 @@ class GAuthComponent extends Component{
     });
 
     }
+  }
+
+  componentDidMount() {
+
+    this.checkLogin();
+
+    // Automatically log out
+    this.intervalID = setInterval(this.checkLogin.bind(this), 2000);
   }
 
   render(){
