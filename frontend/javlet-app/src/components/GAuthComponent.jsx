@@ -14,7 +14,7 @@ const responseGoogle = (response) => {
     name: response.profileObj.name,
     imageUrl: response.profileObj.imageUrl,
   };
-
+ 
 
   // Send to server to authenicate 
   axios.post(API + '/auth/login', newItem)
