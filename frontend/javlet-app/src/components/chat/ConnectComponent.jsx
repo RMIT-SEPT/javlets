@@ -41,7 +41,7 @@ class ConnectComponent extends Component {
         break;
       case 2:
         button = (
-          <span className="w3-grey btn-primary btn-lg btn-block">SENT</span>
+          <span className="w3-grey btn-primary btn-lg btn-block">Sent</span>
         );
         break;
       case 3:

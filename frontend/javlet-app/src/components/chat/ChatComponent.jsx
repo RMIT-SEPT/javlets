@@ -86,16 +86,23 @@ class ChatComponent extends Component {
                 this.setState({ message: "" });
               }}
             >
-              <input
-                type="text"
-                id="chatMessage"
-                placeholder={"Enter message..."}
-                value={this.state.message}
-                onChange={e => this.setState({ message: e.target.value })}
-                className="w3-input form-control"
-                autoComplete="off"
-              />
-              <input type="submit" className="w3-btn w3-blue" value={"Send"} />
+                <input
+                  type="text"
+                  id="chatMessage"
+                  placeholder={"Enter message..."}
+                  value={this.state.message}
+                  onChange={e => this.setState({ message: e.target.value })}
+                  className="w3-input form-control"
+                  autoComplete="off"
+                />
+                <button o onClick={() => { cookie.remove("rID"); }} type="button" className="w3-btn closeBtn w3-red">
+                  Close
+                </button>
+                <input
+                  type="submit"
+                  className="w3-btn chatBtn w3-blue"
+                  value={"Send"}
+                />
             </form>
           </div>
         </div>

@@ -142,6 +142,13 @@ label input {
   border: 0.3vh solid rgb(32, 32, 32);
 }
 
+.chatBtn{
+  float: right;
+}
+.closeBtn{
+
+}
+
 h3 {
   text-align: center;
 }
