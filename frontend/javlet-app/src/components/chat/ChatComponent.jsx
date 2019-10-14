@@ -13,8 +13,6 @@ class ChatComponent extends Component {
       messages: [],
 
       msg: "",
-      sender: cookie.get("id"),
-      recipient: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +20,7 @@ class ChatComponent extends Component {
   }
 
   componentDidMount() {
+    this.setState({ message: [] });
     this.client = Stomp.over(
       new WebSocket("ws://" + API.slice(7) + "/socket/websocket")
     );
@@ -29,9 +28,17 @@ class ChatComponent extends Component {
     this.client.connect({ login: null, passcode: null }, () => {
       this.client.subscribe("/chat", response => {
         this.scrollToBottom();
+
+        let message = JSON.parse(response.body);
+
+        console.log(message);
+
+        if(message.recipient.id === cookie.get("id") || message.sender.id === cookie.get("id")){
         this.setState(state => ({
-          messages: [JSON.parse(response.body), ...state.messages]
+          messages: [message, ...state.messages]
         }));
+
+      }
       });
     });
 
@@ -143,7 +150,7 @@ class ChatComponent extends Component {
       const newItem = {
         messageContent: msg,
         senderId: cookie.get("id"),
-        recipientId: this.state.recipient
+        recipientId: cookie.get('rID'),
       };
 
       this.client.send("/app/message", JSON.stringify(newItem));
