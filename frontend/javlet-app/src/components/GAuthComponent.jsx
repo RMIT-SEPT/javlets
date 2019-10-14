@@ -79,7 +79,6 @@ class GAuthComponent extends Component {
   }
 
   render() {
-    // console.log(this.state.user)
     if (cookie.get("id")) {
       return (
         <React.Fragment>
@@ -118,14 +117,12 @@ class GAuthComponent extends Component {
       );
     }
   }
+
   makeMentor() {
-    console.log(this.state.user);
     const promoted = {
       id: this.state.user.id
     };
-    console.log(promoted);
     axios.post(API + "/auth/promote", promoted);
-    // window.location.reload();
   }
 
   makeStudent() {
@@ -133,7 +130,7 @@ class GAuthComponent extends Component {
       id: this.state.user.id
     };
     axios.post(API + "/auth/demote", demoted);
-    // window.location.reload();
   }
 }
+
 export default GAuthComponent;
