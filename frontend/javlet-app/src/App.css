@@ -139,6 +139,10 @@ font-size: 1.3em;
   border: 0.3vh solid rgb(32, 32, 32);
 }
 
+h3{
+  text-align: center;
+}
+
 
 .innerChat{
   display: flex;

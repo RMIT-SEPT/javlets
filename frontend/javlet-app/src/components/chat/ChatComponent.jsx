@@ -14,11 +14,12 @@ class ChatComponent extends Component {
       messages: [],
 
       msg: "",
-      sender: "John",
-      recipient: "Jill",
+      sender: cookie.get("id"),
+      recipient: null,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderChat = this.renderChat.bind(this);
   }
   
   
@@ -33,6 +34,8 @@ class ChatComponent extends Component {
     });
   });
 
+  this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+
   }
 
   scrollToBottom() {
@@ -43,7 +46,60 @@ class ChatComponent extends Component {
   }
   
   componentDidUpdate() {
-    this.scrollToBottom();
+    if(cookie.get("rID")){
+      this.scrollToBottom();
+    }
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.interval);
+  }
+
+  renderChat(){
+    if(cookie.get("rID")){
+      if(this.state.recipient === null){
+      this.setState(state => ({ recipient: cookie.get("rID") }));
+      }
+      return (
+        <div className="chatArea">
+        <ul id="messageList" ref={(div) => {this.messageList = div;}}>
+        {this.state.messages.slice(0).reverse().map((message, index) =>
+  <MessageComponent message={message.messageContent} datetime={message.date} sender={message.sender.givenName}/>
+  )}
+        </ul>
+            <div className="input-group clearfix">
+            <form
+              action="."
+              onSubmit={e => {
+                e.preventDefault()
+                this.setState({ message: e.target.value })
+                this.handleSubmit(e)
+                this.setState({ message: '' })
+              }}
+              >
+              <input
+                type="text"
+                id="chatMessage"
+                placeholder={'Enter message...'}
+                value={this.state.message}
+                onChange={e => this.setState({ message: e.target.value })}
+                className="w3-input form-control"
+                autoComplete="off"
+              />
+              <input type="submit"
+               className="w3-btn w3-blue" 
+               value={'Send'} />
+            </form>
+              
+          </div>
+    </div>
+      );
+    }else{
+      return (
+        <h3 className="w3-label w3-red">No chat active</h3>
+      );
+    }
+
   }
 
   render() {
@@ -65,38 +121,9 @@ class ChatComponent extends Component {
 
           <div className="innerChatChild">
             <h2>Javlets Conversation</h2>
-            <div className="chatArea">
-                <ul id="messageList" ref={(div) => {this.messageList = div;}}>
-                {this.state.messages.slice(0).reverse().map((message, index) =>
-          <MessageComponent message={message.messageContent} datetime={message.date} sender={message.sender.givenName}/>
-          )}
-                </ul>
-                    <div className="input-group clearfix">
-                    <form
-                      action="."
-                      onSubmit={e => {
-                        e.preventDefault()
-                        this.setState({ message: e.target.value })
-                        this.handleSubmit(e)
-                        this.setState({ message: '' })
-                      }}
-                      >
-                      <input
-                        type="text"
-                        id="chatMessage"
-                        placeholder={'Enter message...'}
-                        value={this.state.message}
-                        onChange={e => this.setState({ message: e.target.value })}
-                        className="w3-input form-control"
-                        autoComplete="off"
-                      />
-                      <input type="submit"
-                       className="w3-btn w3-blue" 
-                       value={'Send'} />
-                    </form>
-                      
-                  </div>
-            </div>
+          {this.renderChat()}
+
+            
             <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
             <script src="/js/script.js"></script>
