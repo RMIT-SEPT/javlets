@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import cookie from 'js-cookie';
 import axios from 'axios';
-import API from '../../Constants.js'
+import { API } from '../../Constants.js'
 
 class ConnectComponent extends Component{
 

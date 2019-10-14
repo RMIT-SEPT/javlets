@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ConnectComponent from './ConnectComponent';
 import axios from "axios";
-import API from '../../Constants.js'
+import { API } from '../../Constants.js'
 import cookie from 'js-cookie';
 
 class NonConnectionListComponent extends Component{
