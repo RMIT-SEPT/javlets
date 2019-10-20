@@ -52,6 +52,7 @@ class ChatComponent extends Component {
   }
 
   scrollToBottom() {
+    // If message list is populated and has scrollHeigh, scoll down
     if(this.messageList !== undefined && this.messageList.scrollHeight !== undefined){
     const scrollHeight = this.messageList.scrollHeight;
     const height = this.messageList.clientHeight;

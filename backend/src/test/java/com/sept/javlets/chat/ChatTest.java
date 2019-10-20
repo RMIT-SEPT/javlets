@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.HashMap;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,10 +37,10 @@ class ChatTest {
 
     @BeforeEach
     void setUp() {
-		AccountBean alice = new AccountBean("Alice");
-		AccountBean bob = new AccountBean("Bob");
-		userRepository.save(alice);
-		userRepository.save(bob);
+        AccountBean alice = new AccountBean("Alice");
+        AccountBean bob = new AccountBean("Bob");
+        userRepository.save(alice);
+        userRepository.save(bob);
     }
 
     @AfterEach
@@ -53,8 +53,8 @@ class ChatTest {
     @DisplayName("Create Chat Message")
     void testChatMessage() {
         MessageBean message = new MessageBean("Hello, Bob!",
-        		userRepository.findById("Alice").get(),
-        		userRepository.findById("Bob").get());
+                userRepository.findById("Alice").get(),
+                userRepository.findById("Bob").get());
         messageRepository.save(message);
         assertEquals(1, messageRepository.count());
 
@@ -66,12 +66,12 @@ class ChatTest {
     @DisplayName("Message Repository Size")
     void testNumMessages() {
         MessageBean message1 = new MessageBean("Hello, Bob!",
-        		userRepository.findById("Alice").get(),
+                userRepository.findById("Alice").get(),
                 userRepository.findById("Bob").get());
 
         MessageBean message2 = new MessageBean("Hello, Alice!",
-        		userRepository.findById("Bob").get(),
-        		userRepository.findById("Alice").get());
+                userRepository.findById("Bob").get(),
+                userRepository.findById("Alice").get());
 
         messageRepository.save(message1);
         messageRepository.save(message2);

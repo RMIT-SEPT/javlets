@@ -52,7 +52,7 @@ public class MessageController {
         if (user1 != null && user2 != null) {
 
             // Search for messages
-                for (MessageBean msg : messageRepository.findAll()) {
+            for (MessageBean msg : messageRepository.findAll()) {
                 // User2 sent messages to user1 or vice versa
                 if ((msg.getRecipientId().equals(user1.getId()) && msg.getSenderId().equals(user2.getId())) ||
                         (msg.getRecipientId().equals(user2.getId()) && msg.getSenderId().equals(user1.getId()))

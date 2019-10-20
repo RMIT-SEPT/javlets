@@ -29,6 +29,8 @@ public class AccountBean {
     public AccountBean(String id) {
         this.id = id;
         this.isMentor = false;
+        this.givenName = "Unknown";
+        this.familyName = "";
 
         // Connection management
         this.connections = new ArrayList<>();
@@ -77,11 +79,11 @@ public class AccountBean {
     }
 
     public void promote() {
-    	this.isMentor = true;
+        this.isMentor = true;
     }
-    
+
     public void demote() {
-    	this.isMentor = false;
+        this.isMentor = false;
     }
 
     public String getId() {
