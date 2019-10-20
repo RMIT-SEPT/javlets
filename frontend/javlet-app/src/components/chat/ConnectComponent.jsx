@@ -1,25 +1,92 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import cookie from "js-cookie";
+import axios from "axios";
+import { API } from "../../Constants.js";
 
-class ConnectComponent extends Component{
+class ConnectComponent extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.handleMessage = this.handleMessage.bind(this);
+    this.handleRequest = this.handleRequest.bind(this);
+  }
 
-    state = {  }
-    
-render(){
-
+  render() {
     let button;
-        if (this.props.type === 1) {
-          button = <button className="w3-btn w3-green btn-primary btn-lg btn-block" type="button" form="form1" value="Add">Add</button>;
-        }else{
-            button = <button className="w3-btn w3-blue btn-primary btn-lg btn-block" type="button" form="form1" value="Message">Message</button>;
-        }
 
-   return(
-    <div className="connection">
-        <h5>John Doe</h5>
-        <img className='bg' alt="" src={'https://loremflickr.com/100/100/person'} />
+    switch (this.props.type) {
+      case 0:
+        button = (
+          <button
+            className="w3-btn w3-blue btn-primary btn-lg btn-block"
+            type="button"
+            onClick={this.handleMessage}
+          >
+            Message
+          </button>
+        );
+        break;
+      case 1:
+        button = (
+          <button
+            className="w3-btn w3-red btn-primary btn-lg btn-block"
+            type="button"
+            onClick={this.handleRequest}
+          >
+            Request
+          </button>
+        );
+        break;
+      case 2:
+        button = (
+          <span className="w3-grey btn-primary btn-lg btn-block">Sent</span>
+        );
+        break;
+      case 3:
+        button = (
+          <button
+            className="w3-btn w3-green btn-primary btn-lg btn-block"
+            type="button"
+            onClick={this.handleRequest}
+          >
+            Accept
+          </button>
+        );
+        break;
+        case 4:
+            button = (
+              <button
+                className="w3-btn w3-orange btn-primary btn-lg btn-block"
+                disabled
+              >
+                Selected
+              </button>
+            );
+            break;
+      default:
+        break;
+    }
+
+    return (
+      <div className="connection">
         {button}
-    </div>
-   );
-}
+        <h4 className="w3-panel w3-blue">{this.props.name}</h4>
+        <span className="w3-tiny">{this.props.conID}</span>
+      </div>
+    );
+  }
+
+  handleRequest(event) {
+    const newItem = {
+      senderId: cookie.get("id"),
+      recipientId: this.props.conID
+    };
+
+    return axios.post(API + "/connection/add", newItem);
+  }
+
+  handleMessage(event) {
+    cookie.set("rID", this.props.conID);
+  }
 }
 export default ConnectComponent;

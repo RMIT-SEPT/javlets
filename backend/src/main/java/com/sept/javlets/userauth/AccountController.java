@@ -24,13 +24,14 @@ public class AccountController {
 
 
         String[] names = loginInfo.get("name").split(" ");
-        if (names.length == 2) {
+
+        // Account for people with really weird names
+        if (names.length > 0) {
             user.setGivenName(names[0]);
             user.setFamilyName(names[1]);
         }
 
         user.setEmail(loginInfo.get("email"));
-        //    user.setUsername(loginInfo.get("email").split("@")[0]);
         user.setImageUrl(loginInfo.get("imageUrl"));
 
         // Finally, saving user
@@ -55,7 +56,7 @@ public class AccountController {
         return user.orElse(null);
     }
 
-    @PostMapping(path = "/login")
+    @PostMapping("/login")
     public AccountBean login(@RequestBody HashMap<String, String> loginInfo) {
         String[] arrOfStr = loginInfo.get("email").split("@");
 
@@ -83,6 +84,22 @@ public class AccountController {
     @GetMapping("/count")
     public long getUserCount() {
         return userRepository.count();
+    }
+
+    @PostMapping("/promote")
+    public void promoteUser(@RequestBody HashMap<String, String> id) {
+        AccountBean acc = userRepository.findById(id.get("id")).get();
+        userRepository.delete(acc);
+        acc.promote();
+        userRepository.save(acc);
+    }
+
+    @PostMapping("/demote")
+    public void demoteUser(@RequestBody HashMap<String, String> id) {
+        AccountBean acc = userRepository.findById(id.get("id")).get();
+        userRepository.delete(acc);
+        acc.demote();
+        userRepository.save(acc);
     }
 
     private boolean validateId(String id) {

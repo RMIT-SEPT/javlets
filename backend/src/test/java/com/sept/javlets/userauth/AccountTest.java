@@ -17,34 +17,34 @@ class AccountTest {
     @Autowired
     private UserRepository userRepository;
 
-	@Test
-	@DisplayName("Account Creation and Removal")
-	void testAccountCreationAndRemoval() {
-		AccountBean alice = new AccountBean("Alice");
-		userRepository.save(alice);
-		assertEquals(1, userRepository.count());
-		
-		userRepository.delete(alice);
-		assertEquals(0, userRepository.count());
-	}
-	
-	@Test
-	@DisplayName("User Attributes Test")
-	void testUserAttributes() {
-		AccountBean alice = new AccountBean("Alice");
-		userRepository.save(alice);
-		
-		assertEquals("Alice", alice.getId());
-		assertEquals(0, alice.getConnections().size());
-	}
-	
-	@Test
-	@DisplayName("Add Connections Test")
-	void testAddConnections() {
-		AccountBean alice = new AccountBean("Alice");
-		AccountBean bob = new AccountBean("Bob");
-		alice.addConnection(bob);
-		assertEquals(1, alice.getConnections().size());
-	}
+    @Test
+    @DisplayName("Account Creation and Removal")
+    void testAccountCreationAndRemoval() {
+        AccountBean alice = new AccountBean("Alice");
+        userRepository.save(alice);
+        assertEquals(1, userRepository.count());
+
+        userRepository.delete(alice);
+        assertEquals(0, userRepository.count());
+    }
+
+    @Test
+    @DisplayName("User Attributes Test")
+    void testUserAttributes() {
+        AccountBean alice = new AccountBean("Alice");
+        userRepository.save(alice);
+
+        assertEquals("Alice", alice.getId());
+        assertEquals(0, alice.getConnections().size());
+    }
+
+    @Test
+    @DisplayName("Add Connections Test")
+    void testAddConnections() {
+        AccountBean alice = new AccountBean("Alice");
+        AccountBean bob = new AccountBean("Bob");
+        alice.addConnection(bob.getId());
+        assertEquals(1, alice.getConnections().size());
+    }
 
 }

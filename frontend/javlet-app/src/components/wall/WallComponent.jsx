@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import cookie from 'js-cookie';
+import { API } from '../../Constants.js'
+
 import PostComponent from './PostComponent';
 import WebCamCapture from './../liveStream/webcam';
 import WallPostInputForm from './WallPostInputForm';
@@ -14,16 +18,23 @@ class WallComponent extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      user: [],
       liveStream: false,
       makePost: false
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidMount() {
+    axios.get(API + '/auth/get/?id=' + cookie.get('id'))
+      .then((response) => {
+        this.setState({user: response.data});
+    });
   }
 
   render(){
-
+    console.log(this.state.user);
     return(
       <div className="body-item wall">
+        
         {this.state.liveStream ? (
           <div>
             <h1>Live Stream</h1>
@@ -32,7 +43,7 @@ class WallComponent extends Component{
           </div>
           ):(
           <div>
-            <h1>The Wall </h1>
+            <h1>The Wall</h1>
             {this.state.makePost ?( 
               <button type="disablePost" onClick={this.hideForm}> Show Wall </button>
             ):(
@@ -40,6 +51,7 @@ class WallComponent extends Component{
             )}
               <button type="enable" onClick={this.enableLiveStream}> Show Live Stream </button>
               {this.state.makePost ? (<WallPostInputForm />):( <PostComponent className="postList" posts={this.state.posts} />)}
+              
           </div>
           )}
       </div>
@@ -49,16 +61,6 @@ class WallComponent extends Component{
 
   refreshPage() {
     window.location.reload();
-  }
-
-  handlePostTypeChange(event) {
-    this.setState({ postType: event.target.value });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.setState({ liveStream: true }); 
-    this.setState({ showWall: false });
   }
 }
 

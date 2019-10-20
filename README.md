@@ -1,6 +1,6 @@
 # Javlet
 # [Live demo(javlet.social)](http://javlet.social)
-## V 0.2 stable
+## V 0.3 stable
 
 ----
 ## What is Javlet?

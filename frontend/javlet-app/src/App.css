@@ -1,158 +1,180 @@
-html, body { margin: 0; padding: 0 }
-
-.App {
-  text-align: center;
-  background-color: #282c34;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(240, 240, 240);
 }
 
-.App-header{
+.App-header {
   color: rgb(0, 0, 0);
 }
 
-.App-body{
-  
-  /* min-height: 100vh; */
+.App-body {
   display: flex;
-  flex-direction: row;
-  background-color:rgb(240, 240, 240);
+  flex-wrap: wrap;
 }
 
-.body-item{
-  flex: 1;
+.body-item {
+  flex-grow: 1;
+  flex-basis: 0;
   padding: 10px;
-  /* height: 100vh; */
-
 }
 
-.postList
-{
+.postList {
   height: 90vh;
   overflow-y: scroll;
 }
 
-.body-item h1{
+.body-item h1 {
   border-bottom: 0.3vh solid #333;
   text-align: center;
 }
 
-.post{
+.post {
   border: 0.3vh solid rgb(32, 32, 32);
   padding: 1vh;
 }
 
-.post h4{
+.post h4 {
   text-align: right;
 }
 
 
-.title{
+.title {
   font-size: 6vh;
   padding-right: 2vh;
   border-right: 0.3vh solid #333;
 }
 
-.connection{
+.connection {
   border: 0.3vh solid rgb(32, 32, 32);
- margin: 0.1em;
-display: flex;
-flex-flow: column;
-text-align: center;
+  margin: 0.1em;
+  padding: 0.5vh;
+  width: 15vh;
+  display: flex;
+  flex-flow: column;
+  text-align: center;
+  word-wrap: break-word;
 
- float: left;
+  float: left;
 }
 
-.connection img{
+.connection img {
   border-radius: 60%;
   padding: 0.8vh;
 }
 
-.connection button{
+.connection button {
 
-  bottom:0;  
+  bottom: 0;
 }
 
-.connectList{
+.connectList {
   display: flex;
-  flex-flow: row;
+  flex-wrap: nowrap;
   overflow-y: hidden;
   overflow-x: scroll;
 }
 
 .clearfix:after {
-	display: block;
-	content: "";
-	clear: both;
+  display: block;
+  content: "";
+  clear: both;
 }
 
-input, button {
-	box-shadow: none;
-	border: 1px solid transparent;
-	font-size: 14px;
-	outline: none;
-	line-height: 100%;
-	white-space: nowrap;
-	vertical-align: middle;
-	padding: 0.6rem 1rem;
-	border-radius: 2px;
-	transition: all 0.2s ease-in-out;
-	cursor: pointer;
-	min-height: 38px;
+input,
+button {
+  box-shadow: none;
+  border: 1px solid transparent;
+  font-size: 14px;
+  outline: none;
+  line-height: 100%;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0.6rem 1rem;
+  border-radius: 2px;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  min-height: 38px;
 }
 
-.input-group{
+.input-group {
   float: none;
   display: inline-block;
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
-label input{
+label input {
   margin-left: 2em;
 }
 
-.chat{
+.chat {
   width: 100%;
   margin: 1vh;
 }
 
-.chat img{
+.chat img {
   width: 4.5vh;
 }
 
-.name{
-font-size: 1.3em;
+.name {
+  font-size: 1.3em;
 }
 
-.chat p{
+.chat p {
   padding: 0.5vh;
   margin: 0px;
 }
 
-#messageList{
+#messageList {
   display: flex;
   flex-direction: column;
-  margin: 0; /* To remove default bottom margin */ 
-  padding: 0; /* To remove default left padding */
-  width: 30vh;
+  margin: 0;
+  /* To remove default bottom margin */
+  padding: 0;
+  /* To remove default left padding */
   overflow-x: hidden;
   word-wrap: break-word;
+  height: 50vh;
 }
 
-.innerChat{
-  display: inline-flex;
-  flex-direction: row;
-}
-
-.dialogue-container{
+.chatArea {
   border: 0.3vh solid rgb(32, 32, 32);
+}
+
+.chatBtn{
+  float: right;
+}
+.closeBtn{
 
 }
 
-.dialogue-container ul{
-height: 50vh;
-overflow-y: scroll;
+h3 {
+  text-align: center;
 }
 
-.warning{
+
+.innerChat {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vh;
+}
+
+.innerChatChild {
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 1vh;
+}
+
+.innerChatChild h2 {
+  text-align: center;
+}
+
+.connectionArea {
+  padding-right: 5vh;
+}
+
+.warning {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -160,10 +182,9 @@ overflow-y: scroll;
   font-size: 10vh;
 }
 
-.userLogout{
+.userLogout {}
 
-}
-
-.date{
-  left:0;bottom:18px
+.date {
+  left: 0;
+  bottom: 18px;
 }

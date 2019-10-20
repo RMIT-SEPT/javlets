@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import cookie from 'js-cookie';
-import API from '../../Constants.js'
+import { API } from '../../Constants.js'
 
 class WallPostInputForm extends Component {
     constructor(props) {
@@ -12,9 +12,10 @@ class WallPostInputForm extends Component {
         postType: '',
         title: '', 
         body: '',
+        mentor: true,
         id: 0
-      };  
-      this.handlePostTypeChange = this.handlePostTypeChange.bind(this);
+      }; 
+
       this.handleTitleChange = this.handleTitleChange.bind(this);
       this.handleBodyChange = this.handleBodyChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,6 +30,7 @@ class WallPostInputForm extends Component {
     }
   
     render() {
+      console.log(this.state.posts)
       return (
         <div>          
           <form onSubmit={this.handleSubmit}>            
@@ -40,18 +42,13 @@ class WallPostInputForm extends Component {
             <br />
             <input onChange={this.handleBodyChange} value={this.state.body} />
             <br />
-
-            <br />
-            <input className="w3-radio" type="radio" value="Mentor"  name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Mentor <br />
-            <input className="w3-radio" type="radio" value="Student" name="formSelect" onClick={this.handlePostTypeChange} /> Posting as a Student <br />
-            <br />
             
             <input className="w3-btn w3-blue" type="submit" value="Submit" />
             
           </form>
           <div>
-            {this.state.posts.reverse().map(item => (  
-              <div className="post" key={item.id}>
+            {this.state.posts.map(item => (  
+              <div className="post" key={item.postId}>
                 <h5>{item.selectDate}</h5>
                 <h2>{item.title}</h2>
                 <p>{item.body}</p>
@@ -63,12 +60,15 @@ class WallPostInputForm extends Component {
         
       );
     }
-    handlePostTypeChange(event) {
-        this.setState({ postType: event.target.value });
-    }
 
     handleTitleChange(event) {
         this.setState({ title: event.target.value });
+        if(this.state.user.mentor === false){
+          this.setState({ postType: 'Student' });
+        }
+        else{
+          this.setState({ postType: 'Mentor' });
+        }
     }
 
     handleBodyChange(event) {

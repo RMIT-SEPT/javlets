@@ -18,10 +18,10 @@ public class MessageBean {
     private String senderId;
     private AccountBean recipient;
     private String recipientId;
-    private LocalDateTime date;
+    private String date;
 
     public MessageBean(String messageContent, AccountBean sender, AccountBean recipient) {
-        this.date = LocalDateTime.now();
+        this.date = LocalDateTime.now().toString();
         this.messageContent = messageContent;
         this.sender = sender;
         this.recipient = recipient;
@@ -51,11 +51,11 @@ public class MessageBean {
         this.recipient = recipient;
     }
 
-    public LocalDateTime getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

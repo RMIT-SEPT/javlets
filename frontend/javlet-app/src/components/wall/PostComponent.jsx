@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import API from  '../../Constants.js'
+import { API } from  '../../Constants.js'
 
 class PostComponent extends Component{
   constructor(props) {
@@ -62,7 +62,7 @@ class PostComponent extends Component{
         </div>
         <div>
           {displayPosts.map(item => (  
-            <div className="post" key={item.postId}>
+            <div className="post" key={item.id}>
               <h6>{item.selectDate}</h6>
               <h2>{item.title}</h2>
               <p>{item.body}</p>
