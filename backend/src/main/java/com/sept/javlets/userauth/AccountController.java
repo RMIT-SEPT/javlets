@@ -24,7 +24,9 @@ public class AccountController {
 
 
         String[] names = loginInfo.get("name").split(" ");
-        if (names.length == 2) {
+
+        // Account for people with really weird names
+        if (names.length > 0) {
             user.setGivenName(names[0]);
             user.setFamilyName(names[1]);
         }
@@ -99,7 +101,7 @@ public class AccountController {
         acc.demote();
         userRepository.save(acc);
     }
-    
+
     private boolean validateId(String id) {
         return id.matches("(s|e)\\d{7}");
     }
